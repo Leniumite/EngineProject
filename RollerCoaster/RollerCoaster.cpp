@@ -8,6 +8,7 @@
 #pragma comment (lib, "d3d9.lib")
 
 #define MAX_LOADSTRING 100
+#define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 
 // Variables globales :
 HINSTANCE hInst;                                // instance actuelle
@@ -19,6 +20,15 @@ LPDIRECT3DDEVICE9 d3ddev;
 HWND hWnd;
 int SCREEN_WIDTH = 1920;
 int SCREEN_HEIGHT = 1080;
+LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
+
+HRESULT CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL pool, LPDIRECT3DVERTEXBUFFER9 ppVertexBuffer, HANDLE* pShareHandle);
+
+struct CUSTOMVERTEX
+{
+    float x, y, z, rhw;
+    DWORD color;
+};
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -197,15 +207,11 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 void initD3D(HWND hWnd)
 {
     d3d = Direct3DCreate9(D3D_SDK_VERSION);
-    assert(d3d);
-
-    if (d3d == NULL)
-        return;
 
     D3DPRESENT_PARAMETERS d3dpp;
 
     ZeroMemory(&d3dpp, sizeof(d3dpp));
-    d3dpp.Windowed = FALSE;
+    d3dpp.Windowed = TRUE;
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp.hDeviceWindow = hWnd;
     d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
@@ -215,13 +221,18 @@ void initD3D(HWND hWnd)
 
     d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &d3ddev);
 
-    assert(d3ddev);
+    init_graphics();
 }
 
 void render_frame(void)
 {
     d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
     d3ddev->BeginScene();
+
+    d3ddev->SetFVF(CUSTOMFVF);
+    d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
     d3ddev->EndScene();
 
     d3ddev->Present(NULL, NULL, NULL, NULL);
@@ -229,6 +240,25 @@ void render_frame(void)
 
 void cleanD3D(void)
 {
+    v_buffer->Release();
     d3ddev->Release();
     d3d->Release();
+}
+
+void init_graphics(void) 
+{
+    CUSTOMVERTEX vertices[] = {
+        {400.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,255),},
+        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,255,0),},
+        {150.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(255,0,0),},
+
+    };
+
+    d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+
+    VOID* pVoid;
+
+    v_buffer->Lock(0, 0, (void**)&pVoid, 0);
+    memcpy(pVoid, vertices, sizeof(vertices));
+    v_buffer->Unlock();
 }
