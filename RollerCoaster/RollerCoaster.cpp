@@ -34,16 +34,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    WNDCLASSEX wc;
-
     // TODO: Placez le code ici.
-
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_ROLLERCOASTER, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
-    RegisterClassEx(&wc);
 
     // Effectue l'initialisation de l'application :
     if (!InitInstance(hInstance, nCmdShow))
@@ -209,13 +205,13 @@ void initD3D(HWND hWnd)
     D3DPRESENT_PARAMETERS d3dpp;
 
     ZeroMemory(&d3dpp, sizeof(d3dpp));
-    d3dpp.Windowed = TRUE;
+    d3dpp.Windowed = FALSE;
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp.hDeviceWindow = hWnd;
     d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
     d3dpp.BackBufferCount = 1;
-    d3dpp.BackBufferWidth = 300;
-    d3dpp.BackBufferHeight = 300;
+    d3dpp.BackBufferWidth = SCREEN_WIDTH;
+    d3dpp.BackBufferHeight = SCREEN_HEIGHT;
 
     d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &d3ddev);
 
