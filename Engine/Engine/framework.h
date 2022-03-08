@@ -9,5 +9,7 @@
 #endif
 
 #include <windows.h>
+#include <assert.h>
 
 #include <d3dx9.h>
+

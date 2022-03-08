@@ -3,6 +3,9 @@
 
 #include "framework.h"
 #include "RollerCoaster.h"
+#include <d3d9.h>
+
+#pragma comment (lib, "d3d9.lib")
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +13,12 @@
 HINSTANCE hInst;                                // instance actuelle
 WCHAR szTitle[MAX_LOADSTRING];                  // Texte de la barre de titre
 WCHAR szWindowClass[MAX_LOADSTRING];            // nom de la classe de fenêtre principale
+
+LPDIRECT3D9 d3d;
+LPDIRECT3DDEVICE9 d3ddev;
+HWND hWnd;
+int SCREEN_WIDTH = 1920;
+int SCREEN_HEIGHT = 1080;
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -25,30 +34,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    WNDCLASSEX wc;
+
     // TODO: Placez le code ici.
+
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_ROLLERCOASTER, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
+    RegisterClassEx(&wc);
 
     // Effectue l'initialisation de l'application :
-    if (!InitInstance (hInstance, nCmdShow))
+    if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
     }
 
+
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ROLLERCOASTER));
-
+    initD3D(hWnd);
     MSG msg;
-
-    // Boucle de messages principale :
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        render_frame();
+        // Boucle de messages principale :
+        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
     }
 
@@ -97,8 +115,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Stocke le handle d'instance dans la variable globale
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   hWnd = CreateWindowW(szWindowClass, szTitle, WS_EX_TOPMOST | WS_POPUP,
+     CW_USEDEFAULT, 0, SCREEN_WIDTH,  SCREEN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
+
 
    if (!hWnd)
    {
@@ -177,4 +196,43 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
+}
+
+void initD3D(HWND hWnd)
+{
+    d3d = Direct3DCreate9(D3D_SDK_VERSION);
+    assert(d3d);
+
+    if (d3d == NULL)
+        return;
+
+    D3DPRESENT_PARAMETERS d3dpp;
+
+    ZeroMemory(&d3dpp, sizeof(d3dpp));
+    d3dpp.Windowed = TRUE;
+    d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    d3dpp.hDeviceWindow = hWnd;
+    d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+    d3dpp.BackBufferCount = 1;
+    d3dpp.BackBufferWidth = 300;
+    d3dpp.BackBufferHeight = 300;
+
+    d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &d3ddev);
+
+    assert(d3ddev);
+}
+
+void render_frame(void)
+{
+    d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
+    d3ddev->BeginScene();
+    d3ddev->EndScene();
+
+    d3ddev->Present(NULL, NULL, NULL, NULL);
+}
+
+void cleanD3D(void)
+{
+    d3ddev->Release();
+    d3d->Release();
 }
