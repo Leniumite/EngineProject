@@ -19,7 +19,7 @@ int SCREEN_WIDTH = 1920;
 int SCREEN_HEIGHT = 1080;
 LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 
-int index = 0;
+float index = 0;
 
 HRESULT CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL pool, LPDIRECT3DVERTEXBUFFER9 ppVertexBuffer, HANDLE* pShareHandle);
 
@@ -66,14 +66,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-
-
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ROLLERCOASTER));
     initD3D(hWnd);
     MSG msg;
-    while (true)
+    bool running = true;
+    while (running)
     {
         render_frame();
+
         // Boucle de messages principale :
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
@@ -82,9 +82,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
+            if (msg.message == WM_QUIT)
+            {
+                running = false;
+                break;
+            }
         }
     }
 
+    cleanD3D();
     return (int) msg.wParam;
 }
 
@@ -231,27 +237,66 @@ void initD3D(HWND hWnd)
     d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &d3ddev);
 
     init_graphics();
+
+    d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
-void render_frame(void)
+void render_frame()
 {
     d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
     d3ddev->BeginScene();
 
     d3ddev->SetFVF(CUSTOMFVF);
+
+    D3DXMATRIX matTranslate;
+
+    index = 1000.0f;
+
+ 
+
+    //Camera
+
+    D3DXMATRIX matView;    // the view transform matrix
+
+    D3DXVECTOR3 cameraPosition, lookAtPosition, upDirection;
+
+    cameraPosition = D3DXVECTOR3(0.0f, 0.0f, 10.0f);
+    lookAtPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    upDirection = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+    /*
+    D3DXMatrixLookAtLH(&matView,
+        &cameraPosition,    // the camera position
+        &lookAtPosition,    // the look-at position
+        &upDirection);    // the up direction
+
+    d3ddev->SetTransform(D3DTS_VIEW, &matView);    // set the view transform to matView
+
+    D3DXMATRIX matProjection;     // the projection transform matrix
+
+    D3DXMatrixPerspectiveFovLH(&matProjection,
+        D3DXToRadian(45),    // the horizontal field of view
+        (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT, // aspect ratio
+        1.0f,    // the near view-plane
+        100.0f);    // the far view-plane
+
+    d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
+    */
+    //End Camera
+
+
+    D3DXMatrixTranslation(&matTranslate, 0.0f, index, 0.0f);
+    d3ddev->SetTransform(D3DTS_WORLD, &matTranslate);
+
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+
     d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 
-    vertices[0].color = D3DCOLOR_XRGB(index%255, 0, 255);
-    index+=10;
-    vertices[1].color = D3DCOLOR_XRGB(index % 255, 0, 255);
-    index += 10;
-    vertices[0].color = D3DCOLOR_XRGB(index % 255, 0, 255);
-    index += 10;
+    //vertices[0].color = D3DCOLOR_XRGB(index%255, 0, 0);
+    //vertices[1].color = D3DCOLOR_XRGB(0, index % 255, 0);
+    //vertices[2].color = D3DCOLOR_XRGB(0, 0, index % 255);
 
     
-
-    init_graphics();
+    //init_graphics();
 
     d3ddev->EndScene();
 
@@ -270,7 +315,6 @@ void init_graphics(void)
     d3ddev->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     VOID* pVoid;
-
 
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
