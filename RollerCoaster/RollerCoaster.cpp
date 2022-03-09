@@ -3,9 +3,6 @@
 
 #include "framework.h"
 #include "RollerCoaster.h"
-#include <d3d9.h>
-
-#pragma comment (lib, "d3d9.lib")
 
 #define MAX_LOADSTRING 100
 #define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
@@ -22,12 +19,24 @@ int SCREEN_WIDTH = 1920;
 int SCREEN_HEIGHT = 1080;
 LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 
+int index = 0;
+
 HRESULT CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL pool, LPDIRECT3DVERTEXBUFFER9 ppVertexBuffer, HANDLE* pShareHandle);
 
 struct CUSTOMVERTEX
 {
     float x, y, z, rhw;
     DWORD color;
+};
+
+CUSTOMVERTEX vertices[] = {
+        {400.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,255),},
+        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,255,0),},
+        {150.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(255,0,0),},
+        {800.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
+        {1250.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
+        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
+
 };
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
@@ -231,7 +240,18 @@ void render_frame(void)
 
     d3ddev->SetFVF(CUSTOMFVF);
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
-    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
+
+    vertices[0].color = D3DCOLOR_XRGB(index%255, 0, 255);
+    index+=10;
+    vertices[1].color = D3DCOLOR_XRGB(index % 255, 0, 255);
+    index += 10;
+    vertices[0].color = D3DCOLOR_XRGB(index % 255, 0, 255);
+    index += 10;
+
+    
+
+    init_graphics();
 
     d3ddev->EndScene();
 
@@ -247,16 +267,10 @@ void cleanD3D(void)
 
 void init_graphics(void) 
 {
-    CUSTOMVERTEX vertices[] = {
-        {400.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,255),},
-        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,255,0),},
-        {150.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(255,0,0),},
-
-    };
-
-    d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+    d3ddev->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     VOID* pVoid;
+
 
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
