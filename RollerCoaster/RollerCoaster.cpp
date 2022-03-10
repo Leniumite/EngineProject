@@ -5,7 +5,7 @@
 #include "RollerCoaster.h"
 
 #define MAX_LOADSTRING 100
-#define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
+#define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 
 // Variables globales :
 HINSTANCE hInst;                                // instance actuelle
@@ -25,19 +25,11 @@ HRESULT CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL pool, LP
 
 struct CUSTOMVERTEX
 {
-    float x, y, z, rhw;
+    float x, y, z;
     DWORD color;
 };
 
-CUSTOMVERTEX vertices[] = {
-        {400.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,255),},
-        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,255,0),},
-        {150.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(255,0,0),},
-        {800.0f,62.5f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
-        {1250.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
-        {650.0f,500.0f,0.5f,1.0f,D3DCOLOR_XRGB(0,0,0),},
 
-};
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -243,31 +235,37 @@ void initD3D(HWND hWnd)
 
 void render_frame()
 {
-    d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
+    
+    d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
     d3ddev->BeginScene();
 
+    // select which vertex format we are using
     d3ddev->SetFVF(CUSTOMFVF);
 
-    D3DXMATRIX matTranslate;
+    // SET UP THE PIPELINE
 
-    index = 1000.0f;
+    D3DXMATRIX matRotateY;    // a matrix to store the rotation information
 
- 
+    static float index = 0.0f; index += 0.05f;    // an ever-increasing float value
 
-    //Camera
+    // build a matrix to rotate the model based on the increasing float value
+    D3DXMatrixRotationY(&matRotateY, index);
+
+    // tell Direct3D about our matrix
+    d3ddev->SetTransform(D3DTS_WORLD, &matRotateY);
 
     D3DXMATRIX matView;    // the view transform matrix
 
-    D3DXVECTOR3 cameraPosition, lookAtPosition, upDirection;
+    D3DXVECTOR3 camPos, camLookAt, camUp;
+    camPos = D3DXVECTOR3(0.0f, 0.0f, 10.0f);
+    camLookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
-    cameraPosition = D3DXVECTOR3(0.0f, 0.0f, 10.0f);
-    lookAtPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    upDirection = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-    /*
     D3DXMatrixLookAtLH(&matView,
-        &cameraPosition,    // the camera position
-        &lookAtPosition,    // the look-at position
-        &upDirection);    // the up direction
+        &camPos,    // the camera position
+        &camLookAt,    // the look-at position
+        &camUp);    // the up direction
 
     d3ddev->SetTransform(D3DTS_VIEW, &matView);    // set the view transform to matView
 
@@ -279,28 +277,18 @@ void render_frame()
         1.0f,    // the near view-plane
         100.0f);    // the far view-plane
 
-    d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
-    */
-    //End Camera
+    d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);    // set the projection
 
-
-    D3DXMatrixTranslation(&matTranslate, 0.0f, index, 0.0f);
-    d3ddev->SetTransform(D3DTS_WORLD, &matTranslate);
-
+    // select the vertex buffer to display
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 
-    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
-
-    //vertices[0].color = D3DCOLOR_XRGB(index%255, 0, 0);
-    //vertices[1].color = D3DCOLOR_XRGB(0, index % 255, 0);
-    //vertices[2].color = D3DCOLOR_XRGB(0, 0, index % 255);
-
-    
-    //init_graphics();
+    // copy the vertex buffer to the back buffer
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 
     d3ddev->EndScene();
 
     d3ddev->Present(NULL, NULL, NULL, NULL);
+    
 }
 
 void cleanD3D(void)
@@ -312,7 +300,14 @@ void cleanD3D(void)
 
 void init_graphics(void) 
 {
-    d3ddev->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+    d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+
+    CUSTOMVERTEX vertices[] = {
+        {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
+        {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
+        {-3.0f,-3.0f,0.0f,D3DCOLOR_XRGB(255,0,0),},
+
+};
 
     VOID* pVoid;
 
