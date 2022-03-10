@@ -248,6 +248,7 @@ void render_frame()
 
     D3DXMATRIX matRotateY;    // a matrix to store the rotation information
     D3DXMATRIX matMove;
+    D3DXMATRIX matScale;
 
     static float triangleMovementType = 1.0f;
     static float index = 0.0f;    // an ever-increasing float value
@@ -262,10 +263,10 @@ void render_frame()
     index += (0.05f * triangleMovementType);
     // build a matrix to rotate the model based on the increasing float value
     D3DXMatrixRotationY(&matRotateY, index);
-    
+    D3DXMatrixScaling(&matScale, index * triangleMovementType + 5, index * triangleMovementType + 5, index * triangleMovementType + 5);
     D3DXMatrixTranslation(&matMove, index,index,0);
 
-    D3DXMATRIX mathResult = matRotateY * matMove;
+    D3DXMATRIX mathResult = matScale * matRotateY * matMove;
 
     // tell Direct3D about our matrix
     d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
@@ -298,7 +299,7 @@ void render_frame()
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 
     // copy the vertex buffer to the back buffer
-    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 
     d3ddev->EndScene();
 
@@ -318,9 +319,11 @@ void init_graphics(void)
     d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     CUSTOMVERTEX vertices[] = {
+        //Triangle1
         {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
         {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
         {-3.0f,-3.0f,0.0f,D3DCOLOR_XRGB(255,0,0),},
+
 };
 
     VOID* pVoid;
