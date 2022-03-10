@@ -18,6 +18,7 @@ HWND hWnd;
 int SCREEN_WIDTH = 1920;
 int SCREEN_HEIGHT = 1080;
 LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
+LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
 
 float index = 0;
 
@@ -250,25 +251,30 @@ void render_frame()
     // SET UP THE PIPELINE
 
     D3DXMATRIX matRotateY;    // a matrix to store the rotation information
+    D3DXMATRIX matRotateX;
+    D3DXMATRIX matRotateZ;
+
     D3DXMATRIX matMove;
 
     static float triangleMovementType = 1.0f;
-    static float index = 0.0f;    // an ever-increasing float value
+    static float counter = 0.0f;    // an ever-increasing float value
 
-    if (index <= -4.0f) {
+    if (counter <= -4.0f) {
         triangleMovementType = 1;
     }
-    else if (index > 4.0f) {
+    else if (counter > 4.0f) {
         triangleMovementType = -1;
     }
 
-    index += (0.05f * triangleMovementType);
+    counter += (0.05f * triangleMovementType);
     // build a matrix to rotate the model based on the increasing float value
-    D3DXMatrixRotationY(&matRotateY, index);
+    D3DXMatrixRotationY(&matRotateY, counter);
+    D3DXMatrixRotationX(&matRotateX, counter);
+    D3DXMatrixRotationZ(&matRotateZ, counter);
     
-    D3DXMatrixTranslation(&matMove, index,index,0);
+    D3DXMatrixTranslation(&matMove, counter,counter,0);
 
-    D3DXMATRIX mathResult =  matRotateY;
+    D3DXMATRIX mathResult =  matRotateX * matRotateY * matRotateZ;
 
     // tell Direct3D about our matrix
     d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
@@ -276,7 +282,7 @@ void render_frame()
     D3DXMATRIX matView;    // the view transform matrix
 
     D3DXVECTOR3 camPos, camLookAt, camUp;
-    camPos = D3DXVECTOR3(0.0f, 0.0f, 10.0f * index * triangleMovementType);
+    camPos = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
     camLookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
@@ -299,9 +305,10 @@ void render_frame()
 
     // select the vertex buffer to display
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+    d3ddev->SetIndices(i_buffer);
 
-    // copy the vertex buffer to the back buffer
-    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
+    // copy the vertex buffer indexed by the index buffer
+    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
     d3ddev->EndScene();
 
@@ -318,22 +325,56 @@ void cleanD3D(void)
 
 void init_graphics(void) 
 {
-    d3ddev->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+    
+    VOID* pVoid;
+
+    d3ddev->CreateVertexBuffer(8 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     CUSTOMVERTEX vertices[] = {
-        {-3.0f,-3.0f,0.0f,D3DCOLOR_XRGB(255,0,0),},
-        {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
-        {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
-        
-        {-3.0f,-3.0f,2.0f,D3DCOLOR_XRGB(255,255,255),},
-        {0.0f,3.0f,2.0f,D3DCOLOR_XRGB(255,255,255),},
-        {3.0f,-3,2.0f,D3DCOLOR_XRGB(255,255,255),},
-
-};
-
-    VOID* pVoid;
+    { -3.0f, 3.0f, -3.0f, D3DCOLOR_XRGB(0, 0, 255), },    // vertex 0
+    { 3.0f, 3.0f, -3.0f, D3DCOLOR_XRGB(0, 255, 0), },     // vertex 1
+    { -3.0f, -3.0f, -3.0f, D3DCOLOR_XRGB(255, 0, 0), },   // 2
+    { 3.0f, -3.0f, -3.0f, D3DCOLOR_XRGB(0, 255, 255), },  // 3
+    { -3.0f, 3.0f, 3.0f, D3DCOLOR_XRGB(0, 0, 255), },     // ...
+    { 3.0f, 3.0f, 3.0f, D3DCOLOR_XRGB(255, 0, 0), },
+    { -3.0f, -3.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 0), },
+    { 3.0f, -3.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 255), },
+    };
 
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
     v_buffer->Unlock();
+
+    // create the indices using an int array
+    short indices[] =
+    {
+        0, 1, 2,    // side 1
+        2, 1, 3,
+        4, 0, 6,    // side 2
+        6, 0, 2,
+        7, 5, 6,    // side 3
+        6, 5, 4,
+        3, 1, 7,    // side 4
+        7, 1, 5,
+        4, 5, 0,    // side 5
+        0, 5, 1,
+        3, 7, 2,    // side 6
+        2, 7, 6,
+    };
+
+    d3ddev->CreateIndexBuffer(36 * sizeof(short),    // 3 per triangle, 12 triangles
+        0,
+        D3DFMT_INDEX16,
+        D3DPOOL_MANAGED,
+        &i_buffer,
+        NULL);
+
+    
+
+    // lock i_buffer and load the indices into it
+    i_buffer->Lock(0, 0, (void**)&pVoid, 0);
+    memcpy(pVoid, indices, sizeof(indices));
+    i_buffer->Unlock();
+
+    
 }
