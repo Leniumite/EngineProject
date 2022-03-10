@@ -225,19 +225,22 @@ void initD3D(HWND hWnd)
     d3dpp.BackBufferCount = 1;
     d3dpp.BackBufferWidth = SCREEN_WIDTH;
     d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+    d3dpp.EnableAutoDepthStencil = TRUE;
+    d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
     d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &d3ddev);
 
     init_graphics();
 
-    d3ddev->SetRenderState(D3DRS_TWOSIDEDSTENCILMODE, TRUE);
     d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
 }
 
 void render_frame()
 {
     
-    d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+    d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+    //d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     d3ddev->BeginScene();
 
@@ -265,7 +268,7 @@ void render_frame()
     
     D3DXMatrixTranslation(&matMove, index,index,0);
 
-    D3DXMATRIX mathResult = matRotateY * matMove;
+    D3DXMATRIX mathResult =  matRotateY;
 
     // tell Direct3D about our matrix
     d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
@@ -298,7 +301,7 @@ void render_frame()
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 
     // copy the vertex buffer to the back buffer
-    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 
     d3ddev->EndScene();
 
@@ -315,12 +318,17 @@ void cleanD3D(void)
 
 void init_graphics(void) 
 {
-    d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+    d3ddev->CreateVertexBuffer(6 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     CUSTOMVERTEX vertices[] = {
-        {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
-        {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
         {-3.0f,-3.0f,0.0f,D3DCOLOR_XRGB(255,0,0),},
+        {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
+        {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
+        
+        {-3.0f,-3.0f,2.0f,D3DCOLOR_XRGB(255,255,255),},
+        {0.0f,3.0f,2.0f,D3DCOLOR_XRGB(255,255,255),},
+        {3.0f,-3,2.0f,D3DCOLOR_XRGB(255,255,255),},
+
 };
 
     VOID* pVoid;
