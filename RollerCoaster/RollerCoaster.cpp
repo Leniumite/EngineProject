@@ -230,6 +230,7 @@ void initD3D(HWND hWnd)
 
     init_graphics();
 
+    d3ddev->SetRenderState(D3DRS_TWOSIDEDSTENCILMODE, TRUE);
     d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
@@ -246,14 +247,28 @@ void render_frame()
     // SET UP THE PIPELINE
 
     D3DXMATRIX matRotateY;    // a matrix to store the rotation information
+    D3DXMATRIX matMove;
 
-    static float index = 0.0f; index += 0.05f;    // an ever-increasing float value
+    static float triangleMovementType = 1.0f;
+    static float index = 0.0f;    // an ever-increasing float value
 
+    if (index <= -4.0f) {
+        triangleMovementType = 1;
+    }
+    else if (index > 4.0f) {
+        triangleMovementType = -1;
+    }
+
+    index += (0.05f * triangleMovementType);
     // build a matrix to rotate the model based on the increasing float value
     D3DXMatrixRotationY(&matRotateY, index);
+    
+    D3DXMatrixTranslation(&matMove, index,index,0);
+
+    D3DXMATRIX mathResult = matRotateY * matMove;
 
     // tell Direct3D about our matrix
-    d3ddev->SetTransform(D3DTS_WORLD, &matRotateY);
+    d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
 
     D3DXMATRIX matView;    // the view transform matrix
 
@@ -306,7 +321,6 @@ void init_graphics(void)
         {3.0f,-3,0.0f,D3DCOLOR_XRGB(0,0,255),},
         {0.0f,3.0f,0.0f,D3DCOLOR_XRGB(0,255,0),},
         {-3.0f,-3.0f,0.0f,D3DCOLOR_XRGB(255,0,0),},
-
 };
 
     VOID* pVoid;
