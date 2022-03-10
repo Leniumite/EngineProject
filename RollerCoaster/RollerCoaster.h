@@ -7,3 +7,4 @@ void render_frame();
 void cleanD3D(void);
 
 void init_graphics(void);
+void init_light(void);
