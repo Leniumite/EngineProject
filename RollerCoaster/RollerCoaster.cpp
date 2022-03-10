@@ -234,6 +234,7 @@ void initD3D(HWND hWnd)
     init_graphics();
 
     d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
 }
 
@@ -259,18 +260,18 @@ void render_frame()
     static float triangleMovementType = 1.0f;
     static float counter = 0.0f;    // an ever-increasing float value
 
-    if (counter <= -4.0f) {
+    /*if (counter <= -4.0f) {
         triangleMovementType = 1;
     }
     else if (counter > 4.0f) {
         triangleMovementType = -1;
-    }
+    }*/
 
-    counter += (0.05f * triangleMovementType);
+    counter += (0.02f * triangleMovementType);
     // build a matrix to rotate the model based on the increasing float value
     D3DXMatrixRotationY(&matRotateY, counter);
-    D3DXMatrixRotationX(&matRotateX, counter);
-    D3DXMatrixRotationZ(&matRotateZ, counter);
+    D3DXMatrixRotationX(&matRotateX, 0.0f);
+    D3DXMatrixRotationZ(&matRotateZ, 0.0f);
     
     D3DXMatrixTranslation(&matMove, counter,counter,0);
 
@@ -308,7 +309,7 @@ void render_frame()
     d3ddev->SetIndices(i_buffer);
 
     // copy the vertex buffer indexed by the index buffer
-    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 5, 0, 6);
+    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 10, 0, 6);
 
     d3ddev->EndScene();
 
@@ -328,6 +329,7 @@ void init_graphics(void)
     VOID* pVoid;
 
     //CUBE VERTEX BUFFER
+
     /*d3ddev->CreateVertexBuffer(8 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     CUSTOMVERTEX vertices[] = {
@@ -344,7 +346,8 @@ void init_graphics(void)
 
 
     // PYRAMIDE VERTEX BUFFER
-    struct CUSTOMVERTEX vertices[] =
+
+    /*struct CUSTOMVERTEX vertices[] =
     {
         // base
         { -3.0f, 0.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 0), },
@@ -363,6 +366,36 @@ void init_graphics(void)
         D3DPOOL_MANAGED,
         &v_buffer,
         NULL);
+    */
+
+    //HYPERCRAFT VERTEX BUFFER
+
+    struct CUSTOMVERTEX vertices[] =
+    {
+        // fuselage
+        { 3.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0), },
+        { 0.0f, 3.0f, -3.0f, D3DCOLOR_XRGB(0, 0, 255), },
+        { 0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(255, 0, 0), },
+        { -3.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 255), },
+
+        // left gun
+        { 3.2f, -1.0f, -3.0f, D3DCOLOR_XRGB(0, 0, 255), },
+        { 3.2f, -1.0f, 11.0f, D3DCOLOR_XRGB(0, 255, 0), },
+        { 2.0f, 1.0f, 2.0f, D3DCOLOR_XRGB(255, 0, 0), },
+
+        // right gun
+        { -3.2f, -1.0f, -3.0f, D3DCOLOR_XRGB(0, 0, 255), },
+        { -3.2f, -1.0f, 11.0f, D3DCOLOR_XRGB(0, 255, 0), },
+        { -2.0f, 1.0f, 2.0f, D3DCOLOR_XRGB(255, 0, 0), },
+    };
+
+    d3ddev->CreateVertexBuffer(10 * sizeof(CUSTOMVERTEX),
+        0,
+        CUSTOMFVF,
+        D3DPOOL_MANAGED,
+        &v_buffer,
+        NULL);
+
 
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
@@ -398,7 +431,7 @@ void init_graphics(void)
     //PYRAMIDE INDEX BUFFER
 
     // create the indices using an int array
-    short indices[] =
+    /*short indices[] =
     {
         0, 2, 1,    // base
         1, 2, 3,
@@ -406,6 +439,27 @@ void init_graphics(void)
         1, 3, 4,
         3, 2, 4,
         2, 0, 4,
+    };
+
+    // create a index buffer interface called i_buffer
+    d3ddev->CreateIndexBuffer(18 * sizeof(short),
+        0,
+        D3DFMT_INDEX16,
+        D3DPOOL_MANAGED,
+        &i_buffer,
+        NULL);
+    */
+
+    //HYPERCRAFT INDEX BUFFER
+
+    short indices[] =
+    {
+        0, 1, 2,    // fuselage
+        2, 1, 3,
+        3, 1, 0,
+        0, 2, 3,
+        4, 5, 6,    // wings
+        7, 8, 9,
     };
 
     // create a index buffer interface called i_buffer
