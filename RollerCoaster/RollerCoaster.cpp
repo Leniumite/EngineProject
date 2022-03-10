@@ -308,7 +308,7 @@ void render_frame()
     d3ddev->SetIndices(i_buffer);
 
     // copy the vertex buffer indexed by the index buffer
-    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 5, 0, 6);
 
     d3ddev->EndScene();
 
@@ -325,10 +325,10 @@ void cleanD3D(void)
 
 void init_graphics(void) 
 {
-    
     VOID* pVoid;
 
-    d3ddev->CreateVertexBuffer(8 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
+    //CUBE VERTEX BUFFER
+    /*d3ddev->CreateVertexBuffer(8 * sizeof(CUSTOMVERTEX), 0, CUSTOMFVF, D3DPOOL_MANAGED, &v_buffer, NULL);
 
     CUSTOMVERTEX vertices[] = {
     { -3.0f, 3.0f, -3.0f, D3DCOLOR_XRGB(0, 0, 255), },    // vertex 0
@@ -339,12 +339,37 @@ void init_graphics(void)
     { 3.0f, 3.0f, 3.0f, D3DCOLOR_XRGB(255, 0, 0), },
     { -3.0f, -3.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 0), },
     { 3.0f, -3.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 255), },
+    };*/
+    
+
+
+    // PYRAMIDE VERTEX BUFFER
+    struct CUSTOMVERTEX vertices[] =
+    {
+        // base
+        { -3.0f, 0.0f, 3.0f, D3DCOLOR_XRGB(0, 255, 0), },
+        { 3.0f, 0.0f, 3.0f, D3DCOLOR_XRGB(0, 0, 255), },
+        { -3.0f, 0.0f, -3.0f, D3DCOLOR_XRGB(255, 0, 0), },
+        { 3.0f, 0.0f, -3.0f, D3DCOLOR_XRGB(0, 255, 255), },
+
+        // top
+        { 0.0f, 7.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0), },
     };
+
+    // create a vertex buffer interface called v_buffer
+    d3ddev->CreateVertexBuffer(5 * sizeof(CUSTOMVERTEX),
+        0,
+        CUSTOMFVF,
+        D3DPOOL_MANAGED,
+        &v_buffer,
+        NULL);
 
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
     v_buffer->Unlock();
 
+    //CUBE INDEX BUFFER
+    /*
     // create the indices using an int array
     short indices[] =
     {
@@ -368,8 +393,28 @@ void init_graphics(void)
         D3DPOOL_MANAGED,
         &i_buffer,
         NULL);
-
+    */
     
+    //PYRAMIDE INDEX BUFFER
+
+    // create the indices using an int array
+    short indices[] =
+    {
+        0, 2, 1,    // base
+        1, 2, 3,
+        0, 1, 4,    // sides
+        1, 3, 4,
+        3, 2, 4,
+        2, 0, 4,
+    };
+
+    // create a index buffer interface called i_buffer
+    d3ddev->CreateIndexBuffer(18 * sizeof(short),
+        0,
+        D3DFMT_INDEX16,
+        D3DPOOL_MANAGED,
+        &i_buffer,
+        NULL);
 
     // lock i_buffer and load the indices into it
     i_buffer->Lock(0, 0, (void**)&pVoid, 0);
