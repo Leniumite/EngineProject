@@ -273,7 +273,7 @@ void render_frame()
     D3DXMATRIX matView;    // the view transform matrix
 
     D3DXVECTOR3 camPos, camLookAt, camUp;
-    camPos = D3DXVECTOR3(0.0f, 0.0f, 10.0f);
+    camPos = D3DXVECTOR3(0.0f, 0.0f, 10.0f * index * triangleMovementType);
     camLookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
