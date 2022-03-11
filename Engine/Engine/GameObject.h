@@ -4,20 +4,28 @@
 #include <list>
 #include "Component.h"
 
+
 using namespace std;
 
 class GameObject
 {
 private:
-	list<Component> components;
+	list<Component> _components;
 
 public:
-	Transform* transform;
+	Transform* _transform;
 
 	GameObject();
-	void AddComponentOnObject(Component comp);
-	void RemoveComponentOnObject(Component comp);
-	list<Component> GetComponentsOnObject();
 
+	template<typename T>
+	T* AddComponent();
+
+	/*template<typename T>
+	bool RemoveComponentOnObject(T componentToRemove);*/
+
+	list<Component>& GetAllComponents() { return _components; }
+
+	template<typename T>
+	T* GetComponent();
 };
 

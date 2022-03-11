@@ -4,22 +4,50 @@
 
 GameObject::GameObject()
 {
-	transform = new Transform();
+	_transform = new Transform();
 }
 
-void GameObject::AddComponentOnObject(Component comp)
+template<typename T>
+T* GameObject::AddComponent()
 {
-	components.push_back(comp);
+	if (is_base_of_v<Component, T>)
+	{
+		T* p = new T();
+		components.push_back(p);
+		return p;
+	}
+	else
+	{
+		return NULL;
+	}
 }
-
-void GameObject::RemoveComponentOnObject(Component comp)
+/*
+template<typename T>
+bool GameObject::RemoveComponentOnObject()
 {
-	list<Component>::iterator findComp = find(components.begin(), components.end(), 1);
-	
+	list<Component>::iterator it;
 
-}
+	for (auto const& component : components) {
+		if (is_same(typeid(component), T).value == true) {
+			components.remove(component);
+			delete component;
+			//~Component(component);
+			return true;
+		}
+	}
+	return false;
 
-list<Component> GameObject::GetComponentsOnObject()
-{
-	return components;
+}*/
+
+template <typename T>
+T* GameObject::GetComponent() {
+	for (auto it = _components.begin(); it != _components.end(); it++)
+	{
+		T* temp = dynamic_cast<T*>(*it);
+		if (temp)
+		{
+			return temp;
+		}
+	}
+	return nullptr;
 }
