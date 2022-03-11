@@ -2,8 +2,7 @@
 #include "Transform.h"
 #include "framework.h"
 
-
-void Transform::TRANSFORM()
+Transform::Transform()
 {
 	Identity();
 }
@@ -13,7 +12,6 @@ void Transform::Identity()
 	D3DXMatrixIdentity(&matrix);
 	D3DXMatrixIdentity(&mRot);
 	D3DXQuaternionIdentity(&qRot);
-
 
 	vDir = D3DXVECTOR3(1, 0, 0);
 	vUp = D3DXVECTOR3(0, 0, 1);

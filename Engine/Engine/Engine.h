@@ -18,3 +18,14 @@
 #include <d3dx9math.h>
 
 #include "Transform.h"
+
+
+class Engine
+{
+public:
+
+	void Init();
+	void UpdateTime();
+	void Update();
+	void Render();
+};

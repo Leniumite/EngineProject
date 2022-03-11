@@ -1,22 +1,23 @@
 #pragma once
+#include "Component.h"
 
-class Transform
+class Transform : public Component
 {
-public:
-	D3DXMATRIX matrix;
+	public:
+		D3DXMATRIX matrix;
 
-protected:
-	D3DXVECTOR3 vSca;
+	protected:
+		D3DXVECTOR3 vSca;
 
-	D3DXVECTOR3 vDir;
-	D3DXVECTOR3 vRight;
-	D3DXVECTOR3 vUp;
+		D3DXVECTOR3 vDir;
+		D3DXVECTOR3 vRight;
+		D3DXVECTOR3 vUp;
 
 
-	D3DXQUATERNION qRot;
-	D3DXMATRIX mRot;
+		D3DXQUATERNION qRot;
+		D3DXMATRIX mRot;
 
-	D3DVECTOR vPos;
+		D3DVECTOR vPos;
 
 public:
 	void TRANSFORM();

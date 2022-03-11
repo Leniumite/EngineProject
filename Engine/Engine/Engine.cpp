@@ -3,8 +3,20 @@
 
 #include "pch.h"
 #include "framework.h"
+#include "Engine.h"
 
-// TODO: Il s'agit d'un exemple de fonction de bibliothèque
-void fnEngine()
-{
+void Engine::Init() {
+
+}
+
+void Engine::UpdateTime() {
+
+}
+
+void Engine::Update() {
+
+}
+
+void Engine::Render() {
+
 }
