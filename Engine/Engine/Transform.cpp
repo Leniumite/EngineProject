@@ -74,3 +74,20 @@ void Transform::FromMatrix(D3DXMATRIX* pMat)
 {
 	matrix = *pMat;
 }
+
+void Transform::RotateWorldX(float angle)
+{
+	D3DXMatrixRotationX(&mRot, angle);
+}
+
+void Transform::RotateWorldY(float angle)
+{
+	D3DXMatrixRotationY(&mRot, angle);
+}
+
+void Transform::RotateWorldZ(float angle)
+{
+	D3DXMatrixRotationZ(&mRot, angle);
+}
+
+

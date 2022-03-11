@@ -27,13 +27,14 @@ public:
 	void RotateRoll(float angle);
 	void FromMatrix(D3DXMATRIX* pMat);
 	/*
-	void RotateWorld(MATRIX* pMatrix);
-	void RotateWorldX(float angle);
-	void RotateWorldY(float angle);
-	void RotateWorldZ(float angle);
+	void UpdateMatrix();
 	void UpdateRotationFromVectors();
 	void UpdateRotationFromQuaternion();
 	void UpdateRotationFromMatrix();
-	void UpdateMatrix();
 	*/
+
+	//void RotateWorld(D3DXMATRIX* pMatrix);
+	void RotateWorldX(float angle);
+	void RotateWorldY(float angle);
+	void RotateWorldZ(float angle);
 };
