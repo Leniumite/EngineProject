@@ -13,7 +13,7 @@ T* GameObject::AddComponent()
 	if (is_base_of_v<Component, T>)
 	{
 		T* p = new T();
-		components.push_back(p);
+		_components.push_back(p);
 		return p;
 	}
 	else

@@ -20,7 +20,7 @@ class Transform : public Component
 		D3DVECTOR vPos;
 
 public:
-	void TRANSFORM();
+	Transform();
 	void Identity();
 	void Rotate(float yaw, float pitch, float roll);
 	void RotateYaw(float angle);
