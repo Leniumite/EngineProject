@@ -4,7 +4,6 @@
 #include <list>
 #include "Component.h"
 
-
 using namespace std;
 
 class GameObject
@@ -19,9 +18,6 @@ public:
 
 	template<typename T>
 	T* AddComponent();
-
-	/*template<typename T>
-	bool RemoveComponentOnObject(T componentToRemove);*/
 
 	list<Component>& GetAllComponents() { return _components; }
 

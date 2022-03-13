@@ -18,14 +18,51 @@
 #include <d3dx9math.h>
 
 #include "Transform.h"
+#include "list"
+#include "Scene.h"
 
+#define MAX_LOADSTRING 100
+
+
+
+/*struct CUSTOMVERTEX
+{
+	float x, y, z;
+	D3DVECTOR NORMAL;
+};*/
 
 class Engine
 {
+private:
+
+	HWND _currentWindow;
+	int _screenWidth;
+	int _screenHeight;
+
+	bool _running;
+
+	list<Scene*> _sceneList;
+	
+
+	LPDIRECT3D9 _d3d;
+	LPDIRECT3DDEVICE9 _d3ddev;
+	LPDIRECT3DVERTEXBUFFER9 _vertexBuffer = NULL;
+	LPDIRECT3DINDEXBUFFER9 _indexBuffer = NULL;
+
+	void InitD3D();
+	void InitGraphics();
+	void InitLights();
+	
+
+	
+
 public:
 
-	void Init();
-	void UpdateTime();
+	Engine(HWND window, int screenWidth, int screenHeight);
+
 	void Update();
-	void Render();
+	void RenderFrame();
+	void CleanD3D();
+	Scene* CreateNewScene();
+
 };

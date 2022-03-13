@@ -3,6 +3,8 @@
 
 #include "framework.h"
 #include "RollerCoaster.h"
+#include "App.h"
+#include <crtdbg.h>
 
 #define MAX_LOADSTRING 100
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
@@ -11,6 +13,8 @@
 HINSTANCE hInst;                                // instance actuelle
 WCHAR szTitle[MAX_LOADSTRING];                  // Texte de la barre de titre
 WCHAR szWindowClass[MAX_LOADSTRING];            // nom de la classe de fenêtre principale
+
+App* g_pApp = NULL;
 
 LPDIRECT3D9 d3d;
 LPDIRECT3DDEVICE9 d3ddev;
@@ -21,9 +25,6 @@ LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
 
 float index = 0;
-
-HRESULT CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL pool, LPDIRECT3DVERTEXBUFFER9 ppVertexBuffer, HANDLE* pShareHandle);
-
 
 struct CUSTOMVERTEX
 {
@@ -47,7 +48,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: Placez le code ici.
+
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -61,6 +62,46 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ROLLERCOASTER));
+
+#ifdef _DEBUG
+    _CrtMemState memStateInit;
+    _CrtMemCheckpoint(&memStateInit);
+#endif
+
+    g_pApp = new App();
+    g_pApp->Init(hInstance, nCmdShow, hAccelTable); //C'est quoi le nCmdShow ? Est-ce qu'il y a un autre moyen de faire le Init dans App.cpp ?
+    g_pApp->Loop(); // sort après un WM_QUIT
+    g_pApp->Uninit();
+    delete g_pApp;
+
+#ifdef _DEBUG
+    _CrtMemState memStateEnd, memStateDiff;
+    _CrtMemCheckpoint(&memStateEnd);
+    if (_CrtMemDifference(&memStateDiff, &memStateInit, &memStateEnd))
+    {
+        MessageBoxA(NULL, "MEMORY LEAKS", "DISCLAIMER", 0);
+    }
+#endif 
+
+    return 0;
+
+    //_engine = new Engine(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //Scene* _mainScene = _engine->CreateNewScene();
+
+
+    //Mettre tout le contenu ici
+
+    //_cameraGO = _engine->GetScene(0)->AddGameObject();
+    //_cameraComponent = _cameraGO->AddComponent<Camera>();
+    //_cameraGO->_transform->SetPosition(0,0,0);
+    //_cameraComponent->SetLookingDirection(0,0,0);
+
+    //_cubeGO = _engine->GetScene(0)->AddGameObject();
+    //_cubeGOMeshComponent = _cubeGO->AddComponent<CubeMesh>();
+    //_cubeMeshComponent->SetMaterial()->SetColor(1.0f,1.0f,1.0f, 1.0f);
+    //_cameraGO->_transform->SetPosition(0,0,0);
+
+
     initD3D(hWnd);
     MSG msg;
     bool running = true;
@@ -459,6 +500,5 @@ void init_graphics(void)
     i_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, indices, sizeof(indices));
     i_buffer->Unlock();
-
 
 }
