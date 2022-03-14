@@ -13,6 +13,7 @@
 #endif
 
 #include <windows.h>
+#include <windowsx.h>
 #include <assert.h>
 
 #include <d3d9.h>
@@ -27,6 +28,8 @@
 #include "list"
 #include "Scene.h"
 #include "STimer.h"
+
+
 
 #define MAX_LOADSTRING 100
 
