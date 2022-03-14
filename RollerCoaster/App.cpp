@@ -34,6 +34,7 @@ void App::Loop()
         _engine.Update();
         _engine.RenderFrame();
     }
+
 }
 
 bool App::UpdateTime() {

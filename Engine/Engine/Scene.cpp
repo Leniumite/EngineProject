@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "Scene.h"
 
-//Scene::Scene()
-//{
-//
-//}
+void Scene::Init()
+{
+
+}
 
 GameObject* Scene::AddGameObject()
 {
 	GameObject* newGameObject = new GameObject();
-	_gameObjectList->push_back(*newGameObject);
+	_gameObjectList.push_back(newGameObject);
 	return newGameObject;
 }
 
-void Scene::RemoveGameObject(const GameObject& targetGameObject)
+void Scene::RemoveGameObject(GameObject* targetGameObject)
 {
-	//_gameObjectList->remove(targetGameObject);
+	_gameObjectList.remove(targetGameObject);
 }

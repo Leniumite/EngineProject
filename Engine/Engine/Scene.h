@@ -7,10 +7,12 @@ class Scene
 {
 public:
 	
-	list<GameObject>* _gameObjectList;
+	list<GameObject*> _gameObjectList;
 
+
+	void Init();
 	GameObject* AddGameObject();
-	void RemoveGameObject(const GameObject &targetGameObject);
+	void RemoveGameObject(GameObject* targetGameObject);
 
 };
 

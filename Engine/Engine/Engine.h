@@ -55,8 +55,6 @@ private:
 	void InitLights();
 	
 
-	
-
 public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);

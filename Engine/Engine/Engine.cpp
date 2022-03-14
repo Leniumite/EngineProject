@@ -61,12 +61,132 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 }
 
-void Engine::InitGraphics() {
+void Engine::InitGraphics()
+{
+    VOID* pVoid;
 
+    //CUBE VERTEX BUFFER
+
+    CUSTOMVERTEX vertices[] =
+    {
+        { -3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },    // side 1
+        { 3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
+        { -3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
+        { 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
+
+        { -3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },    // side 2
+        { -3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
+        { 3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
+        { 3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
+
+        { -3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },    // side 3
+        { -3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
+        { 3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },
+        { 3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
+
+        { -3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },    // side 4
+        { 3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },
+        { -3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
+        { 3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
+
+        { 3.0f, -3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },    // side 5
+        { 3.0f, 3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },
+        { 3.0f, -3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
+        { 3.0f, 3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
+
+        { -3.0f, -3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },    // side 6
+        { -3.0f, -3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
+        { -3.0f, 3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },
+        { -3.0f, 3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
+    };
+
+    // create a vertex buffer interface called v_buffer
+    _d3ddev->CreateVertexBuffer(24 * sizeof(CUSTOMVERTEX),
+        0,
+        CUSTOMFVF,
+        D3DPOOL_MANAGED,
+        &_vertexBuffer,
+        NULL);
+
+
+    _vertexBuffer->Lock(0, 0, (void**)&pVoid, 0);
+    memcpy(pVoid, vertices, sizeof(vertices));
+    _vertexBuffer->Unlock();
+
+    //LIGHTED CUBE INDEX BUFFER
+
+    // create the indices using an int array
+    short indices[] =
+    {
+        0, 1, 2,    // side 1
+        2, 1, 3,
+        4, 5, 6,    // side 2
+        6, 5, 7,
+        8, 9, 10,    // side 3
+        10, 9, 11,
+        12, 13, 14,    // side 4
+        14, 13, 15,
+        16, 17, 18,    // side 5
+        18, 17, 19,
+        20, 21, 22,    // side 6
+        22, 21, 23,
+    };
+
+    _d3ddev->CreateIndexBuffer(36 * sizeof(short),    // 3 per triangle, 12 triangles
+        0,
+        D3DFMT_INDEX16,
+        D3DPOOL_MANAGED,
+        &_indexBuffer,
+        NULL);
+
+    // lock i_buffer and load the indices into it
+    _indexBuffer->Lock(0, 0, (void**)&pVoid, 0);
+    memcpy(pVoid, indices, sizeof(indices));
+    _indexBuffer->Unlock();
 }
 
-void Engine::InitLights() {
+void Engine::InitLights()
+{
+    D3DLIGHT9 blueLight; // create the light struct
+    D3DLIGHT9 redLight;
+    D3DLIGHT9 whiteLight;
+    D3DMATERIAL9 material; //create the material struct
 
+    ZeroMemory(&blueLight, sizeof(blueLight));    // clear out the light struct for use
+    blueLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
+    blueLight.Diffuse = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);    // set the light's color
+    blueLight.Direction.x = -1.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
+    blueLight.Direction.y = 0.0f;
+    blueLight.Direction.z = 0.0f;
+
+    _d3ddev->SetLight(0, &blueLight);    // send the light struct properties to light #0
+    _d3ddev->LightEnable(0, TRUE);    // turn on light #0
+
+    ZeroMemory(&redLight, sizeof(redLight));    // clear out the light struct for use
+    redLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
+    redLight.Diffuse = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);    // set the light's color
+    redLight.Direction.x = 1.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
+    redLight.Direction.y = 0.0f;
+    redLight.Direction.z = 0.0f;
+
+    _d3ddev->SetLight(1, &redLight);    // send the light struct properties to light #0
+    _d3ddev->LightEnable(1, TRUE);    // turn on light #0
+
+    ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
+    whiteLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
+    whiteLight.Diffuse = D3DXCOLOR(.8f, .8f, .8f, 1.0f);    // set the light's color
+    whiteLight.Direction.x = 0.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
+    whiteLight.Direction.y = 0.0f;
+    whiteLight.Direction.z = -1.0f;
+
+    _d3ddev->SetLight(2, &whiteLight);    // send the light struct properties to light #0
+    _d3ddev->LightEnable(2, TRUE);    // turn on light #0
+
+    ZeroMemory(&material, sizeof(D3DMATERIAL9));
+    material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white
+    material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);    // set ambient color to white
+
+    _d3ddev->SetMaterial(&material);    // set the globably-used material to &material
 }
 
 
@@ -142,6 +262,12 @@ void Engine::RenderFrame()
 
     // copy the vertex buffer indexed by the index buffer
     _d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+
+    //LPD3DXMESH cylinderMesh;
+
+    //D3DXCreateCylinder(_d3ddev, 2.0f, 0.0f, 10.0f, 10, 10, &cylinderMesh, NULL);
+
+    //cylinderMesh->DrawSubset(0);
 
     _d3ddev->EndScene();
 

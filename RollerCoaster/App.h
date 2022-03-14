@@ -38,5 +38,7 @@ public:
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();
 	void Uninit();
+
+	MSG GetMessage() { return _msg; }
 };
 
