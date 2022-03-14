@@ -1,6 +1,10 @@
 #include "App.h"
 #include "framework.h"
 
+
+float mouseX;
+float mouseY;
+
 App::App() {
 
 }
@@ -9,7 +13,7 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     _hAccelTable = hAccelTable;
 
-    // Effectue l'initialisation de l'application :
+    // Effectue l'initialisation de l'applicationï¿½:
     if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
@@ -62,18 +66,30 @@ void App::HandleInputs() {
 
     while (PeekMessage(&_msg, nullptr, 0, 0, PM_REMOVE))
     {
+        switch (_msg.message)
+        {
+        case WM_QUIT:
+            _running = false;
+            break;
+
+        case WM_MOUSEMOVE :
+            mouseX = GET_X_LPARAM(_msg.lParam);
+            mouseY = GET_Y_LPARAM(_msg.lParam);
+            break;
+        default:
+            break;
+        }
         if (!TranslateAccelerator(_msg.hwnd, _hAccelTable, &_msg))
         {
             TranslateMessage(&_msg);
             DispatchMessage(&_msg);
         }
-        if (_msg.message == WM_QUIT)
-        {
-            _running = false;
-            break;
-        }
+
     }
 }
+
+
+
 
 void App::Uninit()
 {
