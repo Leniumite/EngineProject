@@ -21,6 +21,11 @@ T* GameObject::AddComponent()
 		return NULL;
 	}
 }
+
+void GameObject::UpdateComponents() {
+	for_each(_components.begin(), _components.end(), [](Component component) {component.Update(); });
+}
+
 /*
 template<typename T>
 bool GameObject::RemoveComponentOnObject()

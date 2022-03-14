@@ -22,11 +22,14 @@
 #include <time.h>
 #include <timeapi.h>
 #include <ctime>
+#include <algorithm>
 
 #include "Transform.h"
 #include "list"
 #include "Scene.h"
 #include "STimer.h"
+#include "Component.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -40,10 +43,9 @@ private:
 	int _screenWidth;
 	int _screenHeight;
 
-	bool _running;
+	bool _running;	
 
-	list<Scene*> _sceneList;
-	
+	Scene _currentScene;
 
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;
@@ -59,9 +61,10 @@ public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 
+	void LoadScene(Scene newScene) { _currentScene = newScene; };
+
 	void Update();
 	void RenderFrame();
 	void CleanD3D();
-	Scene* CreateNewScene();
 
 };

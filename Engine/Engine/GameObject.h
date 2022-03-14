@@ -16,6 +16,8 @@ public:
 
 	GameObject();
 
+	void UpdateComponents();
+
 	template<typename T>
 	T* AddComponent();
 

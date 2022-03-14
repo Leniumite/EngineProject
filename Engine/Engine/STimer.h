@@ -6,11 +6,6 @@ class STimer
 	bool s_isPerformanceTimer;
 	float s_frequency;
 
-	
-	
-	
-
-
 	LONGLONG s_performTime;
 public:
 	void init_SystemTime();

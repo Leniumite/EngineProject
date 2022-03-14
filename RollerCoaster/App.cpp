@@ -1,7 +1,6 @@
 #include "App.h"
 #include "framework.h"
 
-
 App::App() {
 
 }
@@ -26,6 +25,12 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 void App::Loop()
 {
     _running = true;
+
+    //_gameScene = Scene();
+    //GameObject* currentGameObject = _gameScene.AddGameObject();
+
+
+    //_engine.LoadScene(_gameScene);
 
     while (_running == true)
     {

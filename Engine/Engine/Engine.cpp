@@ -6,6 +6,7 @@
 #include "Engine.h"
 
 
+
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
 
 
@@ -21,15 +22,8 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 	_currentWindow = window;
     _screenHeight = screenHeight;
     _screenWidth = screenWidth;
+    Component::Init();
     InitD3D();
-}
-
-
-Scene* Engine::CreateNewScene()
-{
-    Scene* newScene = new Scene();
-    _sceneList.push_back(newScene);
-    return newScene;
 }
 
 
@@ -59,11 +53,20 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
+    _d3ddev->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
 }
 
 void Engine::InitGraphics()
 {
     VOID* pVoid;
+
+
+    LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Container.x";
+    LPD3DXMESH recipientMesh;
+
+    D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &recipientMesh);
+
+
 
     //CUBE VERTEX BUFFER
 
@@ -192,7 +195,7 @@ void Engine::InitLights()
 
 void Engine::Update()
 {
-
+    for_each(_currentScene._gameObjectList.begin(), _currentScene._gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
 }
 
 
@@ -261,13 +264,14 @@ void Engine::RenderFrame()
     _d3ddev->SetIndices(_indexBuffer);
 
     // copy the vertex buffer indexed by the index buffer
-    _d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+    //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 
-    //LPD3DXMESH cylinderMesh;
+    LPD3DXMESH torusMesh;
+ 
 
-    //D3DXCreateCylinder(_d3ddev, 2.0f, 0.0f, 10.0f, 10, 10, &cylinderMesh, NULL);
+    D3DXCreateTorus(_d3ddev, 1.0f, 2.0f, 200, 150, &torusMesh, NULL);
 
-    //cylinderMesh->DrawSubset(0);
+    torusMesh->DrawSubset(0);
 
     _d3ddev->EndScene();
 

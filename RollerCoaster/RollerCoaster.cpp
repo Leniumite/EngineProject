@@ -16,6 +16,11 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // nom de la classe de fenêtre 
 
 App* g_pApp = NULL;
 
+App* GetApp()
+{
+    return g_pApp;
+}
+
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
 ATOM                MyRegisterClass(HINSTANCE hInstance);

@@ -3,10 +3,12 @@ class Component
 {
 public:
 	Component();
-	virtual ~Component();
+	void Update();
+	static void Init();
 
 public:
-	static int m_type;
+
+	int m_type;
 	static int m_nextID;
 	int m_id;
 };
