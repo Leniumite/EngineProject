@@ -1,5 +1,4 @@
 #include "App.h"
-#include <Engine.h>
 #include "framework.h"
 
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
@@ -29,7 +28,7 @@ bool App::Loop()
     }
 }
 
-void App::UpdateTime() {
+bool App::UpdateTime() {
 
     float newSysTime = timeGetTime();
     float elapsedSysTime = newSysTime - m_sysTime;

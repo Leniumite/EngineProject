@@ -17,9 +17,14 @@
 #include <d3dx9.h>
 #include <d3dx9math.h>
 
+#include <time.h>
+#include <timeapi.h>
+#include <ctime>
+
 #include "Transform.h"
 #include "list"
 #include "Scene.h"
+#include "STimer.h"
 
 #define MAX_LOADSTRING 100
 
