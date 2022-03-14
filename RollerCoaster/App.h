@@ -1,27 +1,26 @@
 #pragma once
-#include <windows.h>
-
+#include "framework.h"
 
 #define MAX_LOADSTRING 100
 
-class Engine;
 class App
 {
 
 private:
 
-	Engine* _engine = nullptr;
+	Engine _engine;
 
 	HINSTANCE _hInstance;
 
 	WCHAR szTitle[MAX_LOADSTRING];                  // Texte de la barre de titre
-	WCHAR szWindowClass[MAX_LOADSTRING];    // nom de la classe de fenêtre principale
 
 	HWND _window;
 
 	HACCEL _hAccelTable;
 
 	MSG _msg;
+
+	STimer _sTimer;
 
 	int SCREEN_WIDTH = 1920;
 	int SCREEN_HEIGHT = 1080;
@@ -34,6 +33,8 @@ private:
 
 
 public:
+
+	App();
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();
 	void Uninit();

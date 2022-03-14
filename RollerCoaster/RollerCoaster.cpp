@@ -52,14 +52,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_ROLLERCOASTER, szWindowClass, MAX_LOADSTRING);
+
     MyRegisterClass(hInstance);
 
-    // Effectue l'initialisation de l'application :
+    /*
     if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
-    }
+    }*/
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ROLLERCOASTER));
 
@@ -69,7 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 #endif
 
     g_pApp = new App();
-    g_pApp->Init(hInstance, nCmdShow, hAccelTable); //C'est quoi le nCmdShow ? Est-ce qu'il y a un autre moyen de faire le Init dans App.cpp ?
+    g_pApp->Init(hInstance, nCmdShow, hAccelTable);
     g_pApp->Loop(); // sort après un WM_QUIT
     g_pApp->Uninit();
     delete g_pApp;
@@ -151,7 +151,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_ROLLERCOASTER);
-    wcex.lpszClassName  = szWindowClass;
+    wcex.lpszClassName  = L"ROLLERCOASTER";
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
@@ -171,7 +171,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Stocke le handle d'instance dans la variable globale
 
-   hWnd = CreateWindowW(szWindowClass, szTitle, WS_EX_TOPMOST | WS_POPUP,
+   hWnd = CreateWindowW(L"ROLLERCOASTER", szTitle, WS_EX_TOPMOST | WS_POPUP,
      CW_USEDEFAULT, 0, SCREEN_WIDTH,  SCREEN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
 

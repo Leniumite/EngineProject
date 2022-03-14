@@ -1,6 +1,11 @@
 #include "App.h"
 #include "framework.h"
 
+
+App::App() {
+
+}
+
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     _hAccelTable = hAccelTable;
@@ -11,11 +16,14 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
         return FALSE;
     }
 
-	_engine = new Engine(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _sTimer = STimer();
+	_engine = Engine();
+    _sTimer.init_SystemTime();
+    _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 
-bool App::Loop()
+void App::Loop()
 {
     _running = true;
 
@@ -23,24 +31,24 @@ bool App::Loop()
     {
         HandleInputs();
         UpdateTime();
-        _engine->Update();
-        _engine->RenderFrame();
+        _engine.Update();
+        _engine.RenderFrame();
     }
 }
 
 bool App::UpdateTime() {
 
-    float newSysTime = timeGetTime();
-    float elapsedSysTime = newSysTime - m_sysTime;
+    float newSysTime = _sTimer.GetAppTime();
+    float elapsedSysTime = newSysTime - _sTimer.oldtime;
     if (elapsedSysTime < 0.005f) // 200 fps max
         return false;
-    m_sysTime = newSysTime;
+    _sTimer.oldtime = newSysTime;
     if (elapsedSysTime > 0.04f) // 25 fps min
         elapsedSysTime = 0.04f;
 
     // App time
-    m_elapsedTime = elapsedSysTime;
-    m_time += m_elapsedTime;
+    _sTimer.deltaTime = elapsedSysTime;
+    _sTimer.time += elapsedSysTime;
     return true;
 }
 
@@ -63,8 +71,7 @@ void App::HandleInputs() {
 
 void App::Uninit()
 {
-    _engine->CleanD3D();
-    delete _engine;
+    _engine.CleanD3D();
 }
 
 
@@ -72,7 +79,7 @@ bool App::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     _hInstance = hInstance; // Stocke le handle d'instance dans la variable globale
 
-    _window = CreateWindowW(szWindowClass, szTitle, WS_EX_TOPMOST | WS_POPUP,
+    _window = CreateWindowW(L"ROLLERCOASTER", szTitle, WS_EX_TOPMOST | WS_POPUP,
         CW_USEDEFAULT, 0, SCREEN_WIDTH, SCREEN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
 

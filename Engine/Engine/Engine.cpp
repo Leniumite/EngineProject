@@ -9,7 +9,14 @@
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
 
 
-Engine::Engine(const HWND window, int screenWidth, int screenHeight)
+struct CUSTOMVERTEX
+{
+    float x, y, z;
+    D3DVECTOR NORMAL;
+};
+
+
+void Engine::Init(HWND window, int screenWidth, int screenHeight)
 {
 	_currentWindow = window;
     _screenHeight = screenHeight;
@@ -68,7 +75,7 @@ void Engine::Update()
 
 }
 
-/*
+
 void Engine::RenderFrame()
 {
     _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
@@ -149,4 +156,3 @@ void Engine::CleanD3D(void)
     _d3ddev->Release();
     _d3d->Release();
 }
-*/

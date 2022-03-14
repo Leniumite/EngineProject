@@ -6,9 +6,9 @@ class STimer
 	bool s_isPerformanceTimer;
 	float s_frequency;
 
-	float deltaTime;
-	float time;
-	float oldtime;
+	
+	
+	
 
 
 	LONGLONG s_performTime;
@@ -16,10 +16,9 @@ public:
 	void init_SystemTime();
 	float GetAppTime();
 	float GetDeltaTime() { return deltaTime; }
+	void SetDeltaTime(float newDeltaTime) { deltaTime = newDeltaTime; }
 
-	void Refresh(); //Call the functions below
-	bool UpdateTime(); //Update timer values
-	void Update(); //update physics & gameplay
-	void Render(); //Render
-
+	float oldtime;
+	float deltaTime;
+	float time;
 };

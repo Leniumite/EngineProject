@@ -3,6 +3,8 @@
 
 
 #pragma comment(lib,"d3d9.lib")
+#pragma comment(lib, "winmm.lib")
+
 
 #ifdef _DEBUG 
 #pragma comment(lib,"d3dx9d.lib")
@@ -29,12 +31,6 @@
 #define MAX_LOADSTRING 100
 
 
-
-/*struct CUSTOMVERTEX
-{
-	float x, y, z;
-	D3DVECTOR NORMAL;
-};*/
 
 class Engine
 {
@@ -63,7 +59,7 @@ private:
 
 public:
 
-	Engine(HWND window, int screenWidth, int screenHeight);
+	void Init(HWND window, int screenWidth, int screenHeight);
 
 	void Update();
 	void RenderFrame();
