@@ -17,7 +17,7 @@ class Transform : public Component
 		D3DXQUATERNION qRot;
 		D3DXMATRIX mRot;
 
-		D3DVECTOR vPos;
+		D3DXVECTOR3 vPos;
 
 public:
 	Transform();
@@ -30,12 +30,18 @@ public:
 	/*
 	void UpdateMatrix();
 	void UpdateRotationFromVectors();
-	void UpdateRotationFromQuaternion();
-	void UpdateRotationFromMatrix();
 	*/
+	void UpdateRotationFromQuaternion();
+	//void UpdateRotationFromMatrix();
 
 	//void RotateWorld(D3DXMATRIX* pMatrix);
 	void RotateWorldX(float angle);
 	void RotateWorldY(float angle);
 	void RotateWorldZ(float angle);
+	void ChangeScale(D3DXVECTOR3 newScale);
+	void ChangePosition(D3DXVECTOR3 newxPos);
+	void ChangePositionX(float newX);
+	void ChangePositionY(float newY);
+	void ChangePositionZ(float newZ);
+	void Translate(D3DXVECTOR3 targetPos);
 };

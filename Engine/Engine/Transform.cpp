@@ -73,6 +73,11 @@ void Transform::FromMatrix(D3DXMATRIX* pMat)
 	matrix = *pMat;
 }
 
+void Transform::UpdateRotationFromQuaternion()
+{
+	D3DXMatrixRotationQuaternion(&matrix, &qRot);
+}
+
 void Transform::RotateWorldX(float angle)
 {
 	D3DXMatrixRotationX(&mRot, angle);
@@ -86,6 +91,36 @@ void Transform::RotateWorldY(float angle)
 void Transform::RotateWorldZ(float angle)
 {
 	D3DXMatrixRotationZ(&mRot, angle);
+}
+
+void Transform::ChangeScale(D3DXVECTOR3 newScale)
+{
+	vSca = newScale;
+}
+
+void Transform::ChangePosition(D3DXVECTOR3 newxPos)
+{
+	vPos = newxPos;
+}
+
+void Transform::ChangePositionX(float newX)
+{
+	vPos.x = newX;
+}
+
+void Transform::ChangePositionY(float newY)
+{
+	vPos.y = newY;
+}
+
+void Transform::ChangePositionZ(float newZ)
+{
+	vPos.z = newZ;
+}
+
+void Transform::Translate(D3DXVECTOR3 targetPos)
+{
+	//D3DXMatrixTranslation(&vPos, targetPos.x, targetPos.y, targetPos.z);
 }
 
 
