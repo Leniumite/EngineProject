@@ -71,4 +71,6 @@ public:
 	void RenderFrame();
 	void CleanD3D();
 
+	void DrawTextString(int x, int y, DWORD color, const char* str);
+
 };
