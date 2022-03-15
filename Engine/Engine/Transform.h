@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+class Engine;
 class Transform : public Component
 {
 	public:
@@ -20,7 +21,7 @@ class Transform : public Component
 		D3DXVECTOR3 vPos;
 
 public:
-	Transform();
+	Transform(GameObject* gameObject);
 	void Identity();
 	void Rotate(float yaw, float pitch, float roll);
 	void RotateYaw(float angle);

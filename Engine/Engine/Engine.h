@@ -29,7 +29,7 @@
 #include "list"
 #include "Scene.h"
 #include "STimer.h"
-#include "Component.h"
+#include "CubeMeshComponent.h"
 
 
 
@@ -48,7 +48,9 @@ private:
 
 	bool _running;	
 
-	Scene _currentScene;
+	Scene* _currentScene;
+
+	STimer* _timer;
 
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;
@@ -58,16 +60,23 @@ private:
 	void InitD3D();
 	void InitGraphics();
 	void InitLights();
+	void Update();
+	void RenderFrame();
 	
+	bool UpdateTime();
 
 public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 
-	void LoadScene(Scene newScene) { _currentScene = newScene; };
+	void LoadScene(Scene* newScene) { _currentScene = newScene; };
 
-	void Update();
-	void RenderFrame();
+	void Refresh();
+
 	void CleanD3D();
+	
+	Scene* CreateScene();
+
+	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; };
 
 };

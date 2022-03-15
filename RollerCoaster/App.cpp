@@ -30,36 +30,19 @@ void App::Loop()
 {
     _running = true;
 
-    _gameScene = Scene();
-    GameObject* currentGameObject = _gameScene.AddGameObject();
-
+    _gameScene = _engine.CreateScene();
+    GameObject* currentGameObject = _gameScene->AddGameObject();
+    CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
+    cubeComponent->InitMesh(); //Trouver comment passer le device et les buffers au mesh component
 
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
     {
         HandleInputs();
-        UpdateTime();
-        _engine.Update();
-        _engine.RenderFrame();
+        _engine.Refresh();
     }
 
-}
-
-bool App::UpdateTime() {
-
-    float newSysTime = _sTimer.GetAppTime();
-    float elapsedSysTime = newSysTime - _sTimer.oldtime;
-    if (elapsedSysTime < 0.005f) // 200 fps max
-        return false;
-    _sTimer.oldtime = newSysTime;
-    if (elapsedSysTime > 0.04f) // 25 fps min
-        elapsedSysTime = 0.04f;
-
-    // App time
-    _sTimer.deltaTime = elapsedSysTime;
-    _sTimer.time += elapsedSysTime;
-    return true;
 }
 
 void App::HandleInputs() {

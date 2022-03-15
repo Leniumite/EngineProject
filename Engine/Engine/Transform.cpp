@@ -2,7 +2,7 @@
 #include "Transform.h"
 #include "framework.h"
 
-Transform::Transform()
+Transform::Transform(GameObject* gameObject) : Component(gameObject)
 {
 	Identity();
 }

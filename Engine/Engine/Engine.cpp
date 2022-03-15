@@ -4,17 +4,10 @@
 #include "pch.h"
 #include "framework.h"
 #include "Engine.h"
-
+#include "MeshComponent.h"
 
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
-
-
-struct CUSTOMVERTEX
-{
-    float x, y, z;
-    D3DVECTOR NORMAL;
-};
 
 
 void Engine::Init(HWND window, int screenWidth, int screenHeight)
@@ -22,6 +15,10 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 	_currentWindow = window;
     _screenHeight = screenHeight;
     _screenWidth = screenWidth;
+
+    _timer = new STimer();
+    _timer->init_SystemTime();
+
     Component::Init();
     InitD3D();
 }
@@ -53,6 +50,9 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
+
+    // select which vertex format we are using
+    _d3ddev->SetFVF(CUSTOMFVF);
 
 }
 
@@ -190,7 +190,7 @@ void Engine::InitLights()
 
 void Engine::Update()
 {
-    for_each(_currentScene._gameObjectList.begin(), _currentScene._gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
+    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
 }
 
 
@@ -200,12 +200,11 @@ void Engine::RenderFrame()
 
     _d3ddev->BeginScene();
 
-    // select which vertex format we are using
-    _d3ddev->SetFVF(CUSTOMFVF);
+    
 
     // SET UP THE PIPELINE
 
-    D3DXMATRIX matRotateY;    // a matrix to store the rotation information
+    /*D3DXMATRIX matRotateY;    // a matrix to store the rotation information
     D3DXMATRIX matRotateX;
     D3DXMATRIX matRotateZ;
 
@@ -261,14 +260,14 @@ void Engine::RenderFrame()
     // copy the vertex buffer indexed by the index buffer
     //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 
-    /*LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Tree.x";
-    LPD3DXMESH customMesh;
+    //LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Tree.x";
+    //LPD3DXMESH customMesh;
 
-    D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &customMesh);
+    //D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &customMesh);
 
-    customMesh->DrawSubset(0);*/
+    //customMesh->DrawSubset(0);
 
-    LPD3DXMESH torusMesh;
+    //LPD3DXMESH torusMesh;
  
 
     D3DXCreateTorus(_d3ddev, 1.0f, 2.0f, 200, 150, &torusMesh, NULL);
@@ -277,8 +276,34 @@ void Engine::RenderFrame()
 
     _d3ddev->EndScene();
 
-    _d3ddev->Present(NULL, NULL, NULL, NULL);
+    _d3ddev->Present(NULL, NULL, NULL, NULL);*/
 
+    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
+
+}
+
+bool Engine::UpdateTime() {
+
+    float newSysTime = _timer->GetAppTime();
+    float elapsedSysTime = newSysTime - _timer->oldtime;
+    if (elapsedSysTime < 0.005f) // 200 fps max
+        return false;
+    _timer->oldtime = newSysTime;
+    if (elapsedSysTime > 0.04f) // 25 fps min
+        elapsedSysTime = 0.04f;
+
+    // App time
+    _timer->deltaTime = elapsedSysTime;
+    _timer->time += elapsedSysTime;
+    return true;
+}
+
+void Engine::Refresh()
+{
+    if (UpdateTime()) {
+        Update();
+        RenderFrame();
+    }
 }
 
 void Engine::CleanD3D(void)
@@ -287,4 +312,8 @@ void Engine::CleanD3D(void)
     _indexBuffer->Release();
     _d3ddev->Release();
     _d3d->Release();
+}
+
+Scene* Engine::CreateScene() {
+    return new Scene(this);
 }

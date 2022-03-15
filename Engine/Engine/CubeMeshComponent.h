@@ -56,8 +56,8 @@ class CubeMeshComponent :
 
 public:
 
-    virtual void Init(LPDIRECT3DDEVICE9* d3ddev) override;
-    virtual void Init(LPDIRECT3DDEVICE9* d3ddev, LPDIRECT3DVERTEXBUFFER9* _vertexBuffer, LPDIRECT3DINDEXBUFFER9* _indexBuffer);
+    virtual void InitMesh() override;
+
     virtual void Draw() override;
     
 };

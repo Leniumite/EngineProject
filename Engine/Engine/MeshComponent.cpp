@@ -1,9 +1,8 @@
 #include "pch.h"
 #include "MeshComponent.h"
 
-void MeshComponent::Init(LPDIRECT3DDEVICE9* d3ddev)
+MeshComponent::MeshComponent(GameObject* gameObject) : Component(gameObject)
 {
-	_d3ddev = d3ddev;
+	_d3ddev = _engine->GetDevice();
 }
-
 

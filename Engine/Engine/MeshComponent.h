@@ -14,13 +14,14 @@ class MeshComponent:
 {
 protected:
     
-    LPDIRECT3DDEVICE9* _d3ddev;
+    LPDIRECT3DDEVICE9 _d3ddev;
+    LPDIRECT3DVERTEXBUFFER9* _vertexBuffer;
+    LPDIRECT3DINDEXBUFFER9* _indexBuffer;
 
 public:
 
-    virtual void Init(LPDIRECT3DDEVICE9* d3ddev);
-    
+    MeshComponent(GameObject* gameObject);
     virtual void Draw() = 0;
-
+    virtual void InitMesh();
 };
 

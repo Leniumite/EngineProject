@@ -22,7 +22,7 @@ private:
 
 	STimer _sTimer;
 
-	Scene _gameScene;
+	Scene* _gameScene;
 
 	int SCREEN_WIDTH = 1920;
 	int SCREEN_HEIGHT = 1080;
@@ -31,7 +31,6 @@ private:
 
 	bool InitInstance(HINSTANCE hInstance, int nCmdShow);
 	void HandleInputs();
-	bool UpdateTime();
 
 
 public:
@@ -40,8 +39,6 @@ public:
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();
 	void Uninit();
-
-	float GetDeltaTime() { return _sTimer.deltaTime; }
 
 	MSG GetMessage() { return _msg; }
 };

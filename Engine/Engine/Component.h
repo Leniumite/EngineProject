@@ -1,14 +1,21 @@
 #pragma once
+
+class GameObject;
+class Engine;
 class Component
 {
 public:
-	Component();
+
+	Component(GameObject* gameObject);
 	void Update();
 	static void Init();
-
-public:
 
 	int m_type;
 	static int m_nextID;
 	int m_id;
+	
+	GameObject* _gameObject;
+
+protected:
+	Engine* _engine;
 };

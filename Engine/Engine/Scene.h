@@ -5,7 +5,14 @@
 
 class Scene
 {
+private:
+
+	Engine* _engine;
+
+
 public:
+
+	Scene(Engine* engine);
 	
 	list<GameObject*> _gameObjectList;
 

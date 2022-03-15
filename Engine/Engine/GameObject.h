@@ -10,18 +10,23 @@ class GameObject
 {
 private:
 	list<Component> _components;
+	Engine* _engine;
 
 public:
+
+
 	Transform* _transform;
 
-	GameObject();
+	GameObject(Engine* engine);
+
+	inline Engine* GetEngine() { return _engine; }
 
 	void UpdateComponents();
 
 	template<typename T>
 	T* AddComponent();
 
-	list<Component>& GetAllComponents() { return _components; }
+	inline list<Component>& GetAllComponents() { return _components; }
 
 	template<typename T>
 	T* GetComponent();

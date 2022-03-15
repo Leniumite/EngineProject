@@ -1,5 +1,11 @@
+#pragma once
 #include "pch.h"
 #include "Scene.h"
+
+Scene::Scene(Engine* engine)
+{
+	_engine = engine;
+}
 
 void Scene::Init()
 {
@@ -8,7 +14,7 @@ void Scene::Init()
 
 GameObject* Scene::AddGameObject()
 {
-	GameObject* newGameObject = new GameObject();
+	GameObject* newGameObject = new GameObject(_engine);
 	_gameObjectList.push_back(newGameObject);
 	return newGameObject;
 }

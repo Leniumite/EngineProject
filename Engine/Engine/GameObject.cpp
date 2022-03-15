@@ -2,9 +2,11 @@
 #include "GameObject.h"
 #include "Component.h"
 
-GameObject::GameObject()
+
+GameObject::GameObject(Engine* engine)
 {
-	_transform = new Transform();
+	_engine = engine;
+	_transform = new Transform(this);
 }
 
 template<typename T>
@@ -12,8 +14,14 @@ T* GameObject::AddComponent()
 {
 	if (is_base_of_v<Component, T>)
 	{
-		T* p = new T();
+		T* p = new T(this);
+		
 		_components.push_back(p);
+
+		//Component* pCo = (Component*)p;
+		//pCo->_gameObject =this
+		//dynamic_cast<Component*>(p)->_gameObject = this;
+		
 		return p;
 	}
 	else
@@ -21,6 +29,7 @@ T* GameObject::AddComponent()
 		return NULL;
 	}
 }
+
 
 void GameObject::UpdateComponents() {
 	for_each(_components.begin(), _components.end(), [](Component component) {component.Update(); });
@@ -46,7 +55,7 @@ bool GameObject::RemoveComponentOnObject()
 
 template <typename T>
 T* GameObject::GetComponent() {
-	for (auto it = _components.begin(); it != _components.end(); it++)
+	for (auto it = _components.begin(); it != _components.end(); ++it)
 	{
 		T* temp = dynamic_cast<T*>(*it);
 		if (temp)
