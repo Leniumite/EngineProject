@@ -6,9 +6,9 @@
 #pragma comment(lib, "winmm.lib")
 
 
-#ifdef _DEBUG 
+#ifdef _DEBUG
 #pragma comment(lib,"d3dx9d.lib")
-#else 
+#else
 #pragma comment(lib,"d3dx9.lib")
 #endif
 
@@ -46,7 +46,7 @@ private:
 	int _screenWidth;
 	int _screenHeight;
 
-	bool _running;	
+	bool _running;
 
 	Scene* _currentScene;
 
@@ -62,7 +62,7 @@ private:
 	void InitLights();
 	void Update();
 	void RenderFrame();
-	
+
 	bool UpdateTime();
 
 public:
@@ -73,10 +73,15 @@ public:
 
 	void Refresh();
 
+	void Update();
+	void Init();
+	void RenderFrame();
 	void CleanD3D();
-	
+
 	Scene* CreateScene();
 
 	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; };
+
+	void DrawTextString(int x, int y, DWORD color, const char* str);
 
 };
