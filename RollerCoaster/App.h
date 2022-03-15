@@ -7,6 +7,7 @@ class App
 {
 
 private:
+	LPPOINT _pt;
 
 	Engine _engine;
 

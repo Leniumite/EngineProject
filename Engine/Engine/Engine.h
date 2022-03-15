@@ -67,6 +67,7 @@ public:
 	void LoadScene(Scene newScene) { _currentScene = newScene; };
 
 	void Update();
+	void Init();
 	void RenderFrame();
 	void CleanD3D();
 
