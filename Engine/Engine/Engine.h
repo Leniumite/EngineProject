@@ -73,9 +73,6 @@ public:
 
 	void Refresh();
 
-	void Update();
-	void Init();
-	void RenderFrame();
 	void CleanD3D();
 
 	Scene* CreateScene();
