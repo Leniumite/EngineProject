@@ -46,14 +46,14 @@ void Engine::InitD3D()
 
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
 
-    InitGraphics();
+    //InitGraphics();
     InitLights();
 
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
-    _d3ddev->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+
 }
 
 void Engine::InitGraphics()
@@ -61,12 +61,7 @@ void Engine::InitGraphics()
     VOID* pVoid;
 
 
-    LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Container.x";
-    LPD3DXMESH recipientMesh;
-
-    D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &recipientMesh);
-
-
+    
 
     //CUBE VERTEX BUFFER
 
@@ -265,6 +260,13 @@ void Engine::RenderFrame()
 
     // copy the vertex buffer indexed by the index buffer
     //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+
+    /*LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Tree.x";
+    LPD3DXMESH customMesh;
+
+    D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &customMesh);
+
+    customMesh->DrawSubset(0);*/
 
     LPD3DXMESH torusMesh;
  

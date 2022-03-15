@@ -30,11 +30,11 @@ void App::Loop()
 {
     _running = true;
 
-    //_gameScene = Scene();
-    //GameObject* currentGameObject = _gameScene.AddGameObject();
+    _gameScene = Scene();
+    GameObject* currentGameObject = _gameScene.AddGameObject();
 
 
-    //_engine.LoadScene(_gameScene);
+    _engine.LoadScene(_gameScene);
 
     while (_running == true)
     {
