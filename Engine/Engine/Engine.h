@@ -25,11 +25,16 @@
 #include <ctime>
 #include <algorithm>
 
-#include "Transform.h"
 #include "list"
+#include "Component.h"
+#include "Transform.h"
+
+#include "GameObject.h"
+#include "CubeMeshComponent.h"
 #include "Scene.h"
 #include "STimer.h"
-#include "CubeMeshComponent.h"
+
+
 
 
 

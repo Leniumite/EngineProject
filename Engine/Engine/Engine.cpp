@@ -4,7 +4,6 @@
 #include "pch.h"
 #include "framework.h"
 #include "Engine.h"
-#include "MeshComponent.h"
 
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
@@ -310,7 +309,8 @@ void Engine::RenderFrame()
 
     _d3ddev->Present(NULL, NULL, NULL, NULL);*/
 
-    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
+    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(),
+        [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
 
 }
 

@@ -5,10 +5,6 @@
 float mouseX;
 float mouseY;
 
-App::App() {
-
-}
-
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     
@@ -20,9 +16,7 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
         return FALSE;
     }
 
-    _sTimer = STimer();
 	_engine = Engine();
-    _sTimer.init_SystemTime();
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
@@ -34,7 +28,6 @@ void App::Loop()
     _gameScene = _engine.CreateScene();
     GameObject* currentGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
-    cubeComponent->InitMesh(); //Trouver comment passer le device et les buffers au mesh component
 
     _engine.LoadScene(_gameScene);
 

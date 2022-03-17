@@ -38,6 +38,6 @@ void CubeMeshComponent::InitMesh()
 
 void CubeMeshComponent::Draw()
 {
-
+    MeshComponent::Draw();
     _d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 }

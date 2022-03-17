@@ -21,8 +21,6 @@ private:
 
 	MSG _msg;
 
-	STimer _sTimer;
-
 	Scene* _gameScene;
 
 	int SCREEN_WIDTH = 1920;
@@ -36,7 +34,6 @@ private:
 
 public:
 
-	App();
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();
 	void Uninit();

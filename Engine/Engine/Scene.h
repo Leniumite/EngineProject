@@ -1,7 +1,9 @@
 #pragma once
 
 #include <list>
-#include "GameObject.h"
+#include <iostream>
+#include <iterator>
+#include "Engine.h"
 
 class Scene
 {

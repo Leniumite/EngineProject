@@ -21,7 +21,7 @@ protected:
 public:
 
     MeshComponent(GameObject* gameObject);
-    virtual void Draw() = 0;
+    virtual void Draw();
     virtual void InitMesh();
 };
 

@@ -56,6 +56,8 @@ class CubeMeshComponent :
 
 public:
 
+    CubeMeshComponent(GameObject* gameObject);
+
     virtual void InitMesh() override;
 
     virtual void Draw() override;
