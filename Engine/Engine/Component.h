@@ -14,7 +14,7 @@ public:
 	int m_type;
 	static int m_nextID;
 	int m_id;
-	
+
 	GameObject* _gameObject;
 
 protected:
