@@ -31,6 +31,7 @@ TextComponent::TextComponent(GameObject* GO) : MeshComponent(GO)
 
     SetRect(&rect, 0, 0, 1920, 1080);
     _color = D3DXCOLOR(255.0f, 255.0f, 255.0f, 1);
+    _txt = L"Test";
 }
 
 TextComponent::~TextComponent()
@@ -56,6 +57,20 @@ void TextComponent::InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCo
 {
     _txt = txt;
     _color = color;
-    _topLeftCorner = topLeftCorner;
-    _bottomRightCorner = bottomRightCorner;
+    SetCorners(topLeftCorner, bottomRightCorner);
+}
+
+void TextComponent::SetCorners(D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner)
+{
+    SetRect(&rect, topLeftCorner.x, topLeftCorner.y, bottomRightCorner.x, bottomRightCorner.y);
+}
+
+void TextComponent::SetCorners(LONG top, LONG left, LONG bottom, LONG right)
+{
+    SetRect(&rect, left, top, right, bottom);
+}
+
+RECT TextComponent::GetRect()
+{
+    return rect;
 }
