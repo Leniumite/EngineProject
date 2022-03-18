@@ -28,6 +28,7 @@ void Camera::Init()
 
 void Camera::Update()
 {
+    camLookAt = D3DXVECTOR3(sinf(_rotX)*cosf(_rotY), sinf(_rotX) * sinf(_rotY),  cosf(_rotY));
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
         &camLookAt,    // the look-at position
@@ -42,7 +43,16 @@ void Camera::Update()
         100.0f);
 }
 
-void Camera::AddRot(float rot)
+void Camera::UpdateRot(float rotX, float rotY)
 {
-    camLookAt += D3DXVECTOR3(0.0f, rot, 0.0f);
+    _rotX,_rotY += rotX,rotY;
+    if (_rotY>90)
+    {
+        _rotY = 90;
+    }
+    if (_rotY<-90)
+    {
+        _rotY = -90;
+    }
 }
+
