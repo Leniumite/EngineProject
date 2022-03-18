@@ -7,7 +7,7 @@ class Component
 public:
 
 	Component(GameObject* gameObject);
-	void Update();
+	virtual void Update();
 	static void Init();
 
 	int m_type;
