@@ -18,8 +18,6 @@ private:
 
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;
-	LPDIRECT3DVERTEXBUFFER9 _vertexBuffer = NULL;
-	LPDIRECT3DINDEXBUFFER9 _indexBuffer = NULL;
 
 	void InitD3D();
 	void InitGraphics();

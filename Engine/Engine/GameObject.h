@@ -49,6 +49,7 @@ T* GameObject::AddComponent()
 	if (is_base_of_v<Component, T>)
 	{
 		T* p = new T(this);
+		p->InitComponent();
 
 		_components.push_back(p);
 

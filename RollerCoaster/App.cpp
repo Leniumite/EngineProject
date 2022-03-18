@@ -32,6 +32,7 @@ void App::Loop()
 
     _gameScene = _engine.CreateScene();
     GameObject* currentGameObject = _gameScene->AddGameObject();
+    currentGameObject->_transform->ChangePosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
     CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
 
     _engine.LoadScene(_gameScene);

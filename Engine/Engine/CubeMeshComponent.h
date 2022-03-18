@@ -5,7 +5,7 @@ class CubeMeshComponent :
     public MeshComponent
 {
 
-    CUSTOMVERTEX _vertices[24 * 6] =
+    CUSTOMVERTEX _vertices[24] =
     {
         { -3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },    // side 1
         { 3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },

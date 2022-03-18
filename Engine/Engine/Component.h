@@ -18,5 +18,7 @@ public:
 	GameObject* _gameObject;
 
 protected:
+
+	LPDIRECT3DDEVICE9 _d3ddev;
 	Engine* _engine;
 };

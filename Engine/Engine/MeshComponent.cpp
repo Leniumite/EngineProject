@@ -3,8 +3,19 @@
 
 MeshComponent::MeshComponent(GameObject* gameObject) : Component(gameObject)
 {
-	_d3ddev = _engine->GetDevice();
-	InitComponent();
+}
+
+void MeshComponent::Clean()
+{
+	if (_vertexBuffer != NULL)
+	{
+		_vertexBuffer->Release();
+	}
+	if (_indexBuffer != NULL)
+	{
+		_indexBuffer->Release();
+	}
+	
 }
 
 void MeshComponent::Draw()

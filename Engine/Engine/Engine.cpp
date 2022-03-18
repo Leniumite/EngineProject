@@ -48,11 +48,8 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 
-    // select which vertex format we are using
-    _d3ddev->SetFVF(CUSTOMFVF);
-
 }
-
+/*
 void Engine::InitGraphics()
 {
     VOID* pVoid;
@@ -138,7 +135,7 @@ void Engine::InitGraphics()
     _indexBuffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, indices, sizeof(indices));
     _indexBuffer->Unlock();
-}
+}*/
 
 void Engine::InitLights()
 {
@@ -283,14 +280,14 @@ void Engine::RenderFrame()
 
     */
 
-    /*for (GameObject* go : _currentScene->_gameObjectList)
+    for (GameObject* go : _currentScene->_gameObjectList)
     {
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
         if (meshComponent != NULL)
         {
             meshComponent->Draw();
         }
-    }*/
+    }
 
     //for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
       //  [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
@@ -329,8 +326,15 @@ void Engine::Refresh()
 
 void Engine::CleanD3D(void)
 {
-    _vertexBuffer->Release();
-    _indexBuffer->Release();
+    for (GameObject* go : _currentScene->_gameObjectList)
+    {
+        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
+        if (meshComponent != NULL)
+        {
+            meshComponent->Clean();
+        }
+    }
+
     _d3ddev->Release();
     _d3d->Release();
 }

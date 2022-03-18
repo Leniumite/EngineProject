@@ -3,8 +3,6 @@
 
 int Component::m_nextID;
 
-
-
 void Component::Init() {
 	m_nextID = 0; 
 }
@@ -15,7 +13,7 @@ Component::Component(GameObject* gameObject)
 	m_id = m_nextID++;
 	_gameObject = gameObject;
 	_engine = _gameObject->GetEngine();
-	InitComponent();
+	_d3ddev = _engine->GetDevice();
 }
 
 void Component::Update()

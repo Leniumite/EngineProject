@@ -11,15 +11,16 @@ struct CUSTOMVERTEX
 class MeshComponent:
     public Component
 {
+
 protected:
-    
-    LPDIRECT3DDEVICE9 _d3ddev;
-    LPDIRECT3DVERTEXBUFFER9* _vertexBuffer;
-    LPDIRECT3DINDEXBUFFER9* _indexBuffer;
+    IDirect3DVertexBuffer9* _vertexBuffer = NULL;
+    IDirect3DIndexBuffer9* _indexBuffer = NULL;
 
 public:
 
+    virtual void InitComponent() override {};
     MeshComponent(GameObject* gameObject);
+    void Clean();
     virtual void Draw();
 };
 
