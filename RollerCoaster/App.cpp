@@ -75,7 +75,7 @@ void App::HandleInputs() {
 
 void App::Uninit()
 {
-    _engine.CleanD3D();
+    _engine.Uninit();
 }
 
 

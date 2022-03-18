@@ -315,7 +315,7 @@ void Engine::Refresh()
     }
 }
 
-void Engine::CleanD3D(void)
+void Engine::Uninit(void)
 {
     for (GameObject* go : _currentScene->_gameObjectList)
     {
@@ -326,6 +326,7 @@ void Engine::CleanD3D(void)
         }
     }
 
+    delete _timer;
     _d3ddev->Release();
     _d3d->Release();
 }

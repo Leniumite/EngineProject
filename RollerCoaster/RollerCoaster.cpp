@@ -115,6 +115,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
             case IDM_EXIT:
+                g_pApp->Uninit();
+                delete g_pApp;
                 DestroyWindow(hWnd);
                 break;
             default:

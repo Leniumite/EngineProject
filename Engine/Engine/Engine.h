@@ -40,7 +40,7 @@ public:
 
 	void Refresh();
 
-	void CleanD3D();
+	void Uninit();
 
 	Scene* CreateScene();
 
