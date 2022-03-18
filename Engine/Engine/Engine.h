@@ -34,6 +34,9 @@
 #include "Scene.h"
 #include "STimer.h"
 
+#include "Component.h"
+#include "MouseManager.h"
+#include "Camera.h"
 
 
 
@@ -71,6 +74,10 @@ private:
 	bool UpdateTime();
 
 public:
+
+	Camera _cam;
+	MouseManager _MM;
+
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 

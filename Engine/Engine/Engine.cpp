@@ -15,8 +15,10 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     _screenHeight = screenHeight;
     _screenWidth = screenWidth;
 
+
     _timer = new STimer();
     _timer->init_SystemTime();
+
 
     Component::Init();
     InitD3D();
@@ -226,30 +228,8 @@ void Engine::RenderFrame()
     // tell Direct3D about our matrix
     _d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
 
-    D3DXMATRIX matView;    // the view transform matrix
-
-    //Transform test;
-
-    D3DXVECTOR3 camPos, camLookAt, camUp;
-    camPos = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
-    camLookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-    D3DXMatrixLookAtLH(&matView,
-        &camPos,    // the camera position
-        &camLookAt,    // the look-at position
-        &camUp);    // the up direction
-
-    _d3ddev->SetTransform(D3DTS_VIEW, &matView);    // set the view transform to matView
-
-    D3DXMATRIX matProjection;     // the projection transform matrix
-
-    D3DXMatrixPerspectiveFovLH(&matProjection,
-        D3DXToRadian(45),    // the horizontal field of view
-        (FLOAT)_screenWidth / (FLOAT)_screenHeight, // aspect ratio
-        1.0f,    // the near view-plane
-        100.0f);    // the far view-plane
-
+    
+    _d3ddev->SetTransform(D3DTS_VIEW, &matView);
     _d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);    // set the projection
 
     // select the vertex buffer to display
