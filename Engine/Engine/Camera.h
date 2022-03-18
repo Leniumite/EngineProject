@@ -8,8 +8,6 @@ class CameraComponent : public Component
 	D3DXMATRIX matProjection;
 
 private:
-	Engine* _engine;
-	LPDIRECT3DDEVICE9 _d3ddev;
 	float _rotX,_rotY;
 
 

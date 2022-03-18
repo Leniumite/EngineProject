@@ -6,7 +6,6 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 
 }
 
-void CameraComponent::Init()
 void CameraComponent::InitComponent()
 {
 

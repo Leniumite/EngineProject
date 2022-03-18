@@ -3,12 +3,13 @@ class CameraComponent;
 class Scene
 {
 private:
-
-	CameraComponent* _mainCamera = NULL;
+	CameraComponent* _mainCamera;
+	
 	Engine* _engine;
 	
 
 public:
+	
 
 	Scene(Engine* engine);
 	

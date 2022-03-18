@@ -15,13 +15,14 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     _timer = new STimer();
     _timer->init_SystemTime();
 
-
-    Component::Init();
     InitD3D();
+    Component::Init();
+    
 }
 
 void Engine::Update()
 {
+    //_currentScene->_mainCamera->Update();
     for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
 }
 
