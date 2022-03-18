@@ -30,7 +30,7 @@ private:
 	bool UpdateTime();
 
 public:
-
+	TextComponent* fpsText = NULL;
 	MouseManager _MM;
 
 	Engine() {}

@@ -6,7 +6,7 @@ class TextComponent :
     public MeshComponent
 {
 public:
-    LPCWSTR _txt;
+    wstring _txt;
     D3DXCOLOR _color;
     ID3DXFont* _font;
 

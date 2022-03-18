@@ -37,6 +37,7 @@ void Engine::InitD3D()
     d3dpp.BackBufferHeight = _screenHeight;
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+    d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
 
@@ -242,9 +243,12 @@ void Engine::RenderFrame()
 
     customMesh->DrawSubset(0);*/
 
+    if (fpsText == NULL) {
+        GameObject* fpsTextGO = _currentScene->AddGameObject();
+        fpsText = fpsTextGO->AddComponent<TextComponent>();
+    }
+    
 
-    GameObject* textGo = _currentScene->AddGameObject();
-    TextComponent* text = textGo->AddComponent<TextComponent>();
 
     /*LPD3DXMESH torusMesh;
 
@@ -290,6 +294,18 @@ bool Engine::UpdateTime() {
     // App time
     _timer->deltaTime = elapsedSysTime;
     _timer->time += elapsedSysTime;
+
+    _timer->_counter++;
+    _timer->_timeCounterStarted += elapsedSysTime;
+    if (_timer->_timeCounterStarted >= 1) {
+        _timer->_timeCounterStarted = 0;
+        _timer->_previousCounter = _timer->_counter;
+
+        fpsText->_txt = std::to_wstring(_timer->_previousCounter);
+
+        _timer->_counter = 0;
+    }
+
     return true;
 }
 

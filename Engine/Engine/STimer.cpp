@@ -4,6 +4,10 @@
 
 
 
+STimer::STimer()
+{
+}
+
 void STimer::init_SystemTime()
 {
     s_initTime = timeGetTime() / 1000.0f;
@@ -23,6 +27,8 @@ void STimer::init_SystemTime()
     }
 }
 
+
+
 float STimer::GetAppTime()
 {
     if (s_isPerformanceTimer) {
@@ -33,4 +39,9 @@ float STimer::GetAppTime()
     }
 
     return timeGetTime() / 1000.0f - s_initTime;
+}
+
+void STimer::SetDeltaTime(float newDeltaTime)
+{
+     deltaTime = newDeltaTime; 
 }
