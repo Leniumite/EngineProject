@@ -20,7 +20,7 @@ private:
 	LPDIRECT3DDEVICE9 _d3ddev;
 
 	void InitD3D();
-	void InitGraphics();
+
 	void InitLights();
 	void Update();
 	void RenderFrame();

@@ -330,7 +330,9 @@ void Engine::CleanD3D(void)
 }
 
 Scene* Engine::CreateScene() {
-    return new Scene(this);
+    Scene* newScene = new Scene(this);
+    newScene->Init();
+    return newScene;
 }
 
 void Engine::DrawTextString(int x, int y, DWORD color, const char* str)
