@@ -8,11 +8,11 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 
 void CameraComponent::Init()
 {
-   
+
     _d3ddev = _engine->GetDevice();
     matView;    // the view transform matrix
 //Transform test;
-    
+
     camPos = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
     camLookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -33,6 +33,7 @@ void CameraComponent::Init()
 
 void CameraComponent::Update()
 {
+    camLookAt = D3DXVECTOR3(sinf(_rotX)*cosf(_rotY), sinf(_rotX) * sinf(_rotY),  cosf(_rotY));
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
         &camLookAt,    // the look-at position
@@ -47,7 +48,15 @@ void CameraComponent::Update()
         100.0f);
 }
 
-void CameraComponent::AddRot(float rot)
+void CameraComponent::UpdateRot(float rotX, float rotY)
 {
-    camLookAt += D3DXVECTOR3(0.0f, rot, 0.0f);
+    _rotX,_rotY += rotX,rotY;
+    if (_rotY>90)
+    {
+        _rotY = 90;
+    }
+    if (_rotY<-90)
+    {
+        _rotY = -90;
+    }
 }

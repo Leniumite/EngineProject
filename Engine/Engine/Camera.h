@@ -10,16 +10,16 @@ class CameraComponent : public Component
 private:
 	Engine* _engine;
 	LPDIRECT3DDEVICE9 _d3ddev;
+	float _rotX,_rotY;
+
 
 public:
-	
+
 	CameraComponent(GameObject* gameObject);
 	virtual ~CameraComponent() {};
 
 	void Init();
 	virtual void Update() override;
-	void AddRot(float rot);
+	void UpdateRot(float rotx,float rotY);
 
 };
-
-
