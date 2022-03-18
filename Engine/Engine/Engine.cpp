@@ -148,7 +148,7 @@ void Engine::InitLights()
 {
     D3DLIGHT9 blueLight; // create the light struct
     D3DLIGHT9 redLight;
-    D3DLIGHT9 whiteLight;
+    //D3DLIGHT9 whiteLight;
     D3DMATERIAL9 material; //create the material struct
 
     ZeroMemory(&blueLight, sizeof(blueLight));    // clear out the light struct for use
@@ -171,7 +171,7 @@ void Engine::InitLights()
     _d3ddev->SetLight(1, &redLight);    // send the light struct properties to light #0
     _d3ddev->LightEnable(1, TRUE);    // turn on light #0
 
-    ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
+    /*ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
     whiteLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
     whiteLight.Diffuse = D3DXCOLOR(.8f, .8f, .8f, 1.0f);    // set the light's color
     whiteLight.Direction.x = 0.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
@@ -179,7 +179,7 @@ void Engine::InitLights()
     whiteLight.Direction.z = -1.0f;
 
     _d3ddev->SetLight(2, &whiteLight);    // send the light struct properties to light #0
-    _d3ddev->LightEnable(2, TRUE);    // turn on light #0
+    _d3ddev->LightEnable(2, TRUE);    // turn on light #0*/
 
     ZeroMemory(&material, sizeof(D3DMATERIAL9));
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white
@@ -275,7 +275,7 @@ void Engine::RenderFrame()
     RECT rect;
     SetRect(&rect, 500, 500, 1000, 1000);
     D3DXCOLOR color;
-    color = D3DXCOLOR(0.0f, 0.0f, 0.0f,1);
+    color = D3DXCOLOR(0.0f, 255.0f, 0.0f,1);
     g_font->DrawTextW(NULL, L"Test", -1, &rect, DT_NOCLIP | DT_LEFT, color);
 
     /*LPD3DXMESH torusMesh;
@@ -285,12 +285,14 @@ void Engine::RenderFrame()
 
     torusMesh->DrawSubset(0);
 
-    _d3ddev->EndScene();
-
-    _d3ddev->Present(NULL, NULL, NULL, NULL);*/
+    */
 
 //    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
 //        [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
+
+    _d3ddev->EndScene();
+
+    _d3ddev->Present(NULL, NULL, NULL, NULL);
 
 }
 

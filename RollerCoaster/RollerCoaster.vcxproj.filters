@@ -30,18 +30,12 @@
     <ClInclude Include="App.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RollerCoaster.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="App.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
