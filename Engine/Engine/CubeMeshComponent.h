@@ -5,6 +5,8 @@ class CubeMeshComponent :
     public MeshComponent
 {
 
+    LPD3DXMESH _cubeMesh;
+
     CUSTOMVERTEX _vertices[24] =
     {
         { -3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },    // side 1

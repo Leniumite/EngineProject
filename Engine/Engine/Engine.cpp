@@ -148,7 +148,7 @@ void Engine::InitLights()
 {
     D3DLIGHT9 blueLight; // create the light struct
     D3DLIGHT9 redLight;
-    //D3DLIGHT9 whiteLight;
+    D3DLIGHT9 whiteLight;
     D3DMATERIAL9 material; //create the material struct
 
     ZeroMemory(&blueLight, sizeof(blueLight));    // clear out the light struct for use
@@ -171,7 +171,7 @@ void Engine::InitLights()
     _d3ddev->SetLight(1, &redLight);    // send the light struct properties to light #0
     _d3ddev->LightEnable(1, TRUE);    // turn on light #0
 
-    /*ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
+    ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
     whiteLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
     whiteLight.Diffuse = D3DXCOLOR(.8f, .8f, .8f, 1.0f);    // set the light's color
     whiteLight.Direction.x = 0.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
@@ -179,7 +179,7 @@ void Engine::InitLights()
     whiteLight.Direction.z = -1.0f;
 
     _d3ddev->SetLight(2, &whiteLight);    // send the light struct properties to light #0
-    _d3ddev->LightEnable(2, TRUE);    // turn on light #0*/
+    _d3ddev->LightEnable(2, TRUE);    // turn on light #0
 
     ZeroMemory(&material, sizeof(D3DMATERIAL9));
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white
@@ -193,7 +193,7 @@ void Engine::InitLights()
 
 void Engine::RenderFrame()
 {
-    _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 0, 0), 1.0f, 0);
+    _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     _d3ddev->BeginScene();
 
@@ -334,6 +334,7 @@ void Engine::Uninit(void)
 Scene* Engine::CreateScene() {
     Scene* newScene = new Scene(this);
     newScene->Init();
+    
     return newScene;
 }
 

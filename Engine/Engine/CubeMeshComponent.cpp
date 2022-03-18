@@ -7,6 +7,7 @@ CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gam
 
 void CubeMeshComponent::InitComponent()
 {
+    /*
     // create a vertex buffer interface called v_buffer
     _d3ddev->CreateVertexBuffer(24 * sizeof(CUSTOMVERTEX),
         0,
@@ -31,6 +32,9 @@ void CubeMeshComponent::InitComponent()
     _indexBuffer->Lock(0, 0, (void**)&pVoid, D3DLOCK_DISCARD);
     memcpy(pVoid, _indices, sizeof(_indices));
     _indexBuffer->Unlock();
+    */
+    D3DXCreateBox(_d3ddev, 1.0f, 1.0f, 1.0f, &_cubeMesh, NULL);
+
 }
 
 void CubeMeshComponent::Draw()
@@ -38,7 +42,10 @@ void CubeMeshComponent::Draw()
     MeshComponent::Draw();
 
     _d3ddev->SetFVF(CUSTOMFVF);
-    _d3ddev->SetStreamSource(0, _vertexBuffer, 0, sizeof(CUSTOMVERTEX));
-    _d3ddev->SetIndices(_indexBuffer);
-    _d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+    
+    _cubeMesh->DrawSubset(0);
+
+    //_d3ddev->SetStreamSource(0, _vertexBuffer, 0, sizeof(CUSTOMVERTEX));
+    //_d3ddev->SetIndices(_indexBuffer);    
+    //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 }

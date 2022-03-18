@@ -30,9 +30,10 @@ void App::Loop()
     _running = true;
 
     _gameScene = _engine.CreateScene();
-    GameObject* currentGameObject = _gameScene->AddGameObject();
-    currentGameObject->_transform->ChangePosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
-    CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
+    GameObject* cubeGameObject = _gameScene->AddGameObject();
+    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+    cubeGameObject->_transform->Rotate(30, 30, 30);
+    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
 
     _engine.LoadScene(_gameScene);
 
@@ -45,6 +46,8 @@ void App::Loop()
 }
 
 void App::HandleInputs() {
+
+    //GetAsyncKeyState(VK_DOWN) < 0;
 
     while (PeekMessage(&_msg, nullptr, 0, 0, PM_REMOVE))
     {
