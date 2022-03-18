@@ -20,6 +20,11 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     InitD3D();
 }
 
+void Engine::Update()
+{
+    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
+}
+
 
 void Engine::InitD3D()
 {
@@ -183,10 +188,6 @@ void Engine::InitLights()
 }
 
 
-void Engine::Update()
-{
-    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
-}
 
 
 void Engine::RenderFrame()

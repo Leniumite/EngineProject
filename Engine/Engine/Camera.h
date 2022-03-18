@@ -18,7 +18,7 @@ public:
 	CameraComponent(GameObject* gameObject);
 	virtual ~CameraComponent() {};
 
-	void Init();
+	virtual void InitComponent() override;
 	virtual void Update() override;
 	void UpdateRot(float rotx,float rotY);
 

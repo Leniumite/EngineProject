@@ -1,11 +1,12 @@
 #pragma once
-
+class CameraComponent;
 class Scene
 {
 private:
 
+	CameraComponent* _mainCamera = NULL;
 	Engine* _engine;
-
+	
 
 public:
 

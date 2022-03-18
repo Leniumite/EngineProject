@@ -7,6 +7,7 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 }
 
 void CameraComponent::Init()
+void CameraComponent::InitComponent()
 {
 
     _d3ddev = _engine->GetDevice();
