@@ -1,7 +1,7 @@
 #pragma once
-#include "framework.h"
-#include "Component.h"
-class Camera : public Component
+
+
+class CameraComponent : public Component
 {
 	D3DXVECTOR3 camPos, camLookAt, camUp;
 	D3DXMATRIX matView;
@@ -13,6 +13,8 @@ private:
 
 public:
 	
+	CameraComponent(GameObject* gameObject);
+	virtual ~CameraComponent() {};
 
 	void Init();
 	virtual void Update() override;

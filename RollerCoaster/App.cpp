@@ -1,9 +1,13 @@
-#include "App.h"
 #include "framework.h"
 
 
 float mouseX;
 float mouseY;
+
+App::App()
+{
+
+}
 
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
@@ -16,7 +20,7 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
         return FALSE;
     }
 
-	_engine = Engine();
+	//_engine = Engine();
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
     return TRUE;
 }

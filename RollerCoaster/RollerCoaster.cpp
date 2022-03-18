@@ -2,9 +2,7 @@
 //
 
 #include "framework.h"
-#include "RollerCoaster.h"
-#include "App.h"
-#include <crtdbg.h>
+
 
 #define MAX_LOADSTRING 100
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
@@ -16,10 +14,6 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // nom de la classe de fenêtre 
 
 App* g_pApp = NULL;
 
-App* GetApp()
-{
-    return g_pApp;
-}
 
 
 // Déclarations anticipées des fonctions incluses dans ce module de code :
@@ -50,7 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _CrtMemCheckpoint(&memStateInit);
 #endif
 
-    g_pApp = new App();
+    g_pApp = new App;
     g_pApp->Init(hInstance, nCmdShow, hAccelTable);
     g_pApp->Loop(); // sort après un WM_QUIT
     g_pApp->Uninit();

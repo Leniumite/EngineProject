@@ -5,7 +5,6 @@
 #pragma once
 
 #include "targetver.h"
-//#define WIN32_LEAN_AND_MEAN             // Exclure les en-têtes Windows rarement utilisés
 // Fichiers d'en-tête Windows
 // Fichiers d'en-tête C RunTime
 //#include <stdlib.h>
@@ -13,4 +12,10 @@
 //#include <memory.h>
 //#include <tchar.h>
 
-#include "../Engine/Engine/Engine.h"
+#include <crtdbg.h>
+
+#include "../Engine/Engine/Moteur.h"
+#include "Resource.h"
+#include "global.h"
+#include "App.h"
+#include "RollerCoaster.h"

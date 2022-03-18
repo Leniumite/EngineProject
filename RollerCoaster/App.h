@@ -1,5 +1,4 @@
 #pragma once
-#include "framework.h"
 
 #define MAX_LOADSTRING 100
 
@@ -33,6 +32,8 @@ private:
 
 
 public:
+
+	App();
 
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();

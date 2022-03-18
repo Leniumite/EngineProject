@@ -1,10 +1,5 @@
 #pragma once
 
-#include <list>
-#include <iostream>
-#include <iterator>
-#include "Engine.h"
-
 class Scene
 {
 private:

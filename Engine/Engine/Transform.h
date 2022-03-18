@@ -1,5 +1,4 @@
 #pragma once
-#include "Component.h"
 
 class Engine;
 class Transform : public Component

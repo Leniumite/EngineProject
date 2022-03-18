@@ -1,5 +1,5 @@
 #pragma once
-#include "MeshComponent.h"
+class MeshComponent;
 class TextComponent :
     public MeshComponent
 {

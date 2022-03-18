@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Engine.h"
+#include "framework.h"
 
 
 GameObject::GameObject(Engine* engine)
@@ -11,7 +11,7 @@ GameObject::GameObject(Engine* engine)
 
 
 void GameObject::UpdateComponents() {
-	for_each(_components.begin(), _components.end(), [](Component component) {component.Update(); });
+	//for_each(_components.begin(), _components.end(), [](Component component) {component.Update(); });
 }
 
 /*

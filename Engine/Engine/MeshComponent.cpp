@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "MeshComponent.h"
+#include "framework.h"
 
 MeshComponent::MeshComponent(GameObject* gameObject) : Component(gameObject)
 {

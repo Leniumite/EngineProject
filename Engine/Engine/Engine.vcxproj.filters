@@ -11,11 +11,8 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="Transform.cpp" />
-<<<<<<< Updated upstream
     <ClCompile Include="TextComponent.cpp" />
-=======
     <ClCompile Include="Camera.cpp" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
@@ -29,10 +26,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="Transform.h" />
-<<<<<<< Updated upstream
     <ClInclude Include="TextComponent.h" />
-=======
     <ClInclude Include="Camera.h" />
->>>>>>> Stashed changes
+    <ClInclude Include="Moteur.h" />
   </ItemGroup>
 </Project>

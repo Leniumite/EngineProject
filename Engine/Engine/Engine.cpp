@@ -1,9 +1,5 @@
-// Engine.cpp : Définit les fonctions de la bibliothèque statique.
-//
-
 #include "pch.h"
 #include "framework.h"
-#include "Engine.h"
 
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)

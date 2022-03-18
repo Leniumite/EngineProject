@@ -1,7 +1,12 @@
 #include "pch.h"
-#include "Camera.h"
+#include "framework.h"
 
-void Camera::Init()
+CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
+{
+
+}
+
+void CameraComponent::Init()
 {
    
     _d3ddev = _engine->GetDevice();
@@ -26,7 +31,7 @@ void Camera::Init()
 
 }
 
-void Camera::Update()
+void CameraComponent::Update()
 {
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
@@ -42,7 +47,7 @@ void Camera::Update()
         100.0f);
 }
 
-void Camera::AddRot(float rot)
+void CameraComponent::AddRot(float rot)
 {
     camLookAt += D3DXVECTOR3(0.0f, rot, 0.0f);
 }

@@ -1,9 +1,8 @@
 #pragma once
-#include "Component.h"
 
 using namespace std;
 
-
+class Component;
 class GameObject
 {
 private:
