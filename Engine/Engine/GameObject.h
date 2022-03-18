@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <iterator>
-#include <list>
 #include "Component.h"
 
 using namespace std;

@@ -197,7 +197,7 @@ void Engine::Update()
 
 void Engine::RenderFrame()
 {
-    _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+    _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 0, 0), 1.0f, 0);
 
     _d3ddev->BeginScene();
 
@@ -275,7 +275,7 @@ void Engine::RenderFrame()
     RECT rect;
     SetRect(&rect, 500, 500, 1000, 1000);
     D3DXCOLOR color;
-    color = D3DXCOLOR(255.0f, 255.0f, 255.0f,1);
+    color = D3DXCOLOR(0.0f, 0.0f, 0.0f,1);
     g_font->DrawTextW(NULL, L"Test", -1, &rect, DT_NOCLIP | DT_LEFT, color);
 
     /*LPD3DXMESH torusMesh;
@@ -289,8 +289,8 @@ void Engine::RenderFrame()
 
     _d3ddev->Present(NULL, NULL, NULL, NULL);*/
 
-    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(),
-        [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
+//    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
+//        [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
 
 }
 

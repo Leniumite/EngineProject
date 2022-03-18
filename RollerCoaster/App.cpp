@@ -18,6 +18,7 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 
 	_engine = Engine();
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
+    return TRUE;
 }
 
 
@@ -27,7 +28,7 @@ void App::Loop()
 
     _gameScene = _engine.CreateScene();
     GameObject* currentGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
+    //CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
 
     _engine.LoadScene(_gameScene);
 
@@ -50,8 +51,8 @@ void App::HandleInputs() {
             break;
 
         case WM_MOUSEMOVE :
-            mouseX = GET_X_LPARAM(_msg.lParam);
-            mouseY = GET_Y_LPARAM(_msg.lParam);
+            mouseX = (float)GET_X_LPARAM(_msg.lParam);
+            mouseY = (float)GET_Y_LPARAM(_msg.lParam);
             break;
         default:
             break;

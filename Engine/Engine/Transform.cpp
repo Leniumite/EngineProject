@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "Transform.h"
-#include "framework.h"
+#include "Engine.h"
 
 Transform::Transform(GameObject* gameObject) : Component(gameObject)
 {

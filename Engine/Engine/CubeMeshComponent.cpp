@@ -1,5 +1,10 @@
 #include "pch.h"
-#include "CubeMeshComponent.h"
+#include "Engine.h"
+
+CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gameObject)
+{
+
+}
 
 void CubeMeshComponent::InitMesh()
 {

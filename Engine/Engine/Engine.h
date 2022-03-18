@@ -5,7 +5,6 @@
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib, "winmm.lib")
 
-
 #ifdef _DEBUG
 #pragma comment(lib,"d3dx9d.lib")
 #else
@@ -19,6 +18,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <d3dx9math.h>
+#include <d3dx9math.inl>
 
 #include <time.h>
 #include <timeapi.h>
@@ -30,21 +30,16 @@
 #include "Transform.h"
 
 #include "GameObject.h"
+#include "MeshComponent.h"
 #include "CubeMeshComponent.h"
 #include "Scene.h"
 #include "STimer.h"
-
 #include "Component.h"
-#include "MouseManager.h"
 #include "Camera.h"
-
-
-
-
+#include "TextComponent.h"
+#include "MouseManager.h"
 
 #define MAX_LOADSTRING 100
-
-
 
 class Engine
 {
