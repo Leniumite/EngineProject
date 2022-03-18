@@ -6,9 +6,9 @@ CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gam
 
 }
 
-void CubeMeshComponent::InitMesh()
+void CubeMeshComponent::InitComponent()
 {
-    MeshComponent::InitMesh();
+    MeshComponent::InitComponent();
 
     VOID* pVoid;
 

@@ -15,6 +15,7 @@ Component::Component(GameObject* gameObject)
 	m_id = m_nextID++;
 	_gameObject = gameObject;
 	_engine = _gameObject->GetEngine();
+	InitComponent();
 }
 
 void Component::Update()

@@ -28,7 +28,7 @@ void App::Loop()
 
     _gameScene = _engine.CreateScene();
     GameObject* currentGameObject = _gameScene->AddGameObject();
-    //CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
+    CubeMeshComponent* cubeComponent = currentGameObject->AddComponent<CubeMeshComponent>();
 
     _engine.LoadScene(_gameScene);
 

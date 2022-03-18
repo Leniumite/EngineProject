@@ -26,15 +26,18 @@
 #include <algorithm>
 
 #include "list"
+
+
 #include "Component.h"
 #include "Transform.h"
-
 #include "GameObject.h"
+
 #include "MeshComponent.h"
 #include "CubeMeshComponent.h"
+
 #include "Scene.h"
 #include "STimer.h"
-#include "Component.h"
+
 #include "Camera.h"
 #include "TextComponent.h"
 #include "MouseManager.h"

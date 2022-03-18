@@ -287,14 +287,25 @@ void Engine::RenderFrame()
 
     */
 
-//    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
-//        [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
+    /*for (GameObject* go : _currentScene->_gameObjectList)
+    {
+        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
+        if (meshComponent != NULL)
+        {
+            meshComponent->Draw();
+        }
+    }*/
+
+    //for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
+      //  [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
 
     _d3ddev->EndScene();
 
     _d3ddev->Present(NULL, NULL, NULL, NULL);
 
 }
+
+
 
 bool Engine::UpdateTime() {
 
@@ -330,4 +341,9 @@ void Engine::CleanD3D(void)
 
 Scene* Engine::CreateScene() {
     return new Scene(this);
+}
+
+void Engine::DrawTextString(int x, int y, DWORD color, const char* str)
+{
+
 }

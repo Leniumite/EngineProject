@@ -22,6 +22,5 @@ public:
 
     MeshComponent(GameObject* gameObject);
     virtual void Draw();
-    virtual void InitMesh() {}
 };
 

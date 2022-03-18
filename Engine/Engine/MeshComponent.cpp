@@ -4,7 +4,7 @@
 MeshComponent::MeshComponent(GameObject* gameObject) : Component(gameObject)
 {
 	_d3ddev = _engine->GetDevice();
-	InitMesh();
+	InitComponent();
 }
 
 void MeshComponent::Draw()
