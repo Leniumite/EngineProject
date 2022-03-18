@@ -37,6 +37,7 @@ void Engine::InitD3D()
     d3dpp.BackBufferHeight = _screenHeight;
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+    d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
 
@@ -221,7 +222,7 @@ void Engine::RenderFrame()
     // tell Direct3D about our matrix
     _d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
 
-    
+
     _d3ddev->SetTransform(D3DTS_VIEW, &matView);
     _d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);    // set the projection
 
@@ -239,37 +240,12 @@ void Engine::RenderFrame()
 
     customMesh->DrawSubset(0);*/
 
-    ID3DXFont* g_font = NULL;
+    if (fpsText == NULL) {
+        GameObject* fpsTextGO = _currentScene->AddGameObject();
+        fpsText = fpsTextGO->AddComponent<TextComponent>();
+    }
 
-    D3DXCreateFont(_d3ddev,     //D3D Device
 
-        22,               //Font height
-
-        0,                //Font width
-
-        FW_NORMAL,        //Font Weight
-
-        1,                //MipLevels
-
-        false,            //Italic
-
-        DEFAULT_CHARSET,  //CharSet
-
-        OUT_DEFAULT_PRECIS, //OutputPrecision
-
-        ANTIALIASED_QUALITY, //Quality
-
-        DEFAULT_PITCH | FF_DONTCARE,//PitchAndFamily
-
-        L"Arial",          //pFacename,
-
-        &g_font);         //ppFont
-
-    RECT rect;
-    SetRect(&rect, 500, 500, 1000, 1000);
-    D3DXCOLOR color;
-    color = D3DXCOLOR(0.0f, 255.0f, 0.0f,1);
-    g_font->DrawTextW(NULL, L"Test", -1, &rect, DT_NOCLIP | DT_LEFT, color);
 
     /*LPD3DXMESH torusMesh;
 
@@ -280,6 +256,7 @@ void Engine::RenderFrame()
 
     */
 
+
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
@@ -289,7 +266,7 @@ void Engine::RenderFrame()
         }
     }
 
-    //for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), 
+    //for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(),
       //  [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
 
     _d3ddev->EndScene();
@@ -313,6 +290,18 @@ bool Engine::UpdateTime() {
     // App time
     _timer->deltaTime = elapsedSysTime;
     _timer->time += elapsedSysTime;
+
+    _timer->_counter++;
+    _timer->_timeCounterStarted += elapsedSysTime;
+    if (_timer->_timeCounterStarted >= 1) {
+        _timer->_timeCounterStarted = 0;
+        _timer->_previousCounter = _timer->_counter;
+
+        fpsText->_txt = std::to_wstring(_timer->_previousCounter);
+
+        _timer->_counter = 0;
+    }
+
     return true;
 }
 

@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "framework.h"
 
-void TextComponent::Draw()
+TextComponent::TextComponent(GameObject* GO) : MeshComponent(GO)
 {
-    ID3DXFont* g_font = NULL;
+    _d3ddev = _engine->GetDevice();
 
     D3DXCreateFont(_d3ddev,     //D3D Device
 
@@ -27,11 +27,51 @@ void TextComponent::Draw()
 
         L"Arial",          //pFacename,
 
-        &g_font);         //ppFont
+        &_font);
 
-    RECT rect;
-    SetRect(&rect, 500, 500, 1000, 1000);
-    D3DXCOLOR color;
-    color = D3DXCOLOR(255.0f, 255.0f, 255.0f, 1);
-    g_font->DrawTextW(NULL, L"Test", -1, &rect, DT_NOCLIP | DT_LEFT, color);
+    SetRect(&rect, 0, 0, 1920, 1080);
+    _color = D3DXCOLOR(255.0f, 255.0f, 255.0f, 1);
+    _txt = L"Test";
+}
+
+
+TextComponent::~TextComponent()
+{
+
+}
+
+void TextComponent::Draw()
+{
+    _font->DrawTextW(NULL, _txt.c_str(), -1, &rect, DT_NOCLIP | DT_LEFT, _color);
+}
+
+void TextComponent::InitComponent()
+{
+}
+
+void TextComponent::InitFont(ID3DXFont* font)
+{
+    _font = font;
+}
+
+void TextComponent::InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner)
+{
+    _txt = txt;
+    _color = color;
+    SetCorners(topLeftCorner, bottomRightCorner);
+}
+
+void TextComponent::SetCorners(D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner)
+{
+    SetRect(&rect, topLeftCorner.x, topLeftCorner.y, bottomRightCorner.x, bottomRightCorner.y);
+}
+
+void TextComponent::SetCorners(LONG top, LONG left, LONG bottom, LONG right)
+{
+    SetRect(&rect, left, top, right, bottom);
+}
+
+RECT TextComponent::GetRect()
+{
+    return rect;
 }

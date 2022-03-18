@@ -26,7 +26,8 @@
 #include <algorithm>
 
 #include <list>
-
+#include <string>
+#include <iostream>
 
 #include "Component.h"
 #include "Transform.h"
