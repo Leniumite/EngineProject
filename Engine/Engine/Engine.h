@@ -36,7 +36,7 @@ public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 
-	void LoadScene(Scene* newScene) { _currentScene = newScene; };
+	void LoadScene(Scene* newScene) { _currentScene = newScene; }
 
 	void Refresh();
 
@@ -44,7 +44,9 @@ public:
 
 	Scene* CreateScene();
 
-	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; };
+	STimer* GetTimer() { return _timer; }
+
+	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; }
 
 	void DrawTextString(int x, int y, DWORD color, const char* str);
 

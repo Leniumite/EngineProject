@@ -10,8 +10,12 @@ GameObject::GameObject(Engine* engine)
 
 
 
-void GameObject::UpdateComponents() {
-	//for_each(_components.begin(), _components.end(), [](Component component) {component.Update(); });
+void GameObject::UpdateComponents()
+{
+	for (Component* component : _components)
+	{
+		component->Update();
+	}
 }
 
 /*

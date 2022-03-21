@@ -31,14 +31,25 @@ void App::Loop()
 
     _gameScene = _engine.CreateScene();
     GameObject* cubeGameObject = _gameScene->AddGameObject();
-    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-    cubeGameObject->_transform->Rotate(30, 30, 30);
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
 
+
+    GameObject* cGameObject = _gameScene->AddGameObject();
+    CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
+    cGameObject->_transform->ChangePositionX(3.0f);
+
+    GameObject* txtGO = _gameScene->AddGameObject();
+    TextComponent* txt = txtGO->AddComponent<TextComponent>();
+    txt->SetCorners(10, 10, 100, 100);
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
     {
+        
+        //txt->_txt =  std::to_wstring(cubeGameObject->_transform->GetScale().x);
+        
+        //float tempXPos = cubeGameObject->_transform->GetPosition().x + 0.0001f * _engine.GetTimer()->deltaTime;
+        //cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(tempXPos, 0.0f, 5.0f));
         HandleInputs();
         _engine.Refresh();
     }

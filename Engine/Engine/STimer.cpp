@@ -10,6 +10,8 @@ STimer::STimer()
 
 void STimer::init_SystemTime()
 {
+    deltaTime = 0.0f;
+    time = 0.0f;
     s_initTime = timeGetTime() / 1000.0f;
     s_isPerformanceTimer = false;
     s_frequency = 0.0f;
@@ -31,7 +33,7 @@ void STimer::init_SystemTime()
 
 float STimer::GetAppTime()
 {
-    if (s_isPerformanceTimer) {
+    if (s_isPerformanceTimer != NULL) {
         LARGE_INTEGER counter;
         QueryPerformanceCounter(&counter);
 

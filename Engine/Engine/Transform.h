@@ -27,9 +27,9 @@ public:
 	void RotatePitch(float angle);
 	void RotateRoll(float angle);
 	void FromMatrix(D3DXMATRIX* pMat);
-	/*
+	
 	void UpdateMatrix();
-	void UpdateRotationFromVectors();
+	/*void UpdateRotationFromVectors();
 	*/
 	void UpdateRotationFromQuaternion();
 	//void UpdateRotationFromMatrix();
@@ -43,5 +43,7 @@ public:
 	void ChangePositionX(float newX);
 	void ChangePositionY(float newY);
 	void ChangePositionZ(float newZ);
+	D3DXVECTOR3 GetPosition();
+	D3DXVECTOR3 GetScale() { return vSca; }
 	void Translate(D3DXVECTOR3 targetPos);
 };
