@@ -11,7 +11,6 @@ App::App()
 
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
-    
     _hAccelTable = hAccelTable;
 
     // Effectue l'initialisation de l'application�:

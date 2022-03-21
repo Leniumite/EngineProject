@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "framework.h"
+#include <strsafe.h>
 
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
 
+LPD3DXMESH g_pMesh = NULL;
+D3DMATERIAL9* g_pMeshMaterials = NULL;
+LPDIRECT3DTEXTURE9* g_pMeshTextures = NULL;
+DWORD g_dwNumMaterials = 0L;
 
 void Engine::Init(HWND window, int screenWidth, int screenHeight)
 {
@@ -16,8 +21,9 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     _timer->init_SystemTime();
 
     InitD3D();
+    InitGeometry();
     Component::Init();
-    
+
 }
 
 void Engine::Update()
@@ -56,93 +62,48 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 
 }
-/*
-void Engine::InitGraphics()
+
+HRESULT Engine::InitGeometry()
 {
-    VOID* pVoid;
+    LPD3DXBUFFER pD3DXMtrlBuffer;
 
+    // Load the mesh from the specified file
+    D3DXLoadMeshFromX(L"Ressources\\Tiger.x", D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &g_pMesh);
 
+    // We need to extract the material properties and texture names from the
+    // pD3DXMtrlBuffer
+    D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+    g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
+    if (g_pMeshMaterials == NULL)
+        return E_OUTOFMEMORY;
+    g_pMeshTextures = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
+    if (g_pMeshTextures == NULL)
+        return E_OUTOFMEMORY;
 
-
-    //CUBE VERTEX BUFFER
-
-    CUSTOMVERTEX vertices[] =
+    for (DWORD i = 0; i < g_dwNumMaterials; i++)
     {
-        { -3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },    // side 1
-        { 3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
-        { -3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
-        { 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
+        // Copy the material
+        g_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;
 
-        { -3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },    // side 2
-        { -3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
-        { 3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
-        { 3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
+        // Set the ambient color for the material (D3DX does not do this)
+        g_pMeshMaterials[i].Ambient = g_pMeshMaterials[i].Diffuse;
 
-        { -3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },    // side 3
-        { -3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
-        { 3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },
-        { 3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
+        g_pMeshTextures[i] = NULL;
+        if (d3dxMaterials[i].pTextureFilename != NULL &&
+            lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
+        {
+            // Create the texture
+            D3DXCreateTextureFromFileA(_d3ddev, d3dxMaterials[i].pTextureFilename, &g_pMeshTextures[i]);
+        }
+    }
 
-        { -3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },    // side 4
-        { 3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },
-        { -3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
-        { 3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
+    // Done with the material buffer
+    pD3DXMtrlBuffer->Release();
 
-        { 3.0f, -3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },    // side 5
-        { 3.0f, 3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },
-        { 3.0f, -3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
-        { 3.0f, 3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
-
-        { -3.0f, -3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },    // side 6
-        { -3.0f, -3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
-        { -3.0f, 3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },
-        { -3.0f, 3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
-    };
-
-    // create a vertex buffer interface called v_buffer
-    _d3ddev->CreateVertexBuffer(24 * sizeof(CUSTOMVERTEX),
-        0,
-        CUSTOMFVF,
-        D3DPOOL_MANAGED,
-        &_vertexBuffer,
-        NULL);
+    return S_OK;
+}
 
 
-    _vertexBuffer->Lock(0, 0, (void**)&pVoid, 0);
-    memcpy(pVoid, vertices, sizeof(vertices));
-    _vertexBuffer->Unlock();
-
-    //LIGHTED CUBE INDEX BUFFER
-
-    // create the indices using an int array
-    short indices[] =
-    {
-        0, 1, 2,    // side 1
-        2, 1, 3,
-        4, 5, 6,    // side 2
-        6, 5, 7,
-        8, 9, 10,    // side 3
-        10, 9, 11,
-        12, 13, 14,    // side 4
-        14, 13, 15,
-        16, 17, 18,    // side 5
-        18, 17, 19,
-        20, 21, 22,    // side 6
-        22, 21, 23,
-    };
-
-    _d3ddev->CreateIndexBuffer(36 * sizeof(short),    // 3 per triangle, 12 triangles
-        0,
-        D3DFMT_INDEX16,
-        D3DPOOL_MANAGED,
-        &_indexBuffer,
-        NULL);
-
-    // lock i_buffer and load the indices into it
-    _indexBuffer->Lock(0, 0, (void**)&pVoid, 0);
-    memcpy(pVoid, indices, sizeof(indices));
-    _indexBuffer->Unlock();
-}*/
 
 void Engine::InitLights()
 {
@@ -197,50 +158,17 @@ void Engine::RenderFrame()
 
     _d3ddev->BeginScene();
 
+    // Meshes are divided into subsets, one for each material. Render them in
+    // a loop
+    for (DWORD i = 0; i < g_dwNumMaterials; i++)
+    {
+        // Set the material and texture for this subset
+        _d3ddev->SetMaterial(&g_pMeshMaterials[i]);
+        _d3ddev->SetTexture(0, g_pMeshTextures[i]);
 
-
-    // SET UP THE PIPELINE
-
-    /*D3DXMATRIX matRotateY;    // a matrix to store the rotation information
-    D3DXMATRIX matRotateX;
-    D3DXMATRIX matRotateZ;
-
-    D3DXMATRIX matMove;
-    D3DXMATRIX matScale;
-
-    static float triangleMovementType = 1.0f;
-    static float counter = 0.0f;    // an ever-increasing float value
-
-    counter += (0.02f * triangleMovementType);
-    // build a matrix to rotate the model based on the increasing float value
-    D3DXMatrixRotationY(&matRotateY, counter);
-    D3DXMatrixRotationX(&matRotateX, 0.0f);
-    D3DXMatrixRotationZ(&matRotateZ, 0.0f);
-
-    D3DXMatrixTranslation(&matMove, counter, counter, 0);
-
-    D3DXMATRIX mathResult = matRotateX * matRotateY * matRotateZ;
-
-    // tell Direct3D about our matrix
-    _d3ddev->SetTransform(D3DTS_WORLD, &mathResult);
-
-
-    _d3ddev->SetTransform(D3DTS_VIEW, &matView);
-    _d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);    // set the projection
-
-    // select the vertex buffer to display
-    _d3ddev->SetStreamSource(0, _vertexBuffer, 0, sizeof(CUSTOMVERTEX));
-    _d3ddev->SetIndices(_indexBuffer);
-
-    // copy the vertex buffer indexed by the index buffer
-    //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
-
-    //LPCWSTR name = L"D:/Users/alesoudier/C++ Projects/EngineProject/Engine/Engine/Ressources/Tree.x";
-    //LPD3DXMESH customMesh;
-
-    //D3DXLoadMeshFromX(name, 0, _d3ddev, NULL, NULL, NULL, 0, &customMesh);
-
-    customMesh->DrawSubset(0);*/
+        // Draw the mesh subset
+        g_pMesh->DrawSubset(i);
+    }
 
     if (fpsText == NULL) {
         GameObject* fpsTextGO = _currentScene->AddGameObject();
@@ -276,8 +204,6 @@ void Engine::RenderFrame()
     _d3ddev->Present(NULL, NULL, NULL, NULL);
 
 }
-
-
 
 bool Engine::UpdateTime() {
 
@@ -317,16 +243,23 @@ void Engine::Refresh()
 
 void Engine::Uninit(void)
 {
-    for (GameObject* go : _currentScene->_gameObjectList)
-    {
-        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
-        if (meshComponent != NULL)
-        {
-            meshComponent->Clean();
-        }
-    }
 
     delete _timer;
+    if (g_pMeshMaterials != NULL)
+        delete[] g_pMeshMaterials;
+
+    if (g_pMeshTextures)
+    {
+        for (DWORD i = 0; i < g_dwNumMaterials; i++)
+        {
+            if (g_pMeshTextures[i])
+                g_pMeshTextures[i]->Release();
+        }
+        delete[] g_pMeshTextures;
+    }
+    if (g_pMesh != NULL)
+        g_pMesh->Release();
+
     _d3ddev->Release();
     _d3d->Release();
 }
@@ -334,7 +267,7 @@ void Engine::Uninit(void)
 Scene* Engine::CreateScene() {
     Scene* newScene = new Scene(this);
     newScene->Init();
-    
+
     return newScene;
 }
 
