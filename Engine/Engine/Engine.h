@@ -36,9 +36,7 @@ public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 
-	HRESULT InitGeometry();
-
-	void LoadScene(Scene* newScene) { _currentScene = newScene; };
+	void LoadScene(Scene* newScene);
 
 	void Refresh();
 

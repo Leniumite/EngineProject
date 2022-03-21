@@ -1,21 +1,21 @@
 #pragma once
 
-class CubeMeshComponent :
+class TorusMeshComponent :
     public MeshComponent
 {
-
-    LPD3DXMESH _cubeMesh;
+    LPD3DXMESH _torusMesh;
 
 public:
 
-    CubeMeshComponent(GameObject* gameObject);
+    TorusMeshComponent(GameObject* gameObject);
 
     virtual void InitComponent() override;
 
     virtual void Draw() override;
 
     virtual void Update() override;
-    
+
     virtual void Clean() override;
+
 };
 

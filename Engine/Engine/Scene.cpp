@@ -1,7 +1,6 @@
 #pragma once
 #include "pch.h"
 #include "framework.h"
-#include "Camera.h"
 
 Scene::Scene(Engine* engine)
 {

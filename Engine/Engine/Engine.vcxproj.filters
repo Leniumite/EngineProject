@@ -1,33 +1,123 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="CubeMeshComponent.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="MouseManager.cpp" />
-    <ClCompile Include="MeshComponent.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="STimer.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="TextComponent.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Engine.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseManager.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="STimer.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonMeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereMeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TeapotMeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TorusMeshComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="CubeMeshComponent.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="MouseManager.h" />
-    <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="STimer.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="TextComponent.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Moteur.h" />
+    <ClInclude Include="Engine.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Moteur.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="STimer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonMeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereMeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TeapotMeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TorusMeshComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Fichiers Sources">
+      <UniqueIdentifier>{651873a3-7d94-4d43-ae80-aca2b5c1c16c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{251f6004-28fe-4d47-b14c-909b820a14e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers Sources\Components">
+      <UniqueIdentifier>{283c1ee4-0a0f-4ac0-b18f-a975454be09b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Components">
+      <UniqueIdentifier>{e32a1492-4ebe-4881-8871-8467f2d8b685}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -5,10 +5,6 @@
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
 
-LPD3DXMESH g_pMesh = NULL;
-D3DMATERIAL9* g_pMeshMaterials = NULL;
-LPDIRECT3DTEXTURE9* g_pMeshTextures = NULL;
-DWORD g_dwNumMaterials = 0L;
 
 void Engine::Init(HWND window, int screenWidth, int screenHeight)
 {
@@ -21,21 +17,18 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     _timer->init_SystemTime();
 
     InitD3D();
-    InitGeometry();
     Component::Init();
-
 }
 
 void Engine::Update()
 {
     _MM.CalculateDelta();
     _MM.GetMousePosition();
+    
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         go->UpdateComponents();
     }
-   
-   
 }
 
 
@@ -68,48 +61,6 @@ void Engine::InitD3D()
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 
 }
-
-HRESULT Engine::InitGeometry()
-{
-    LPD3DXBUFFER pD3DXMtrlBuffer;
-
-    // Load the mesh from the specified file
-    D3DXLoadMeshFromX(L"Ressources\\Tiger.x", D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &g_pMesh);
-
-    // We need to extract the material properties and texture names from the
-    // pD3DXMtrlBuffer
-    D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
-    g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
-    if (g_pMeshMaterials == NULL)
-        return E_OUTOFMEMORY;
-    g_pMeshTextures = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
-    if (g_pMeshTextures == NULL)
-        return E_OUTOFMEMORY;
-
-    for (DWORD i = 0; i < g_dwNumMaterials; i++)
-    {
-        // Copy the material
-        g_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;
-
-        // Set the ambient color for the material (D3DX does not do this)
-        g_pMeshMaterials[i].Ambient = g_pMeshMaterials[i].Diffuse;
-
-        g_pMeshTextures[i] = NULL;
-        if (d3dxMaterials[i].pTextureFilename != NULL &&
-            lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
-        {
-            // Create the texture
-            D3DXCreateTextureFromFileA(_d3ddev, d3dxMaterials[i].pTextureFilename, &g_pMeshTextures[i]);
-        }
-    }
-
-    // Done with the material buffer
-    pD3DXMtrlBuffer->Release();
-
-    return S_OK;
-}
-
-
 
 void Engine::InitLights()
 {
@@ -156,32 +107,16 @@ void Engine::InitLights()
 }
 
 
-
-
 void Engine::RenderFrame()
 {
     _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     _d3ddev->BeginScene();
 
-    // Meshes are divided into subsets, one for each material. Render them in
-    // a loop
-    for (DWORD i = 0; i < g_dwNumMaterials; i++)
-    {
-        // Set the material and texture for this subset
-        _d3ddev->SetMaterial(&g_pMeshMaterials[i]);
-        _d3ddev->SetTexture(0, g_pMeshTextures[i]);
-
-        // Draw the mesh subset
-        g_pMesh->DrawSubset(i);
-    }
-
     if (fpsText == NULL) {
         GameObject* fpsTextGO = _currentScene->AddGameObject();
         fpsText = fpsTextGO->AddComponent<TextComponent>();
     }
-
-
 
     for (GameObject* go : _currentScene->_gameObjectList)
     {
@@ -226,6 +161,25 @@ bool Engine::UpdateTime() {
     return true;
 }
 
+void Engine::LoadScene(Scene* newScene)
+{
+    if (_currentScene != NULL)
+    {
+        for (GameObject* go : _currentScene->_gameObjectList)
+        {
+            MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
+            if (meshComponent != NULL)
+            {
+                meshComponent->Clean();
+            }
+
+            delete go;
+        }
+    }
+
+    _currentScene = newScene;
+}
+
 void Engine::Refresh()
 {
     if (UpdateTime()) {
@@ -236,22 +190,18 @@ void Engine::Refresh()
 
 void Engine::Uninit(void)
 {
-
     delete _timer;
-    if (g_pMeshMaterials != NULL)
-        delete[] g_pMeshMaterials;
-
-    if (g_pMeshTextures)
+    
+    for (GameObject* go : _currentScene->_gameObjectList)
     {
-        for (DWORD i = 0; i < g_dwNumMaterials; i++)
+        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
+        if (meshComponent != NULL)
         {
-            if (g_pMeshTextures[i])
-                g_pMeshTextures[i]->Release();
+            meshComponent->Clean();
         }
-        delete[] g_pMeshTextures;
     }
-    if (g_pMesh != NULL)
-        g_pMesh->Release();
+
+    delete _currentScene;
 
     _d3ddev->Release();
     _d3d->Release();

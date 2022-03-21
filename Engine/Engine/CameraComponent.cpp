@@ -63,5 +63,5 @@ void CameraComponent::UpdateRot(float rotX, float rotY)
         _rotY = D3DXToRadian(-90);
     }
     //_rotY += D3DXToRadian(10.f*_engine->GetTimer()->deltaTime);
-    _rotX += D3DXToRadian(10.f*_engine->GetTimer()->deltaTime);
+    _rotX += D3DXToRadian(.5f*_engine->GetTimer()->deltaTime);
 }

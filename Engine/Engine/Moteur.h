@@ -35,11 +35,16 @@
 
 #include "MeshComponent.h"
 #include "CubeMeshComponent.h"
+#include "PolygonMeshComponent.h"
+#include "SphereMeshComponent.h"
+#include "TorusMeshComponent.h"
+#include "TeapotMeshComponent.h"
+
 
 #include "Scene.h"
 #include "STimer.h"
 
-#include "Camera.h"
+#include "CameraComponent.h"
 #include "TextComponent.h"
 #include "MouseManager.h"
 

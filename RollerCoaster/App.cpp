@@ -32,6 +32,10 @@ void App::Loop()
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
 
+    GameObject* tigerGameObject = _gameScene->AddGameObject();
+    tigerGameObject->_transform->ChangePositionY(2.0f);
+    PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
+    tigerMeshComponent->SetMeshModel(L"Ressources\\Tiger.x");
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();

@@ -20,7 +20,7 @@ public:
 
     virtual void InitComponent() override {};
     MeshComponent(GameObject* gameObject);
-    void Clean();
+    virtual void Clean();
     virtual void Draw();
 };
 

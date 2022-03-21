@@ -1,21 +1,21 @@
 #pragma once
-
-class CubeMeshComponent :
+#include "MeshComponent.h"
+class TeapotMeshComponent :
     public MeshComponent
 {
-
-    LPD3DXMESH _cubeMesh;
+    LPD3DXMESH _teapotMesh;
 
 public:
 
-    CubeMeshComponent(GameObject* gameObject);
+    TeapotMeshComponent(GameObject* gameObject);
 
     virtual void InitComponent() override;
 
     virtual void Draw() override;
 
     virtual void Update() override;
-    
+
     virtual void Clean() override;
+
 };
 
