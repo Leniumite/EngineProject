@@ -42,6 +42,7 @@ TextComponent::~TextComponent()
 
 void TextComponent::Draw()
 {
+    MeshComponent::Draw();
     _font->DrawTextW(NULL, _txt.c_str(), -1, &rect, DT_NOCLIP | DT_LEFT, _color);
 }
 

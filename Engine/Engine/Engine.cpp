@@ -28,10 +28,14 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 
 void Engine::Update()
 {
+    _MM.CalculateDelta();
+    _MM.GetMousePosition();
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         go->UpdateComponents();
     }
+   
+   
 }
 
 

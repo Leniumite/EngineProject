@@ -33,9 +33,9 @@ void App::Loop()
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
 
 
-    GameObject* cGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
-    cGameObject->_transform->ChangePositionX(3.0f);
+    //GameObject* cGameObject = _gameScene->AddGameObject();
+    //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
+    //cGameObject->_transform->ChangePositionX(3.0f);
 
     GameObject* txtGO = _gameScene->AddGameObject();
     TextComponent* txt = txtGO->AddComponent<TextComponent>();
@@ -43,12 +43,7 @@ void App::Loop()
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
-    {
-        
-        //txt->_txt =  std::to_wstring(cubeGameObject->_transform->GetScale().x);
-        
-        //float tempXPos = cubeGameObject->_transform->GetPosition().x + 0.0001f * _engine.GetTimer()->deltaTime;
-        //cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(tempXPos, 0.0f, 5.0f));
+    {        
         HandleInputs();
         _engine.Refresh();
     }

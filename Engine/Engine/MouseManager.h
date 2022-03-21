@@ -5,8 +5,8 @@ public:
 	POINT pt = { 0, 0 };
 	LONG _mouseX=0;
 	LONG _mouseY=0;
-	LONG _mouseDeltaX;
-	LONG _mouseDeltaY;
+	float _mouseDeltaX;
+	float _mouseDeltaY;
 
 
 	void Init();
@@ -15,8 +15,8 @@ public:
 
 	void GetMousePosition();
 	void CenterCursor();
-	void CalculateDeltaX();
-	void CalculateDeltaY();
+	void CalculateDelta();
+	
 
 
 };
