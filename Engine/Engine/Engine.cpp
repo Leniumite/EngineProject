@@ -28,8 +28,10 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 
 void Engine::Update()
 {
-    //_currentScene->_mainCamera->Update();
-    for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(), [](GameObject* gameObject) { gameObject->UpdateComponents(); });
+    for (GameObject* go : _currentScene->_gameObjectList)
+    {
+        go->UpdateComponents();
+    }
 }
 
 
@@ -177,16 +179,6 @@ void Engine::RenderFrame()
 
 
 
-    /*LPD3DXMESH torusMesh;
-
-
-    D3DXCreateTorus(_d3ddev, 1.0f, 2.0f, 200, 150, &torusMesh, NULL);
-
-    torusMesh->DrawSubset(0);
-
-    */
-
-
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
@@ -195,9 +187,6 @@ void Engine::RenderFrame()
             meshComponent->Draw();
         }
     }
-
-    //for_each(_currentScene->_gameObjectList.begin(), _currentScene->_gameObjectList.end(),
-      //  [](GameObject* gameObject) { gameObject->GetComponent<MeshComponent>()->Draw(); });
 
     _d3ddev->EndScene();
 

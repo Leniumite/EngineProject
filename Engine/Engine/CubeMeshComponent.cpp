@@ -49,3 +49,7 @@ void CubeMeshComponent::Draw()
     //_d3ddev->SetIndices(_indexBuffer);    
     //_d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 }
+
+void CubeMeshComponent::Update() {
+    _gameObject->_transform->RotateYaw(8.0f * _engine->GetTimer()->deltaTime);
+}

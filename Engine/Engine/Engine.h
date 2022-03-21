@@ -46,7 +46,9 @@ public:
 
 	Scene* CreateScene();
 
-	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; };
+	STimer* GetTimer() { return _timer; }
+
+	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; }
 
 	void DrawTextString(int x, int y, DWORD color, const char* str);
 

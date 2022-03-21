@@ -44,6 +44,8 @@ void Transform::Rotate(float yaw, float pitch, float roll)
 	vDir.x = matRot._31;
 	vDir.y = matRot._32;
 	vDir.z = matRot._33;
+
+	UpdateMatrix();
 }
 
 void Transform::RotateYaw(float angle)
@@ -51,6 +53,7 @@ void Transform::RotateYaw(float angle)
 	D3DXQUATERNION quat;
 	D3DXQuaternionRotationAxis(&quat, &vUp, angle);
 	qRot *= quat;
+	UpdateRotationFromQuaternion();
 }
 
 void Transform::RotatePitch(float angle)
@@ -58,6 +61,7 @@ void Transform::RotatePitch(float angle)
 	D3DXQUATERNION quat;
 	D3DXQuaternionRotationAxis(&quat, &vRight, angle);
 	qRot *= quat;
+	UpdateRotationFromQuaternion();
 }
 
 void Transform::RotateRoll(float angle)
@@ -65,6 +69,7 @@ void Transform::RotateRoll(float angle)
 	D3DXQUATERNION quat;
 	D3DXQuaternionRotationAxis(&quat, &vDir, angle);
 	qRot *= quat;
+	UpdateRotationFromQuaternion();
 }
 
 void Transform::FromMatrix(D3DXMATRIX* pMat)
@@ -72,49 +77,71 @@ void Transform::FromMatrix(D3DXMATRIX* pMat)
 	matrix = *pMat;
 }
 
+void Transform::UpdateMatrix()
+{
+	D3DXMatrixScaling(&matrix, vSca.x, vSca.y, vSca.z);
+	matrix *= mRot;
+	matrix._41 = vPos.x;
+	matrix._42 = vPos.y;
+	matrix._43 = vPos.z;
+}
+
 void Transform::UpdateRotationFromQuaternion()
 {
-	D3DXMatrixRotationQuaternion(&matrix, &qRot);
+	D3DXMatrixRotationQuaternion(&mRot, &qRot);
+	UpdateMatrix();
 }
 
 void Transform::RotateWorldX(float angle)
 {
 	D3DXMatrixRotationX(&mRot, angle);
+	UpdateMatrix();
 }
 
 void Transform::RotateWorldY(float angle)
 {
 	D3DXMatrixRotationY(&mRot, angle);
+	UpdateMatrix();
 }
 
 void Transform::RotateWorldZ(float angle)
 {
 	D3DXMatrixRotationZ(&mRot, angle);
+	UpdateMatrix();
 }
 
 void Transform::ChangeScale(D3DXVECTOR3 newScale)
 {
 	vSca = newScale;
+	UpdateMatrix();
 }
 
 void Transform::ChangePosition(D3DXVECTOR3 newxPos)
 {
 	vPos = newxPos;
+	UpdateMatrix();
 }
 
 void Transform::ChangePositionX(float newX)
 {
 	vPos.x = newX;
+	UpdateMatrix();
 }
 
 void Transform::ChangePositionY(float newY)
 {
 	vPos.y = newY;
+	UpdateMatrix();
 }
 
 void Transform::ChangePositionZ(float newZ)
 {
 	vPos.z = newZ;
+	UpdateMatrix();
+}
+
+D3DXVECTOR3 Transform::GetPosition() {
+	return vPos;
 }
 
 void Transform::Translate(D3DXVECTOR3 targetPos)

@@ -9,7 +9,6 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 void CameraComponent::InitComponent()
 {
 
-    _d3ddev = _engine->GetDevice();
     matView;    // the view transform matrix
 //Transform test;
 
@@ -46,6 +45,8 @@ void CameraComponent::Update()
         1920.0f / 1080.0f, // aspect ratio
         1.0f,    // the near view-plane
         100.0f);
+
+    _d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
 }
 
 void CameraComponent::UpdateRot(float rotX, float rotY)
