@@ -33,7 +33,7 @@ void CameraComponent::InitComponent()
 
 void CameraComponent::Update()
 {
-    _gameObject->_transform->ChangePositionX(camPos.x + 1.1f * _engine->GetTimer()->deltaTime);
+    _gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
     float rayon =19.f;
     
     UpdateRot(_engine->_MM._mouseDeltaX,_engine->_MM._mouseDeltaY);

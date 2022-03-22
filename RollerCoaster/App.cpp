@@ -1,8 +1,8 @@
 #include "framework.h"
 
-
 float mouseX;
 float mouseY;
+float offset = 0.0f;
 
 App::App()
 {
@@ -12,7 +12,7 @@ App::App()
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     _hAccelTable = hAccelTable;
-    
+
     // Effectue l'initialisation de l'application�:
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -30,7 +30,7 @@ void App::Loop()
 
 
     Scene* _gameScene = _engine.CreateScene();
-    
+    _engine.LoadScene(_gameScene);
 
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
@@ -48,11 +48,8 @@ void App::Loop()
     CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    GameObject* tigerGameObject = _gameScene->AddGameObject();
-    tigerGameObject->_transform->ChangePositionX(20.0f);
-    tigerGameObject->_transform->ChangePositionY(-10.0f);
-    PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
-    tigerMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
+    GameObject* railManager = _gameScene->AddGameObject();
+    RailsManager* RM = railManager->AddComponent<RailsManager>();
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
@@ -62,12 +59,11 @@ void App::Loop()
     //TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
     //fpsText->SetCorners(10, 10, 100, 100);
 
-    _engine.LoadScene(_gameScene);
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     while (_running == true)
     {
-        
+
         if (HandleInputs() == false)
             break;
         _engine.Refresh();
