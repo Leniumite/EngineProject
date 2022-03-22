@@ -48,7 +48,7 @@ void App::Loop()
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
-    {        
+    {
         if (HandleInputs() == false)
             break;
         _engine.Refresh();

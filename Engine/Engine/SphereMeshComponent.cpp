@@ -8,7 +8,7 @@ SphereMeshComponent::SphereMeshComponent(GameObject* gameObject) : MeshComponent
 
 void SphereMeshComponent::InitComponent()
 {
-    D3DXCreateSphere(_d3ddev, .5f, 10, 10, &_sphereMesh, NULL);
+    D3DXCreateSphere(_d3ddev, .5f, 10, 10, &_mesh, NULL);
 }
 
 void SphereMeshComponent::Draw()
@@ -17,10 +17,10 @@ void SphereMeshComponent::Draw()
 
     _d3ddev->SetFVF(CUSTOMFVF);
 
-    _sphereMesh->DrawSubset(0);
+    _mesh->DrawSubset(0);
 }
 
 void SphereMeshComponent::Clean()
 {
-    _sphereMesh->Release();
+    _mesh->Release();
 }

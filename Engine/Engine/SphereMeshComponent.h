@@ -3,7 +3,6 @@
 class SphereMeshComponent :
     public MeshComponent
 {
-    LPD3DXMESH _sphereMesh;
 
 public:
 

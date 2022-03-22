@@ -4,7 +4,6 @@ class PolygonMeshComponent : public MeshComponent
 
 private:
     LPD3DXBUFFER pD3DXMtrlBuffer;
-    LPD3DXMESH g_pMesh = NULL;
     D3DMATERIAL9* g_pMeshMaterials = NULL;
     LPDIRECT3DTEXTURE9* g_pMeshTextures = NULL;
     DWORD g_dwNumMaterials = 0L;

@@ -8,7 +8,7 @@ CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gam
 
 void CubeMeshComponent::InitComponent()
 {
-    D3DXCreateBox(_d3ddev, 1.0f, 1.0f, 1.0f, &_cubeMesh, NULL);
+    D3DXCreateBox(_d3ddev, 1.0f, 1.0f, 1.0f, &_mesh, NULL);
 }
 
 void CubeMeshComponent::Draw()
@@ -16,8 +16,8 @@ void CubeMeshComponent::Draw()
     MeshComponent::Draw();
 
     _d3ddev->SetFVF(CUSTOMFVF);
-    
-    _cubeMesh->DrawSubset(0);
+
+    _mesh->DrawSubset(0);
 }
 
 void CubeMeshComponent::Update()
@@ -28,9 +28,9 @@ void CubeMeshComponent::Update()
 void CubeMeshComponent::Clean()
 {
     //RELPTR(_cubeMesh);
-    if (_cubeMesh)
+    if (_mesh)
     {
-        _cubeMesh->Release();
-        _cubeMesh = nullptr;
+        _mesh->Release();
+        _mesh = nullptr;
     }
 }

@@ -7,7 +7,7 @@ TeapotMeshComponent::TeapotMeshComponent(GameObject* gameObject) : MeshComponent
 
 void TeapotMeshComponent::InitComponent()
 {
-    D3DXCreateTeapot(_d3ddev, &_teapotMesh, NULL);
+    D3DXCreateTeapot(_d3ddev, &_mesh, NULL);
 }
 
 void TeapotMeshComponent::Draw()
@@ -16,7 +16,7 @@ void TeapotMeshComponent::Draw()
 
     _d3ddev->SetFVF(CUSTOMFVF);
 
-    _teapotMesh->DrawSubset(0);
+    _mesh->DrawSubset(0);
 }
 
 void TeapotMeshComponent::Update()
@@ -25,5 +25,5 @@ void TeapotMeshComponent::Update()
 
 void TeapotMeshComponent::Clean()
 {
-    _teapotMesh->Release();
+    _mesh->Release();
 }
