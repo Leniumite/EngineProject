@@ -41,9 +41,6 @@ void App::Loop()
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
     //cGameObject->_transform->ChangePositionX(3.0f);
 
-    GameObject* txtGO = _gameScene->AddGameObject();
-    TextComponent* txt = txtGO->AddComponent<TextComponent>();
-    txt->SetCorners(10, 10, 100, 100);
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
