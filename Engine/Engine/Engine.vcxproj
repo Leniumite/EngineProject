@@ -158,6 +158,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CubeMeshComponent.h" />
     <ClInclude Include="Engine.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeMeshComponent.cpp" />
     <ClCompile Include="Engine.cpp" />

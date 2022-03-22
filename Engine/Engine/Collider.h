@@ -5,6 +5,7 @@ class Collider :
 {
 public:
     Collider(GameObject* gameObject);
+
     MeshComponent* meshComponent;
 };
 

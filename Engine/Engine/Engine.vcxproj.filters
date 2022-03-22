@@ -61,7 +61,10 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Fichiers Sources\Components</Filter>
     </ClCompile>
-    <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="LightComponent.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -130,7 +133,10 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Fichiers d%27en-tête\Components</Filter>
     </ClInclude>
-    <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="LightComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers Sources">

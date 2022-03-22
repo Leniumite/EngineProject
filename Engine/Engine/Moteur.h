@@ -30,8 +30,12 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include "Component.h"
+#include "Collider.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 #include "Transform.h"
 #include "LightComponent.h"
 
