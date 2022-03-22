@@ -26,7 +26,7 @@ void PolygonMeshComponent::Clean()
         delete[] g_pMeshTextures;
     }
 
-    if (g_pMesh != NULL) g_pMesh->Release();
+    if (_mesh != NULL) _mesh->Release();
 
     if (pD3DXMtrlBuffer != NULL) pD3DXMtrlBuffer->Release();
 }
@@ -43,13 +43,13 @@ void PolygonMeshComponent::Draw()
         _d3ddev->SetTexture(0, g_pMeshTextures[i]);
 
         // Draw the mesh subset
-        g_pMesh->DrawSubset(i);
+        _mesh->DrawSubset(i);
     }
 }
 
 HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR modelPath)
 {
-    D3DXLoadMeshFromX(modelPath, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &g_pMesh);
+    D3DXLoadMeshFromX(modelPath, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &_mesh);
     D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
     g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
     if (g_pMeshMaterials == NULL)

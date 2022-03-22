@@ -3,7 +3,6 @@
 class TeapotMeshComponent :
     public MeshComponent
 {
-    LPD3DXMESH _teapotMesh;
 
 public:
 

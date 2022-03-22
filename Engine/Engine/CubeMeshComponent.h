@@ -4,8 +4,6 @@ class CubeMeshComponent :
     public MeshComponent
 {
 
-    LPD3DXMESH _cubeMesh;
-
 public:
 
     CubeMeshComponent(GameObject* gameObject);

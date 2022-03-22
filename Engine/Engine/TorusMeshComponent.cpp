@@ -7,7 +7,7 @@ TorusMeshComponent::TorusMeshComponent(GameObject* gameObject) : MeshComponent(g
 
 void TorusMeshComponent::InitComponent()
 {
-    D3DXCreateTorus(_d3ddev, 1.0f, 1.0f, 10, 3, &_torusMesh, NULL);
+    D3DXCreateTorus(_d3ddev, 1.0f, 1.0f, 10, 3, &_mesh, NULL);
 }
 
 void TorusMeshComponent::Draw()
@@ -16,7 +16,7 @@ void TorusMeshComponent::Draw()
 
     _d3ddev->SetFVF(CUSTOMFVF);
 
-    _torusMesh->DrawSubset(0);
+    _mesh->DrawSubset(0);
 }
 
 void TorusMeshComponent::Update()
@@ -25,5 +25,5 @@ void TorusMeshComponent::Update()
 
 void TorusMeshComponent::Clean()
 {
-    _torusMesh->Release();
+    _mesh->Release();
 }

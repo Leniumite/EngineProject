@@ -3,7 +3,6 @@
 class TorusMeshComponent :
     public MeshComponent
 {
-    LPD3DXMESH _torusMesh;
 
 public:
 

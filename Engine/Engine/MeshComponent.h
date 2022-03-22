@@ -13,8 +13,7 @@ class MeshComponent:
 {
 
 protected:
-    IDirect3DVertexBuffer9* _vertexBuffer = NULL;
-    IDirect3DIndexBuffer9* _indexBuffer = NULL;
+    LPD3DXMESH _mesh = NULL;
 
 public:
 
@@ -22,5 +21,6 @@ public:
     MeshComponent(GameObject* gameObject);
     virtual void Clean();
     virtual void Draw();
+    LPD3DXMESH GetMesh() { return _mesh; }
 };
 
