@@ -63,7 +63,7 @@ void App::Loop()
     //fpsText->SetCorners(10, 10, 100, 100);
 
     _engine.LoadScene(_gameScene);
-    PlaySound(L"Ressources\\PinkPanther60.wav", NULL, SND_FILENAME| SND_ASYNC| SND_LOOP);
+    PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME| SND_ASYNC| SND_LOOP);
 
     while (_running == true)
     {
