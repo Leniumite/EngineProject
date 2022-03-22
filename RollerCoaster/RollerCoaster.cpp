@@ -49,6 +49,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     g_pApp->Loop(); // sort après un WM_QUIT
     g_pApp->Uninit();
     delete g_pApp;
+    
+    
 
 #ifdef _DEBUG
     _CrtMemState memStateEnd, memStateDiff;
@@ -115,8 +117,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
             case IDM_EXIT:
-                g_pApp->Uninit();
-                delete g_pApp;
                 DestroyWindow(hWnd);
                 break;
             default:

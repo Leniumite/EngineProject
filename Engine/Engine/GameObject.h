@@ -14,6 +14,7 @@ public:
 	Transform* _transform;
 
 	GameObject(Engine* engine);
+	~GameObject();
 
 	inline Engine* GetEngine() { return _engine; }
 

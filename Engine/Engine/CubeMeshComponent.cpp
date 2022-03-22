@@ -3,6 +3,7 @@
 
 CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gameObject)
 {
+    _cubeMesh = nullptr;
 }
 
 void CubeMeshComponent::InitComponent()
@@ -26,5 +27,10 @@ void CubeMeshComponent::Update()
 
 void CubeMeshComponent::Clean()
 {
-    _cubeMesh->Release();
+    //RELPTR(_cubeMesh);
+    if (_cubeMesh)
+    {
+        _cubeMesh->Release();
+        _cubeMesh = nullptr;
+    }
 }

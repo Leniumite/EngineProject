@@ -8,6 +8,14 @@ GameObject::GameObject(Engine* engine)
 	_transform = new Transform(this);
 }
 
+GameObject::~GameObject()
+{
+	for (Component* component : _components)
+	{
+		delete component;
+	}
+}
+
 
 
 void GameObject::UpdateComponents()

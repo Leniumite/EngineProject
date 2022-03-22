@@ -55,7 +55,7 @@ void TextComponent::InitFont(ID3DXFont* font)
     _font = font;
 }
 
-void TextComponent::InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner)
+void TextComponent::InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner) //peut-être Memory Leak ici
 {
     _txt = txt;
     _color = color;
@@ -75,4 +75,9 @@ void TextComponent::SetCorners(LONG top, LONG left, LONG bottom, LONG right)
 RECT TextComponent::GetRect()
 {
     return rect;
+}
+
+void TextComponent::Update()
+{
+    _txt = std::to_wstring(_engine->GetTimer()->_previousCounter);
 }

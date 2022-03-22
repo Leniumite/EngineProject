@@ -7,6 +7,8 @@ class Component
 public:
 
 	Component(GameObject* gameObject);
+	virtual ~Component();
+
 	virtual void Update();
 	virtual void InitComponent() {};
 	static void Init();

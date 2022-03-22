@@ -10,6 +10,8 @@ public:
 
     CubeMeshComponent(GameObject* gameObject);
 
+    virtual ~CubeMeshComponent() override;
+
     virtual void InitComponent() override;
 
     virtual void Draw() override;

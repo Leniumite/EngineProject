@@ -28,58 +28,52 @@ void App::Loop()
 {
     _running = true;
 
-    _gameScene = _engine.CreateScene();
-    GameObject* cubeGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
+    Scene* _gameScene = _engine.CreateScene();
+    //GameObject* cubeGameObject = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
 
-    GameObject* tigerGameObject = _gameScene->AddGameObject();
-    tigerGameObject->_transform->ChangePositionY(2.0f);
-    PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
-    tigerMeshComponent->SetMeshModel(L"Ressources\\Tiger.x");
+    //GameObject* tigerGameObject = _gameScene->AddGameObject();
+    //tigerGameObject->_transform->ChangePositionX(10.0f);
+    //PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
+    //tigerMeshComponent->SetMeshModel(L"Ressources\\tiger.x");
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
     //cGameObject->_transform->ChangePositionX(3.0f);
 
-    GameObject* txtGO = _gameScene->AddGameObject();
-    TextComponent* txt = txtGO->AddComponent<TextComponent>();
-    txt->SetCorners(10, 10, 100, 100);
+    //GameObject* fpsTextGO = _gameScene->AddGameObject();
+    //TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
+    //fpsText->SetCorners(10, 10, 100, 100);
+
     _engine.LoadScene(_gameScene);
 
     while (_running == true)
     {        
-        HandleInputs();
+        if (HandleInputs() == false)
+            break;
         _engine.Refresh();
     }
 
 }
 
-void App::HandleInputs() {
+bool App::HandleInputs() {
 
     //GetAsyncKeyState(VK_DOWN) < 0;
 
     while (PeekMessage(&_msg, nullptr, 0, 0, PM_REMOVE))
     {
-        switch (_msg.message)
-        {
-        case WM_QUIT:
-            _running = false;
-            break;
-
-        case WM_MOUSEMOVE :
-            mouseX = (float)GET_X_LPARAM(_msg.lParam);
-            mouseY = (float)GET_Y_LPARAM(_msg.lParam);
-            break;
-        default:
-            break;
-        }
         if (!TranslateAccelerator(_msg.hwnd, _hAccelTable, &_msg))
         {
             TranslateMessage(&_msg);
             DispatchMessage(&_msg);
         }
-
+        if (_msg.message == WM_QUIT)
+        {
+            _running = false;
+            return false;
+        }
     }
+    return true;
 }
 
 

@@ -113,11 +113,6 @@ void Engine::RenderFrame()
 
     _d3ddev->BeginScene();
 
-    if (fpsText == NULL) {
-        GameObject* fpsTextGO = _currentScene->AddGameObject();
-        fpsText = fpsTextGO->AddComponent<TextComponent>();
-    }
-
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
@@ -152,8 +147,6 @@ bool Engine::UpdateTime() {
     if (_timer->_timeCounterStarted >= 1) {
         _timer->_timeCounterStarted = 0;
         _timer->_previousCounter = _timer->_counter;
-
-        fpsText->_txt = std::to_wstring(_timer->_previousCounter);
 
         _timer->_counter = 0;
     }
@@ -199,6 +192,7 @@ void Engine::Uninit(void)
         {
             meshComponent->Clean();
         }
+        delete go;
     }
 
     delete _currentScene;
