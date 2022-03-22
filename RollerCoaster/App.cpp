@@ -12,7 +12,7 @@ App::App()
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     _hAccelTable = hAccelTable;
-
+    
     // Effectue l'initialisation de l'application�:
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -20,6 +20,7 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     }
 
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
     return TRUE;
 }
 
@@ -28,9 +29,24 @@ void App::Loop()
 {
     _running = true;
 
+
     Scene* _gameScene = _engine.CreateScene();
-    //GameObject* cubeGameObject = _gameScene->AddGameObject();
-    //CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
+
+    GameObject* cubeGameObject = _gameScene->AddGameObject();
+    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
+    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
+
+    GameObject* cubeGameObject2 = _gameScene->AddGameObject();
+    CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
+    cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
+
+    GameObject* cubeGameObject3 = _gameScene->AddGameObject();
+    CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
+    cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
+
+    GameObject* cubeGameObject4 = _gameScene->AddGameObject();
+    CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
+    cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
     //GameObject* tigerGameObject = _gameScene->AddGameObject();
     //tigerGameObject->_transform->ChangePositionX(10.0f);

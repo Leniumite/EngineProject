@@ -23,6 +23,7 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 void Engine::Update()
 {
     _MM.CalculateDelta();
+    _MM.CenterCursor();
     _MM.GetMousePosition();
     
     for (GameObject* go : _currentScene->_gameObjectList)
@@ -49,7 +50,7 @@ void Engine::InitD3D()
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
     d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-
+    ShowCursor(FALSE);
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
 
     //InitGraphics();
