@@ -6,7 +6,8 @@ void MouseManager::GetMousePosition()
 {
 	
 	::GetCursorPos(&pt);
-	(_mouseX, _mouseY) = pt.x, pt.y;
+	_mouseX = pt.x;
+	_mouseY = pt.y;
 }
 
 void MouseManager::CenterCursor()
@@ -18,8 +19,8 @@ void MouseManager::CalculateDelta()
 {
 	
 	::GetCursorPos(&pt);
-	_mouseDeltaX=(float) (pt.x - _mouseX)*.00001f;
-	_mouseDeltaY =(float) (pt.y - _mouseY)* .00001f;
+	_mouseDeltaX=(float) (pt.x - _mouseX)*0.001;
+	_mouseDeltaY =(float) (pt.y - _mouseY)*0.001 ;
 }
 
 
