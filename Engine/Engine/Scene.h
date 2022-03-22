@@ -3,14 +3,15 @@ class CameraComponent;
 class Scene
 {
 private:
-	CameraComponent* _mainCamera;
+	//GameObject* _cameraGO;
+	
 	
 	Engine* _engine;
 	
 
 public:
 	
-
+	CameraComponent* _mainCamera;
 	Scene(Engine* engine);
 	
 	list<GameObject*> _gameObjectList;
