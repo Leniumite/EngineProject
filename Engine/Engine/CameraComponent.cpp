@@ -13,7 +13,6 @@ void CameraComponent::InitComponent()
    
     matView;    // the view transform matrix
 //Transform test;
-    
     camPos = _gameObject->_transform->GetPosition();
     camLookAt = camPos +D3DXVECTOR3(0.0f, 0.0f, 20.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

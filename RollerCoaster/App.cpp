@@ -20,7 +20,6 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     }
 
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
     return TRUE;
 }
 
@@ -64,6 +63,7 @@ void App::Loop()
     //fpsText->SetCorners(10, 10, 100, 100);
 
     _engine.LoadScene(_gameScene);
+    PlaySound(L"Ressources\\PinkPanther60.wav", NULL, SND_FILENAME| SND_ASYNC| SND_LOOP);
 
     while (_running == true)
     {
