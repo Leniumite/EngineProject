@@ -97,5 +97,5 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
 
 void PolygonMeshComponent::Update()
 {
-    _gameObject->_transform->RotatePitch(1.0f * _engine->GetTimer()->deltaTime);
+    //_gameObject->_transform->RotatePitch(1.0f * _engine->GetTimer()->deltaTime);
 }

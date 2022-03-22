@@ -1,6 +1,5 @@
 #pragma once
 
-
 class MeshComponent;
 class TextComponent :
     public MeshComponent

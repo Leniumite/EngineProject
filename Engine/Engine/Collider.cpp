@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Collider.h"
+#include "framework.h"
 
 Collider::Collider(GameObject* gameObject) : Component(gameObject)
 {

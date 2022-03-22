@@ -30,6 +30,7 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include "Component.h"
 #include "Transform.h"
@@ -45,6 +46,9 @@
 #include "TorusMeshComponent.h"
 #include "TeapotMeshComponent.h"
 
+#include "Collider.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 #include "Scene.h"
 #include "STimer.h"

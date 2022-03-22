@@ -1,8 +1,8 @@
 #include "framework.h"
 
-
 float mouseX;
 float mouseY;
+float offset = 0.0f;
 
 App::App()
 {
@@ -12,7 +12,7 @@ App::App()
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
 {
     _hAccelTable = hAccelTable;
-    
+
     // Effectue l'initialisation de l'application�:
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -20,7 +20,6 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     }
 
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
     return TRUE;
 }
 
@@ -30,11 +29,14 @@ void App::Loop()
     _running = true;
 
     Scene* _gameScene = _engine.CreateScene();
-    
+    _engine.LoadScene(_gameScene);
+
+
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
+
 
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
@@ -52,11 +54,8 @@ void App::Loop()
     CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    GameObject* tigerGameObject = _gameScene->AddGameObject();
-    tigerGameObject->_transform->ChangePositionX(20.0f);
-    tigerGameObject->_transform->ChangePositionY(-10.0f);
-    PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
-    tigerMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
+    GameObject* railManager = _gameScene->AddGameObject();
+    RailsManager* RM = railManager->AddComponent<RailsManager>();
 
 
 
@@ -68,11 +67,11 @@ void App::Loop()
     //TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
     //fpsText->SetCorners(10, 10, 100, 100);
 
-    _engine.LoadScene(_gameScene);
+    PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     while (_running == true)
     {
-        
+
         if (HandleInputs() == false)
             break;
         _engine.Refresh();

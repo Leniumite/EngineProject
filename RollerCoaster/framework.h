@@ -19,3 +19,4 @@
 #include "global.h"
 #include "App.h"
 #include "RollerCoaster.h"
+#include "RailsManager.h"

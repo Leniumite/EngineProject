@@ -35,6 +35,8 @@ public:
 
 	void Init(HWND window, int screenWidth, int screenHeight);
 
+	inline Scene* GetScene() { return _currentScene; }
+
 	void LoadScene(Scene* newScene);
 
 	void Refresh();

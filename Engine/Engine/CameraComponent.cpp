@@ -13,7 +13,6 @@ void CameraComponent::InitComponent()
    
     matView;    // the view transform matrix
 //Transform test;
-    
     camPos = _gameObject->_transform->GetPosition();
     camLookAt = camPos +D3DXVECTOR3(0.0f, 0.0f, 20.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -34,7 +33,7 @@ void CameraComponent::InitComponent()
 
 void CameraComponent::Update()
 {
-    _gameObject->_transform->ChangePositionX(camPos.x + 1.1f * _engine->GetTimer()->deltaTime);
+    _gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
     float rayon =19.f;
     
     UpdateRot(_engine->_MM._mouseDeltaX,_engine->_MM._mouseDeltaY);

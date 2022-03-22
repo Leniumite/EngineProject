@@ -16,6 +16,8 @@ public:
 	CameraComponent(GameObject* gameObject);
 	virtual ~CameraComponent() {};
 
+	inline D3DXVECTOR3 GetCamPos() { return camPos; }
+
 	virtual void InitComponent() override;
 	virtual void Update() override;
 	void UpdateRot(float rotx,float rotY);
