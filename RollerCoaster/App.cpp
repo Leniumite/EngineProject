@@ -31,6 +31,7 @@ void App::Loop()
 
 
     Scene* _gameScene = _engine.CreateScene();
+    
 
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
@@ -66,6 +67,7 @@ void App::Loop()
 
     while (_running == true)
     {
+        
         if (HandleInputs() == false)
             break;
         _engine.Refresh();

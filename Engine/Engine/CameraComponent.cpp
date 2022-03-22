@@ -13,9 +13,9 @@ void CameraComponent::InitComponent()
    
     matView;    // the view transform matrix
 //Transform test;
-
-    camPos = D3DXVECTOR3(0.0f, 0.0f,0.f);
-    camLookAt = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
+    
+    camPos = _gameObject->_transform->GetPosition();
+    camLookAt = camPos +D3DXVECTOR3(0.0f, 0.0f, 20.0f);
     camUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
@@ -34,11 +34,12 @@ void CameraComponent::InitComponent()
 
 void CameraComponent::Update()
 {
+    _gameObject->_transform->ChangePositionX(camPos.x + 1.1f * _engine->GetTimer()->deltaTime);
     float rayon =19.f;
     
     UpdateRot(_engine->_MM._mouseDeltaX,_engine->_MM._mouseDeltaY);
-    
-    camLookAt = D3DXVECTOR3(rayon*cosf(_rotX)*cosf(_rotY),rayon*sinf(_rotY), rayon*sinf(_rotX) * cosf(_rotY));
+    camPos = _gameObject->_transform->GetPosition();
+    camLookAt =camPos+ D3DXVECTOR3(rayon*cosf(_rotX)*cosf(_rotY),rayon*sinf(_rotY), rayon*sinf(_rotX) * cosf(_rotY));
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
         &camLookAt,    // the look-at position
