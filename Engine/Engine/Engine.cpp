@@ -187,11 +187,6 @@ void Engine::Uninit(void)
     
     for (GameObject* go : _currentScene->_gameObjectList)
     {
-        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
-        if (meshComponent != NULL)
-        {
-            meshComponent->Clean();
-        }
         delete go;
     }
 

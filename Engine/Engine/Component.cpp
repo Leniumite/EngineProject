@@ -16,6 +16,10 @@ Component::Component(GameObject* gameObject)
 	_d3ddev = _engine->GetDevice();
 }
 
+Component::~Component()
+{
+}
+
 void Component::Update()
 {
 }

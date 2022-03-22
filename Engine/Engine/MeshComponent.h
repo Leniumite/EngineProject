@@ -18,6 +18,7 @@ protected:
 public:
 
     virtual void InitComponent() override {};
+    virtual ~MeshComponent() override;
     MeshComponent(GameObject* gameObject);
     virtual void Clean();
     virtual void Draw();

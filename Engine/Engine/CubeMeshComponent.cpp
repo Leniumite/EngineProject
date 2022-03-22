@@ -3,7 +3,7 @@
 
 CubeMeshComponent::CubeMeshComponent(GameObject* gameObject) : MeshComponent(gameObject)
 {
-    _cubeMesh = nullptr;
+    
 }
 
 void CubeMeshComponent::InitComponent()
@@ -23,14 +23,4 @@ void CubeMeshComponent::Draw()
 void CubeMeshComponent::Update()
 {
     _gameObject->_transform->RotateYaw(8.0f * _engine->GetTimer()->deltaTime);
-}
-
-void CubeMeshComponent::Clean()
-{
-    //RELPTR(_cubeMesh);
-    if (_mesh)
-    {
-        _mesh->Release();
-        _mesh = nullptr;
-    }
 }
