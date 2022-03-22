@@ -48,10 +48,11 @@ void App::Loop()
     CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    //GameObject* tigerGameObject = _gameScene->AddGameObject();
-    //tigerGameObject->_transform->ChangePositionX(10.0f);
-    //PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
-    //tigerMeshComponent->SetMeshModel(L"Ressources\\tiger.x");
+    GameObject* tigerGameObject = _gameScene->AddGameObject();
+    tigerGameObject->_transform->ChangePositionX(20.0f);
+    tigerGameObject->_transform->ChangePositionY(-10.0f);
+    PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
+    tigerMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();

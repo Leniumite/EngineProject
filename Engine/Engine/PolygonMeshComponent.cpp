@@ -51,9 +51,9 @@ void PolygonMeshComponent::Draw()
     }
 }
 
-HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR modelPath)
+HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
 {
-    D3DXLoadMeshFromX(modelPath, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &_mesh);
+    D3DXLoadMeshFromX(fileName, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &_mesh);
     D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
     g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
     if (g_pMeshMaterials == NULL)
@@ -74,8 +74,16 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR modelPath)
         if (d3dxMaterials[i].pTextureFilename != NULL &&
             lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
         {
+            const CHAR* strPrefix = "Ressources\\";
+            CHAR strTexture[MAX_PATH];
+            strcpy_s(strTexture, MAX_PATH, strPrefix);
+            strcpy_s(strTexture, MAX_PATH, d3dxMaterials[i].pTextureFilename);
+
             // Create the texture
-            D3DXCreateTextureFromFileA(_d3ddev, d3dxMaterials[i].pTextureFilename, &g_pMeshTextures[i]);
+            if (FAILED(D3DXCreateTextureFromFileA(_d3ddev, strTexture, &g_pMeshTextures[i])))
+            {
+                MessageBox(NULL, L"Could not find texture map", L"Meshes.exe", MB_OK);
+            }
         }
     }
 
@@ -88,5 +96,5 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR modelPath)
 
 void PolygonMeshComponent::Update()
 {
-    _gameObject->_transform->RotatePitch(5.0f * _engine->GetTimer()->deltaTime);
+    _gameObject->_transform->RotatePitch(1.0f * _engine->GetTimer()->deltaTime);
 }
