@@ -18,6 +18,7 @@ Component::Component(GameObject* gameObject)
 
 Component::~Component()
 {
+
 }
 
 void Component::Update()

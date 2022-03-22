@@ -53,7 +53,6 @@ void Engine::InitD3D()
     ShowCursor(FALSE);
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
 
-    //InitGraphics();
     InitLights();
 
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
@@ -65,40 +64,7 @@ void Engine::InitD3D()
 
 void Engine::InitLights()
 {
-    D3DLIGHT9 blueLight; // create the light struct
-    D3DLIGHT9 redLight;
-    D3DLIGHT9 whiteLight;
     D3DMATERIAL9 material; //create the material struct
-
-    ZeroMemory(&blueLight, sizeof(blueLight));    // clear out the light struct for use
-    blueLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
-    blueLight.Diffuse = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);    // set the light's color
-    blueLight.Direction.x = -1.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
-    blueLight.Direction.y = 0.0f;
-    blueLight.Direction.z = 0.0f;
-
-    _d3ddev->SetLight(0, &blueLight);    // send the light struct properties to light #0
-    _d3ddev->LightEnable(0, TRUE);    // turn on light #0
-
-    ZeroMemory(&redLight, sizeof(redLight));    // clear out the light struct for use
-    redLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
-    redLight.Diffuse = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);    // set the light's color
-    redLight.Direction.x = 1.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
-    redLight.Direction.y = 0.0f;
-    redLight.Direction.z = 0.0f;
-
-    _d3ddev->SetLight(1, &redLight);    // send the light struct properties to light #0
-    _d3ddev->LightEnable(1, TRUE);    // turn on light #0
-
-    ZeroMemory(&whiteLight, sizeof(whiteLight));    // clear out the light struct for use
-    whiteLight.Type = D3DLIGHT_DIRECTIONAL;    // make the light type 'directional light'
-    whiteLight.Diffuse = D3DXCOLOR(.8f, .8f, .8f, 1.0f);    // set the light's color
-    whiteLight.Direction.x = 0.0f; //Ouais c'est pas beau, mais pas de conversion possible entre un D3DVECTOR et D3DXVECTOR3
-    whiteLight.Direction.y = 0.0f;
-    whiteLight.Direction.z = -1.0f;
-
-    _d3ddev->SetLight(2, &whiteLight);    // send the light struct properties to light #0
-    _d3ddev->LightEnable(2, TRUE);    // turn on light #0
 
     ZeroMemory(&material, sizeof(D3DMATERIAL9));
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white

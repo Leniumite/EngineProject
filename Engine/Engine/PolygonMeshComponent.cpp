@@ -74,18 +74,19 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
         if (d3dxMaterials[i].pTextureFilename != NULL &&
             lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
         {
-            const CHAR* strPrefix = "Ressources\\";
-            CHAR strTexture[MAX_PATH];
-            strcpy_s(strTexture, MAX_PATH, strPrefix);
-            strcpy_s(strTexture, MAX_PATH, d3dxMaterials[i].pTextureFilename);
+            //UTILISER ::GetCommandLine() pour obtenir le path de l'éxecutableYaimiaou
+            string path = "Ressources\\";
+            path += d3dxMaterials[i].pTextureFilename;
 
             // Create the texture
-            if (FAILED(D3DXCreateTextureFromFileA(_d3ddev, strTexture, &g_pMeshTextures[i])))
+            if (FAILED(D3DXCreateTextureFromFileA(_d3ddev, path.c_str(), &g_pMeshTextures[i])))
             {
                 MessageBox(NULL, L"Could not find texture map", L"Meshes.exe", MB_OK);
             }
         }
     }
+
+    _mesh->OptimizeInplace(D3DXMESHOPT_COMPACT, NULL, NULL, NULL, NULL);
 
     // Done with the material buffer
     pD3DXMtrlBuffer->Release();

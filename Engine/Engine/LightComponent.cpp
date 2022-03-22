@@ -43,4 +43,12 @@ void LightComponent::SetInnerAngle(float newAngle)
 	_light.Theta = newAngle;
 }
 
+void LightComponent::SetOuterAngle(float newOuterAngle)
+{
+	_light.Phi = newOuterAngle;
+}
 
+void LightComponent::Activate(bool isActivated)
+{
+	_d3ddev->LightEnable(m_id, isActivated);
+}

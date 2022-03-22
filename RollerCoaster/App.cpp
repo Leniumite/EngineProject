@@ -29,9 +29,12 @@ void App::Loop()
 {
     _running = true;
 
-
     Scene* _gameScene = _engine.CreateScene();
     
+    LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
+    whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+    whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
+    whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
@@ -54,6 +57,8 @@ void App::Loop()
     tigerGameObject->_transform->ChangePositionY(-10.0f);
     PolygonMeshComponent* tigerMeshComponent = tigerGameObject->AddComponent<PolygonMeshComponent>();
     tigerMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
+
+
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
