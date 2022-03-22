@@ -8,6 +8,9 @@ BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 void BoxCollider::InitComponent()
 {
 	meshComponent = _gameObject->GetComponent<MeshComponent>();
+	if (meshComponent == NULL) {
+		return;
+	}
 	LPD3DXMESH mesh = meshComponent->GetMesh();
 	BYTE* vertex;
 	int vertexByteSize = mesh->GetNumBytesPerVertex();

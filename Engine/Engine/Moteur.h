@@ -8,6 +8,7 @@
 #ifdef _DEBUG
 #pragma comment(lib,"d3dx9d.lib")
 #else
+#pragma comment(lib,"d3dx9d.lib")
 #pragma comment(lib,"d3dx9.lib")
 #endif
 
