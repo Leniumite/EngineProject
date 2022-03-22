@@ -46,7 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     g_pApp = new App;
     g_pApp->Init(hInstance, nCmdShow, hAccelTable);
-    //g_pApp->Loop(); // sort après un WM_QUIT
+    g_pApp->Loop(); // sort après un WM_QUIT
     g_pApp->Uninit();
     delete g_pApp;
   

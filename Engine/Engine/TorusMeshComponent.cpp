@@ -22,8 +22,3 @@ void TorusMeshComponent::Draw()
 void TorusMeshComponent::Update()
 {
 }
-
-void TorusMeshComponent::Clean()
-{
-    _mesh->Release();
-}

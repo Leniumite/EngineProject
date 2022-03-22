@@ -31,6 +31,9 @@
 
 #include "Component.h"
 #include "Transform.h"
+#include "LightComponent.h"
+
+
 #include "GameObject.h"
 
 #include "MeshComponent.h"

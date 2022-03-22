@@ -19,8 +19,3 @@ void SphereMeshComponent::Draw()
 
     _mesh->DrawSubset(0);
 }
-
-void SphereMeshComponent::Clean()
-{
-    _mesh->Release();
-}

@@ -61,6 +61,7 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Fichiers Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="LightComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -129,6 +130,7 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Fichiers d%27en-tête\Components</Filter>
     </ClInclude>
+    <ClInclude Include="LightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers Sources">

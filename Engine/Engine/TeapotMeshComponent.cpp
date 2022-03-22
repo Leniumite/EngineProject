@@ -22,8 +22,3 @@ void TeapotMeshComponent::Draw()
 void TeapotMeshComponent::Update()
 {
 }
-
-void TeapotMeshComponent::Clean()
-{
-    _mesh->Release();
-}

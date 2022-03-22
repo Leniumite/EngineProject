@@ -14,7 +14,5 @@ public:
 
     virtual void Update() override;
 
-    virtual void Clean() override;
-
 };
 

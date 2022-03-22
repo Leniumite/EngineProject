@@ -26,7 +26,11 @@ void PolygonMeshComponent::Clean()
         delete[] g_pMeshTextures;
     }
 
-    if (_mesh != NULL) _mesh->Release();
+    if (_mesh != NULL)
+    {
+        _mesh->Release();
+        _mesh = NULL;
+    } 
 
     if (pD3DXMtrlBuffer != NULL) pD3DXMtrlBuffer->Release();
 }

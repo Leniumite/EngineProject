@@ -57,8 +57,8 @@ void CameraComponent::Update()
 
 void CameraComponent::UpdateRot(float rotX, float rotY)
 {
-    _rotX += rotX;
-    _rotY+= rotY;
+    _rotX -= rotX;
+    _rotY-= rotY;
     if (_rotY>D3DXToRadian( 90))
     {
         _rotY = D3DXToRadian(90);
