@@ -1,18 +1,29 @@
 #include "pch.h"
 #include "framework.h"
-#include "Rigidbody.h"
+
+Rigidbody::Rigidbody(GameObject* gameObject) : Component(gameObject)
+{
+	
+}
 
 void Rigidbody::Init()
 {
 	transform = _gameObject->_transform;
-	timer = _engine->GetTimer();
+	IsInit = TRUE;
+	pos = transform->GetPosition();
+	SetGravity(TRUE);
 }
 
 void Rigidbody::Update()
 {
-	velocity += acc * timer->deltaTime;
-	pos += velocity * timer->deltaTime;
+	if (IsInit == FALSE) {
+		Init();
+	}
+	velocity += acc * _engine->GetTimer()->deltaTime;
+	pos += velocity * _engine->GetTimer()->deltaTime;
 	transform->ChangePosition(pos);
+
+	
 
 }
 
@@ -22,11 +33,13 @@ void Rigidbody::SetGravity(bool b)
 	{
 		if (b==true)
 		{
-			acc.y += g;
+			acc.y -= g;
+			gravityEnabled = TRUE;
 		}
 		else if (b==false)
 		{
-			acc.y -= g;
+			acc.y += g;
+			gravityEnabled = FALSE;
 		}
 		
 	}

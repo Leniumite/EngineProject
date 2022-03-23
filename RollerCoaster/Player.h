@@ -5,7 +5,7 @@ class Player :
     public Component
 {
 public:
-
+    float _shootPower = 3.0f;
     TextComponent* _ptsText = NULL;
 
     virtual void InitComponent() override;

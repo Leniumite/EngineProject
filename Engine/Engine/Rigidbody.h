@@ -4,6 +4,7 @@ class Rigidbody :
     public Component
 {
 public:
+    Rigidbody(GameObject* gameObject);
     MeshComponent* mesh;
    
     void Init();
@@ -21,13 +22,12 @@ public:
 
 private:
     bool IsInit;
-    bool gravityEnabled;
+    bool gravityEnabled = FALSE;
     D3DXVECTOR3 pos;
     D3DXVECTOR3 velocity;
     D3DXVECTOR3 acc;
     float g = 9.81f;
 
     Transform* transform;
-    STimer* timer;
 };
 

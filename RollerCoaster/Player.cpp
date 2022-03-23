@@ -30,6 +30,8 @@ void Player::Shoot()
 	D3DXVECTOR3 dir = cam->GetCamLookAt() - cam->GetCamPos();
 
 	ball->_transform->ChangePosition(cam->GetCamPos() + dir);
+	Rigidbody* rb = ball->AddComponent<Rigidbody>();
 
+	rb->AddVelocity(dir * _shootPower);
 	_timeBeforeNextShoot = _shootCooldown;
 }

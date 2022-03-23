@@ -56,6 +56,6 @@
 #include "CameraComponent.h"
 #include "TextComponent.h"
 #include "MouseManager.h"
-
+#include "Rigidbody.h"
 
 #include "Engine.h"
