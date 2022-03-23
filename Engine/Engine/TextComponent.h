@@ -23,7 +23,6 @@ public:
 
     virtual void InitComponent() override;
 
-    virtual void Update() override;
 
     void InitFont(ID3DXFont* font);
     void InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner);

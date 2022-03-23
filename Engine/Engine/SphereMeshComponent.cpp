@@ -22,3 +22,4 @@ void SphereMeshComponent::Draw()
     _d3ddev->SetMaterial(&_material);
     _mesh->DrawSubset(0);
 }
+

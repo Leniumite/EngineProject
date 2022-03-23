@@ -76,8 +76,3 @@ RECT TextComponent::GetRect()
 {
     return rect;
 }
-
-void TextComponent::Update()
-{
-    _txt = std::to_wstring(_engine->GetTimer()->_previousCounter);
-}
