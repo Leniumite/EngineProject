@@ -17,6 +17,7 @@ public:
 	virtual ~CameraComponent() {};
 
 	inline D3DXVECTOR3 GetCamPos() { return camPos; }
+	inline D3DXVECTOR3 GetCamLookAt() { return camLookAt; }
 
 	virtual void InitComponent() override;
 	virtual void Update() override;

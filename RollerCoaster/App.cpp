@@ -57,7 +57,8 @@ void App::Loop()
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
 
-
+    _player = _gameScene->AddGameObject();
+    _player->AddComponent<Player>();
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();

@@ -20,3 +20,4 @@
 #include "App.h"
 #include "RollerCoaster.h"
 #include "RailsManager.h"
+#include "Player.h"

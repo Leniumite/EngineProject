@@ -19,3 +19,4 @@ void SphereMeshComponent::Draw()
 
     _mesh->DrawSubset(0);
 }
+
