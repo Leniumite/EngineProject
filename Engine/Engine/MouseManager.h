@@ -16,8 +16,5 @@ public:
 	void GetMousePosition();
 	void CenterCursor();
 	void CalculateDelta();
-	
-
-
 };
 

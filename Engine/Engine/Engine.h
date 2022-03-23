@@ -21,7 +21,6 @@ private:
 
 	void InitD3D();
 
-	void InitLights();
 	void Update();
 	void RenderFrame();
 

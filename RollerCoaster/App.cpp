@@ -28,6 +28,8 @@ void App::Loop()
 {
     _running = true;
 
+    //Préparation du jeu ici
+
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
@@ -57,21 +59,15 @@ void App::Loop()
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
 
-
-
-    //GameObject* cGameObject = _gameScene->AddGameObject();
-    //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
-    //cGameObject->_transform->ChangePositionX(3.0f);
-
-    //GameObject* fpsTextGO = _gameScene->AddGameObject();
-    //TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
-    //fpsText->SetCorners(10, 10, 100, 100);
+    GameObject* fpsTextGO = _gameScene->AddGameObject();
+    TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
+    fpsText->SetCorners(10, 10, 100, 100);
 
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
+    //Entrée dans la boucle de jeu ici
     while (_running == true)
     {
-
         if (HandleInputs() == false)
             break;
         _engine.Refresh();

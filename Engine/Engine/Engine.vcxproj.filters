@@ -65,6 +65,7 @@
       <Filter>Fichiers Sources</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ParticleSystemComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -137,6 +138,7 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ParticleSystemComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers Sources">

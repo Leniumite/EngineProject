@@ -37,9 +37,11 @@ void PolygonMeshComponent::Clean()
 
 void PolygonMeshComponent::Draw()
 {
-    MeshComponent::Draw();
     // Meshes are divided into subsets, one for each material. Render them in
     // a loop
+
+    _d3ddev->SetFVF(CUSTOMFVF);
+
     for (DWORD i = 0; i < g_dwNumMaterials; i++)
     {
         // Set the material and texture for this subset
@@ -86,16 +88,13 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
         }
     }
 
-    _mesh->OptimizeInplace(D3DXMESHOPT_COMPACT, NULL, NULL, NULL, NULL);
+    
+    DWORD* adj = new DWORD[_mesh->GetNumFaces() * 3];
+    _mesh->GenerateAdjacency(0.005F, adj);
+    _mesh->OptimizeInplace(D3DXMESHOPT_VERTEXCACHE, adj, NULL, NULL, NULL);
 
     // Done with the material buffer
     pD3DXMtrlBuffer->Release();
 
     return S_OK;
-}
-
-
-void PolygonMeshComponent::Update()
-{
-    //_gameObject->_transform->RotatePitch(1.0f * _engine->GetTimer()->deltaTime);
 }

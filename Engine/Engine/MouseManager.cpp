@@ -4,7 +4,6 @@
 
 void MouseManager::GetMousePosition()
 {
-	
 	::GetCursorPos(&pt);
 	_mouseX = pt.x;
 	_mouseY = pt.y;

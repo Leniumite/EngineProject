@@ -6,6 +6,7 @@ GameObject::GameObject(Engine* engine)
 {
 	_engine = engine;
 	_transform = new Transform(this);
+	_components.push_back(_transform);
 }
 
 GameObject::~GameObject()

@@ -14,6 +14,7 @@ class MeshComponent:
 
 protected:
     LPD3DXMESH _mesh = NULL;
+    D3DMATERIAL9 _material;
 
 public:
 
@@ -21,7 +22,7 @@ public:
     virtual ~MeshComponent() override;
     MeshComponent(GameObject* gameObject);
     virtual void Clean();
-    virtual void Draw();
+    virtual void Draw() {};
     LPD3DXMESH GetMesh() { return _mesh; }
 };
 

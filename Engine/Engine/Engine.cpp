@@ -50,29 +50,16 @@ void Engine::InitD3D()
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
     d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+#ifndef _DEBUG
     ShowCursor(FALSE);
+#endif
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
-
-    InitLights();
-
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 
 }
-
-void Engine::InitLights()
-{
-    D3DMATERIAL9 material; //create the material struct
-
-    ZeroMemory(&material, sizeof(D3DMATERIAL9));
-    material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white
-    material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);    // set ambient color to white
-
-    _d3ddev->SetMaterial(&material);    // set the globably-used material to &material
-}
-
 
 void Engine::RenderFrame()
 {
@@ -85,6 +72,7 @@ void Engine::RenderFrame()
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
         if (meshComponent != NULL)
         {
+            _d3ddev->SetTransform(D3DTS_WORLD, &go->_transform->matrix);
             meshComponent->Draw();
         }
     }
@@ -151,12 +139,6 @@ void Engine::Refresh()
 void Engine::Uninit(void)
 {
     delete _timer;
-    
-    for (GameObject* go : _currentScene->_gameObjectList)
-    {
-        delete go;
-    }
-
     delete _currentScene;
 
     _d3ddev->Release();

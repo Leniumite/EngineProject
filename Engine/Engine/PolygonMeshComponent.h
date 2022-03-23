@@ -15,7 +15,6 @@ public:
     virtual void InitComponent() override;
     virtual void Clean() override;
     virtual void Draw() override;
-    virtual void Update() override;
     HRESULT SetMeshModel(LPCWSTR modelPath);
 };
 

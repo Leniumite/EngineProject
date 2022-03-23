@@ -16,6 +16,7 @@ public:
 	
 	list<GameObject*> _gameObjectList;
 
+	virtual ~Scene();
 
 	void Init();
 	GameObject* AddGameObject();

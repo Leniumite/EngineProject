@@ -21,6 +21,14 @@ GameObject* Scene::AddGameObject()
 	return newGameObject;
 }
 
+Scene::~Scene()
+{
+	for (GameObject* go : _gameObjectList)
+	{
+		delete go;
+	}
+}
+
 void Scene::RemoveGameObject(GameObject* targetGameObject)
 {
 	_gameObjectList.remove(targetGameObject);

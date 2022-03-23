@@ -45,6 +45,7 @@
 #include "SphereMeshComponent.h"
 #include "TorusMeshComponent.h"
 #include "TeapotMeshComponent.h"
+#include "ParticleSystemComponent.h"
 
 #include "Collider.h"
 #include "BoxCollider.h"

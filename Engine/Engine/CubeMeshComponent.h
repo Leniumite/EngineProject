@@ -3,7 +3,6 @@
 class CubeMeshComponent :
     public MeshComponent
 {
-
 public:
 
     CubeMeshComponent(GameObject* gameObject);

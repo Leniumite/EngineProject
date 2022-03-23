@@ -3,7 +3,6 @@
 class SphereMeshComponent :
     public MeshComponent
 {
-
 public:
 
     SphereMeshComponent(GameObject* gameObject);
@@ -11,7 +10,5 @@ public:
     virtual void InitComponent() override;
 
     virtual void Draw() override;
-
-    virtual void Update() override;
 };
 
