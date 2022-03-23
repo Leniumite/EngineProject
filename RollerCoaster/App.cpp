@@ -64,9 +64,8 @@ void App::Loop()
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
     //cGameObject->_transform->ChangePositionX(3.0f);
 
-    //GameObject* fpsTextGO = _gameScene->AddGameObject();
-    //TextComponent* fpsText = fpsTextGO->AddComponent<TextComponent>();
-    //fpsText->SetCorners(10, 10, 100, 100);
+    GameObject* fpsTextGO = _gameScene->AddGameObject();
+    fpsTextGO->AddComponent<FpsText>();
 
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 

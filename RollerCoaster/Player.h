@@ -5,6 +5,9 @@ class Player :
     public Component
 {
 public:
+
+    TextComponent* _ptsText = NULL;
+
     virtual void InitComponent() override;
     Player(GameObject* gameObject);
 

@@ -2,6 +2,10 @@
 
 void Player::InitComponent()
 {
+	GameObject* ptsGO = _engine->GetScene()->AddGameObject();
+	_ptsText = ptsGO->AddComponent<TextComponent>();
+	_ptsText->_color = D3DXCOLOR(255.0f, 0.0f,0.0f, 1);
+	_ptsText->SetCorners(0, 1820, 200, 1920);
 }
 
 Player::Player(GameObject* gameObject) : Component(gameObject)
@@ -10,11 +14,12 @@ Player::Player(GameObject* gameObject) : Component(gameObject)
 
 void Player::Update()
 {
-	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && timeBeforeNextShoot <= 0.0f) 
+	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _timeBeforeNextShoot <= 0.0f) 
 	{ 
 		Shoot();
 	}
-	timeBeforeNextShoot -= _engine->GetTimer()->GetDeltaTime();
+	_ptsText->_txt = L"Points: " + std::to_wstring(_points);
+	_timeBeforeNextShoot -= _engine->GetTimer()->GetDeltaTime();
 }
 
 void Player::Shoot()
@@ -26,5 +31,5 @@ void Player::Shoot()
 
 	ball->_transform->ChangePosition(cam->GetCamPos() + dir);
 
-	timeBeforeNextShoot = shootCooldown;
+	_timeBeforeNextShoot = _shootCooldown;
 }

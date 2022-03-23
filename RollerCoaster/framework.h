@@ -21,3 +21,4 @@
 #include "RollerCoaster.h"
 #include "RailsManager.h"
 #include "Player.h"
+#include "FpsText.h"
