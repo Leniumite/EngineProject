@@ -9,8 +9,8 @@ Scene::Scene(Engine* engine)
 
 void Scene::Init()
 {
-	GameObject* CameraGO = AddGameObject();
-	_mainCamera = CameraGO->AddComponent<CameraComponent>();
+	_cameraGO = AddGameObject();
+	_mainCamera = _cameraGO->AddComponent<CameraComponent>();
 	_mainCamera->Init();
 }
 

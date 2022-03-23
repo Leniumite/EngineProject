@@ -30,9 +30,12 @@ void App::Loop()
 
     //Préparation du jeu ici
 
+    //We set the scene
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
+    //Just grab the go where the camera is and add the player script (component)
+    _gameScene->GetCameraGO()->AddComponent<Player>();
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
@@ -58,9 +61,6 @@ void App::Loop()
 
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
-
-    _player = _gameScene->AddGameObject();
-    _player->AddComponent<Player>();
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();

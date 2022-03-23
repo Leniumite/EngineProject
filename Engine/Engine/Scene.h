@@ -3,9 +3,7 @@ class CameraComponent;
 class Scene
 {
 private:
-	//GameObject* _cameraGO;
-	
-	
+	GameObject* _cameraGO;
 	Engine* _engine;
 	
 
@@ -21,6 +19,8 @@ public:
 	void Init();
 	GameObject* AddGameObject();
 	void RemoveGameObject(GameObject* targetGameObject);
+
+	inline GameObject* GetCameraGO() { return _cameraGO; }
 
 };
 

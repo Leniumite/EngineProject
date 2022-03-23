@@ -4,6 +4,10 @@ class Component;
 class Player :
     public Component
 {
+private :
+    D3DXVECTOR3 nextTarget;
+    float _speed;
+
 public:
     float _shootPower = 3.0f;
     TextComponent* _ptsText = NULL;
