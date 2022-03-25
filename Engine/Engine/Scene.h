@@ -1,4 +1,5 @@
 #pragma once
+class ButtonComponent;
 class CameraComponent;
 class Scene
 {
@@ -15,6 +16,7 @@ public:
 	Scene(Engine* engine);
 	
 	list<GameObject*> _gameObjectList;
+	list<ButtonComponent*> _buttonsList;
 
 	virtual ~Scene();
 

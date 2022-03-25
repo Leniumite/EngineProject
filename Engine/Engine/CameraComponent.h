@@ -12,6 +12,7 @@ private:
 
 
 public:
+	bool isMenuOpen = FALSE;
 
 	CameraComponent(GameObject* gameObject);
 	virtual ~CameraComponent() {};

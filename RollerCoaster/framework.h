@@ -22,3 +22,4 @@
 #include "RailsManager.h"
 #include "Player.h"
 #include "FpsText.h"
+#include "QuitButton.h"

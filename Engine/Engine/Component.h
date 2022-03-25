@@ -19,6 +19,8 @@ public:
 
 	GameObject* _gameObject;
 
+	bool isEnable = TRUE;
+
 protected:
 
 	LPDIRECT3DDEVICE9 _d3ddev;

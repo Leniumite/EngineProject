@@ -69,6 +69,16 @@ void App::Loop()
     GameObject* fpsTextGO = _gameScene->AddGameObject();
     fpsTextGO->AddComponent<FpsText>();
 
+    GameObject* testButton = _gameScene->AddGameObject();
+    ButtonComponent* button = testButton->AddComponent<ButtonComponent>();
+    button->ChangeRect(1080 / 2 - 8, 1920 / 2, 1080 / 2, 1920 / 2 + 100);
+    button->_text->_txt = L"QUIT APP";
+    _gameScene->_buttonsList.push_back(button);
+
+    GameObject* quitListenerGO = _gameScene->AddGameObject();
+    QuitButton* quitListener = quitListenerGO->AddComponent<QuitButton>();
+    button->_listeners.push_back(quitListener);
+
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     //Entrée dans la boucle de jeu ici

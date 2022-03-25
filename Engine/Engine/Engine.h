@@ -38,6 +38,8 @@ public:
 
 	void LoadScene(Scene* newScene);
 
+	inline HWND GetWindow() { return _currentWindow; }
+
 	void Refresh();
 
 	void Uninit();

@@ -16,6 +16,7 @@
 #include <windowsx.h>
 #include <assert.h>
 #include <comdef.h>
+#include <dwmapi.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -31,6 +32,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 
 #include "Component.h"
 #include "Transform.h"
@@ -56,6 +58,8 @@
 
 #include "CameraComponent.h"
 #include "TextComponent.h"
+#include "Listener.h"
+#include "ButtonComponent.h"
 #include "MouseManager.h"
 #include "Rigidbody.h"
 

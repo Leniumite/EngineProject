@@ -34,12 +34,13 @@ void CameraComponent::InitComponent()
 
 void CameraComponent::Update()
 {
-    _gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
-    float rayon =19.f;
     
-    UpdateRot(_engine->_MM._mouseDeltaX,_engine->_MM._mouseDeltaY);
+    _gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
+    float rayon = 19.f;
+
+    UpdateRot(_engine->_MM._mouseDeltaX, _engine->_MM._mouseDeltaY);
     camPos = _gameObject->_transform->GetPosition();
-    camLookAt =camPos+ D3DXVECTOR3(rayon*cosf(_rotX)*cosf(_rotY),rayon*sinf(_rotY), rayon*sinf(_rotX) * cosf(_rotY));
+    camLookAt = camPos + D3DXVECTOR3(rayon * cosf(_rotX) * cosf(_rotY), rayon * sinf(_rotY), rayon * sinf(_rotX) * cosf(_rotY));
     D3DXMatrixLookAtLH(&matView,
         &camPos,    // the camera position
         &camLookAt,    // the look-at position
@@ -59,16 +60,15 @@ void CameraComponent::Update()
 void CameraComponent::UpdateRot(float rotX, float rotY)
 {
     _rotX -= rotX;
-    _rotY-= rotY;
-    if (_rotY>D3DXToRadian( 90))
+    _rotY -= rotY;
+    if (_rotY > D3DXToRadian(90))
     {
         _rotY = D3DXToRadian(90);
     }
-    if (_rotY< D3DXToRadian(-90))
+    if (_rotY < D3DXToRadian(-90))
     {
         _rotY = D3DXToRadian(-90);
     }
-
 
     //_rotY += D3DXToRadian(5.f*_engine->GetTimer()->deltaTime);
     //_rotX += D3DXToRadian(10.5f*_engine->GetTimer()->deltaTime);

@@ -13,6 +13,8 @@ private:
     RECT rect;
     D3DXVECTOR2 _topLeftCorner;
     D3DXVECTOR2 _bottomRightCorner;
+    LPD3DXSPRITE _sprite = NULL;
+    LPDIRECT3DTEXTURE9 _texture = NULL;
 
 
 public:
@@ -23,7 +25,7 @@ public:
 
     virtual void InitComponent() override;
 
-
+    inline ID3DXFont* GetFont() { return _font; }
     void InitFont(ID3DXFont* font);
     void InitText(LPCWSTR txt, D3DXCOLOR color, D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner);
     void SetCorners(D3DXVECTOR2 topLeftCorner, D3DXVECTOR2 bottomRightCorner);
@@ -31,5 +33,6 @@ public:
     
     RECT GetRect();
 
-};
+    void ScaleTextSize();
 
+};

@@ -22,14 +22,28 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 
 void Engine::Update()
 {
-    _MM.CalculateDelta();
-    _MM.CenterCursor();
-    _MM.GetMousePosition();
-    
-    for (GameObject* go : _currentScene->_gameObjectList)
+    if (::GetAsyncKeyState(VK_ESCAPE) & 0x01)
     {
-        go->UpdateComponents();
+        GetScene()->_mainCamera->isMenuOpen = !GetScene()->_mainCamera->isMenuOpen;
     }
+    if (GetScene()->_mainCamera->isMenuOpen == FALSE) {
+
+        _MM.CalculateDelta();
+        _MM.CenterCursor();
+        _MM.GetMousePosition();
+
+        for (GameObject* go : _currentScene->_gameObjectList)
+        {
+            go->UpdateComponents();
+        }
+    }
+    else if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f) {
+        for (ButtonComponent* button: _currentScene->_buttonsList)
+        {
+            std::cout << button->CheckForButtonPress();
+        }
+    }
+    
 }
 
 

@@ -149,6 +149,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="QuitButton.h" />
     <ClInclude Include="RailsManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RollerCoaster.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="FpsText.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="QuitButton.cpp" />
     <ClCompile Include="RailsManager.cpp" />
     <ClCompile Include="RollerCoaster.cpp" />
   </ItemGroup>

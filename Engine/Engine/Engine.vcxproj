@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="Listener.h" />
     <ClInclude Include="Moteur.h" />
     <ClInclude Include="MouseManager.h" />
     <ClInclude Include="MeshComponent.h" />
@@ -183,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="ButtonComponent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -191,6 +194,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="Listener.cpp" />
     <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="ParticleSystemComponent.cpp" />
