@@ -23,7 +23,6 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     return TRUE;
 }
 
-
 void App::Loop()
 {
     _running = true;
@@ -35,13 +34,12 @@ void App::Loop()
     _engine.LoadScene(_gameScene);
 
     //Just grab the go where the camera is and add the player script (component)
-    _gameScene->GetCameraGO()->AddComponent<Player>();
+    Player* player = _gameScene->GetCameraGO()->AddComponent<Player>();
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
-
 
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
@@ -110,14 +108,10 @@ bool App::HandleInputs() {
     return true;
 }
 
-
-
-
 void App::Uninit()
 {
     _engine.Uninit();
 }
-
 
 bool App::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {

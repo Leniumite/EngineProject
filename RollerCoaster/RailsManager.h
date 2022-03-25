@@ -9,6 +9,10 @@ private :
 	CameraComponent* _mainCam;
 	unsigned int indexRail = 0;
 	D3DXVECTOR3 postLastRail = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	list<D3DXVECTOR3> waypoints;
+
+	int pathWaypoints = 10;
+	float railWidth = 25.0f;
 
 public :
 	RailsManager(GameObject* gameObject);
@@ -16,6 +20,7 @@ public :
 	virtual void InitComponent() override;
 	virtual void Update() override;
 
+	void CreatePath();
 	void ManageRails();
 
 };
