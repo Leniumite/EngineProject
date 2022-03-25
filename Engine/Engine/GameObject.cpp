@@ -23,7 +23,8 @@ void GameObject::UpdateComponents()
 {
 	for (Component* component : _components)
 	{
-		component->Update();
+		if(component->isEnable == TRUE)
+			component->Update();
 	}
 }
 

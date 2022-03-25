@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="EscapeUIManager.h" />
     <ClInclude Include="FpsText.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="EscapeUIManager.cpp" />
     <ClCompile Include="FpsText.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="Player.cpp" />

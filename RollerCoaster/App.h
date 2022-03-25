@@ -30,6 +30,7 @@ private:
 	bool InitInstance(HINSTANCE hInstance, int nCmdShow);
 	bool HandleInputs();
 
+	EscapeUIManager* _escUIManager = NULL;
 
 public:
 

@@ -22,25 +22,17 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 
 void Engine::Update()
 {
-    if (::GetAsyncKeyState(VK_ESCAPE) & 0x01)
-    {
-        GetScene()->_mainCamera->isMenuOpen = !GetScene()->_mainCamera->isMenuOpen;
-    }
+    
     if (GetScene()->_mainCamera->isMenuOpen == FALSE) {
 
         _MM.CalculateDelta();
         _MM.CenterCursor();
         _MM.GetMousePosition();
 
+
         for (GameObject* go : _currentScene->_gameObjectList)
         {
             go->UpdateComponents();
-        }
-    }
-    else if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f) {
-        for (ButtonComponent* button: _currentScene->_buttonsList)
-        {
-            std::cout << button->CheckForButtonPress();
         }
     }
     
@@ -84,7 +76,7 @@ void Engine::RenderFrame()
     for (GameObject* go : _currentScene->_gameObjectList)
     {
         MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
-        if (meshComponent != NULL)
+        if (meshComponent != NULL && meshComponent->isEnable == TRUE)
         {
             _d3ddev->SetTransform(D3DTS_WORLD, &go->_transform->matrix);
             meshComponent->Draw();

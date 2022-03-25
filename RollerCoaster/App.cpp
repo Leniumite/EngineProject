@@ -69,15 +69,19 @@ void App::Loop()
     GameObject* fpsTextGO = _gameScene->AddGameObject();
     fpsTextGO->AddComponent<FpsText>();
 
-    GameObject* testButton = _gameScene->AddGameObject();
-    ButtonComponent* button = testButton->AddComponent<ButtonComponent>();
-    button->ChangeRect(1080 / 2 - 8, 1920 / 2, 1080 / 2, 1920 / 2 + 100);
-    button->_text->_txt = L"QUIT APP";
-    _gameScene->_buttonsList.push_back(button);
+    GameObject* escUIManagerGO = _gameScene->AddGameObject();
+    _escUIManager = escUIManagerGO->AddComponent<EscapeUIManager>();
+
+    GameObject* quitButtonGO = _gameScene->AddGameObject();
+    ButtonComponent* quitButton = quitButtonGO->AddComponent<ButtonComponent>();
+    quitButton->ChangeRect(1080 / 2 - 8, 1920 / 2, 1080 / 2, 1920 / 2 + 100);
+    quitButton->_text->_txt = L"QUIT APP";
+    _escUIManager->_uiButtons.push_back(quitButton);
+    quitButton->isEnable = FALSE;
 
     GameObject* quitListenerGO = _gameScene->AddGameObject();
     QuitButton* quitListener = quitListenerGO->AddComponent<QuitButton>();
-    button->_listeners.push_back(quitListener);
+    quitButton->_listeners.push_back(quitListener);
 
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
@@ -87,6 +91,7 @@ void App::Loop()
         if (HandleInputs() == false)
             break;
         _engine.Refresh();
+        _escUIManager->Update();
     }
 
 }

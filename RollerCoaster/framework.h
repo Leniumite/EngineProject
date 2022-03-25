@@ -17,6 +17,7 @@
 #include "../Engine/Engine/Moteur.h"
 #include "Resource.h"
 #include "global.h"
+#include "EscapeUIManager.h"
 #include "App.h"
 #include "RollerCoaster.h"
 #include "RailsManager.h"
