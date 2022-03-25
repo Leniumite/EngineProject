@@ -62,6 +62,14 @@ void App::Loop()
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
 
+    /*GameObject* particleGO = _gameScene->AddGameObject();
+    particleGO->_transform->ChangePositionZ(5.0f);
+    ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
+    particleComponent->SetMaxParticlesCount(10);
+    particleComponent->SetParticlesAcceleration(D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+    */
+
+
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
     //cGameObject->_transform->ChangePositionX(3.0f);
@@ -77,6 +85,7 @@ void App::Loop()
         if (HandleInputs() == false)
             break;
         _engine.Refresh();
+
     }
 
 }

@@ -38,6 +38,7 @@
 
 
 #include "GameObject.h"
+#include "Particle.h"
 
 #include "MeshComponent.h"
 #include "CubeMeshComponent.h"

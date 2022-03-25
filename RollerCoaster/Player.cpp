@@ -14,7 +14,7 @@ Player::Player(GameObject* gameObject) : Component(gameObject)
 
 void Player::Update()
 {
-	_gameObject->_transform->Translate(D3DXVECTOR3(_gameObject->_transform->GetPosition().x * _speed * _engine->GetTimer()->deltaTime, 0, 0));
+	_gameObject->_transform->Translate(D3DXVECTOR3(_speed * _engine->GetTimer()->deltaTime, 0, 0));
 
 	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _timeBeforeNextShoot <= 0.0f)
 	{ 
