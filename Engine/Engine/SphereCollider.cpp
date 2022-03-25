@@ -49,7 +49,7 @@ void SphereCollider::InitComponent()
 	mesh->UnlockVertexBuffer();
 
 	_center = (min + max) / 2;
-	_r = max(max(abs(max.x- min.x),abs(min.y - max.y)), abs(min.z - max.z));
+	_d = max(max(abs(max.x- min.x),abs(min.y - max.y)), abs(min.z - max.z));
 
-	//D3DXComputeBoundingSphere()
+	
 }

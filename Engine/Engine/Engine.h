@@ -28,6 +28,7 @@ private:
 
 public:
 	MouseManager _MM;
+	CollisionManager _CM;
 
 	Engine() {}
 	virtual ~Engine() {}

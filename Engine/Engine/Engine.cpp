@@ -22,6 +22,7 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
 
 void Engine::Update()
 {
+
     
     if (GetScene()->_mainCamera->isMenuOpen == FALSE) {
 
@@ -29,11 +30,12 @@ void Engine::Update()
         _MM.CenterCursor();
         _MM.GetMousePosition();
 
-
+		_CM.checkCollisions();
         for (GameObject* go : _currentScene->_gameObjectList)
         {
             go->UpdateComponents();
         }
+
     }
     
 }

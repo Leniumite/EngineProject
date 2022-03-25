@@ -49,9 +49,12 @@
 #include "TeapotMeshComponent.h"
 #include "ParticleSystemComponent.h"
 
+
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
+
+#include "CollisionManager.h"
 
 #include "Scene.h"
 #include "STimer.h"

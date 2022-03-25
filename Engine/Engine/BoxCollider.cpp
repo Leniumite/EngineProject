@@ -50,4 +50,12 @@ void BoxCollider::InitComponent()
 
 	_posMin = min;
 	_posMax = max;
+	_center = (min + max) / 2;
+
+	_distX = max.x - min.x;
+	_distY = max.y - min.y;
+	_distX = max.z - min.z;
+
+
+
 }
