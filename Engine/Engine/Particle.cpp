@@ -25,6 +25,6 @@ bool Particle::UpdateLifeTime(float deltaTime)
 
 Particle::Particle()
 {
-	_color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	_color = D3DXCOLOR(255.0f, 255.0f, 255.0f, 255.0f);
 	_age = 0.0f;
 }

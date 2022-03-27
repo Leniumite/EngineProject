@@ -49,23 +49,22 @@ void App::Loop()
     CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
     cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
 
-    GameObject* cubeGameObject3 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
-    cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
+    //GameObject* cubeGameObject3 = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
+    //cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
 
     GameObject* cubeGameObject4 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    GameObject* railManager = _gameScene->AddGameObject();
-    RailsManager* RM = railManager->AddComponent<RailsManager>();
+    //GameObject* railManager = _gameScene->AddGameObject();
+    //RailsManager* RM = railManager->AddComponent<RailsManager>();
 
-    /*GameObject* particleGO = _gameScene->AddGameObject();
-    particleGO->_transform->ChangePositionZ(5.0f);
+    GameObject* particleGO = _gameScene->AddGameObject();
+    particleGO->_transform->ChangePositionZ(20.0f);
     ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
     particleComponent->SetMaxParticlesCount(10);
     particleComponent->SetParticlesAcceleration(D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-    */
 
 
     //GameObject* cGameObject = _gameScene->AddGameObject();

@@ -8,7 +8,7 @@ ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject) : MeshC
 
 void ParticleSystemComponent::InitComponent()
 {
-	D3DXCreateSphere(_d3ddev, .5f, 10, 10, &_particleMesh, NULL);
+	D3DXCreateSphere(_d3ddev, 1.0f, 10, 10, &_particleMesh, NULL);
 	D3DXCreateTextureFromFile(_d3ddev, L"Ressources\\particle.png", &_particlesTexture);
 }
 
@@ -42,17 +42,6 @@ void ParticleSystemComponent::InitDraw()
 	_d3ddev->SetRenderState(D3DRS_POINTSIZE, DWORD(_pointSize));
 	_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, DWORD(_pointSizeMax));
 
-	_d3ddev->CreateVertexBuffer(_maxParticlesCount * sizeof(PARTICLEVERTEX),
-		D3DUSAGE_DYNAMIC,
-		PARTICLEFVF,
-		D3DPOOL_MANAGED,
-		&_particleVertexBuffer, NULL);
-
-	VOID* pVoid;    // a void pointer
-
-	// lock v_buffer and load the vertices into it
-	_particleVertexBuffer->Lock(0, 0, (void**)&pVoid, 0);
-
 	vector<PARTICLEVERTEX> particleVertices;
 	for (Particle* particle : _particlesList)
 	{
@@ -62,6 +51,16 @@ void ParticleSystemComponent::InitDraw()
 		particleVertices.push_back(newVertex);
 	}
 
+	auto result = _d3ddev->CreateVertexBuffer(_maxParticlesCount * sizeof(PARTICLEVERTEX),
+		D3DUSAGE_DYNAMIC,
+		PARTICLEFVF,
+		D3DPOOL_DEFAULT,
+		&_particleVertexBuffer, NULL);
+
+	VOID* pVoid;    // a void pointer
+
+	// lock v_buffer and load the vertices into it
+	_particleVertexBuffer->Lock(0, 0, (void**)&pVoid, 0);
 	memcpy(pVoid, &particleVertices, sizeof(particleVertices));
 	_particleVertexBuffer->Unlock();
 }
@@ -79,6 +78,7 @@ void ParticleSystemComponent::UninitDraw()
 
 void ParticleSystemComponent::Clean()
 {
+	_particlesList.clear();
 	_particleMesh->Release();
 	_particlesTexture->Release();
 	_particleVertexBuffer->Release();
@@ -87,6 +87,8 @@ void ParticleSystemComponent::Clean()
 void ParticleSystemComponent::Update()
 {
 	float deltaTime = _engine->GetTimer()->deltaTime;
+
+	list<Particle*> particlesToDestroy;
 
 	if (_particlesList.empty()) return;
 	for (Particle* particle : _particlesList)
@@ -98,10 +100,38 @@ void ParticleSystemComponent::Update()
 		}
 		else
 		{
-			_particlesList.remove(particle);
+			particlesToDestroy.push_back(particle);
 		}
 	}
+
+	if (!particlesToDestroy.empty())
+	{
+		for (Particle* particle : particlesToDestroy)
+		{
+			_particlesList.remove(particle);
+		}
+
+		if (_isLooping)
+		{
+			for (int i = 0; i < particlesToDestroy.size(); i++)
+			{
+				Particle* newParticle = new Particle();
+				newParticle->_position = _gameObject->_transform->GetPosition();
+				newParticle->_lifeTime = _particlesLifeTime;
+				_particlesList.push_back(newParticle);
+			}
+		}
+		
+		particlesToDestroy.clear();
+	}
+
 }
+
+void ParticleSystemComponent::SetIsLooping(bool newValue)
+{
+	_isLooping = newValue;
+}
+
 
 void ParticleSystemComponent::SetParticlesAcceleration(D3DXVECTOR3 newAcceleration)
 {
@@ -146,7 +176,7 @@ void ParticleSystemComponent::SetMaxParticlesCount(int newCount)
 	{
 		Particle* newParticle = new Particle();
 		newParticle->_position = _gameObject->_transform->GetPosition();
-		newParticle->_lifeTime = 5.0f;
+		newParticle->_lifeTime = _particlesLifeTime;
 		_particlesList.push_back(newParticle);
 	}
 	
