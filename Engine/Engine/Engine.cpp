@@ -78,11 +78,14 @@ void Engine::RenderFrame()
 
     for (GameObject* go : _currentScene->_gameObjectList)
     {
-        MeshComponent* meshComponent = go->GetComponent<MeshComponent>();
-        if (meshComponent != NULL && meshComponent->isEnable == TRUE)
+        list<MeshComponent*> meshComponents = go->GetComponentAllComponentsOfType<MeshComponent>();
+        for (MeshComponent* meshComponent : meshComponents)
         {
-            _d3ddev->SetTransform(D3DTS_WORLD, &go->_transform->matrix);
-            meshComponent->Draw();
+            if (meshComponent != NULL && meshComponent->isEnable == TRUE)
+            {
+                _d3ddev->SetTransform(D3DTS_WORLD, &go->_transform->matrix);
+                meshComponent->Draw();
+            }
         }
     }
 

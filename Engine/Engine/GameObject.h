@@ -27,6 +27,10 @@ public:
 
 	template<class T>
 	T* GetComponent();
+
+
+	template<class T>
+	list<T*> GetComponentAllComponentsOfType();
 };
 
 
@@ -41,6 +45,20 @@ T* GameObject::GetComponent() {
 		}
 	}
 	return nullptr;
+}
+
+template <class T>
+list<T*> GameObject::GetComponentAllComponentsOfType() {
+	list<T*> components = list<T*>();
+	for (auto it = _components.begin(); it != _components.end(); ++it)
+	{
+		T* temp = dynamic_cast<T*>(*it);
+		if (temp != NULL)
+		{
+			components.push_back(temp);
+		}
+	}
+	return components;
 }
 
 template<class T>

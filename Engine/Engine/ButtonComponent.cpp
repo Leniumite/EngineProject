@@ -49,6 +49,27 @@ bool ButtonComponent::CheckForButtonPress()
     return false;
 }
 
+void ButtonComponent::Draw()
+{
+    if(_line == NULL)
+        D3DXCreateLine(_engine->GetDevice(), &_line);
+    
+    _line->Begin();
+
+    _line->SetWidth(5);
+
+    D3DXVECTOR2 borderPos[] = {
+        D3DXVECTOR2(_rect.left, _rect.top),
+        D3DXVECTOR2(_rect.right, _rect.top),
+        D3DXVECTOR2(_rect.right,_rect.bottom),
+        D3DXVECTOR2(_rect.left, _rect.bottom),
+        D3DXVECTOR2(_rect.left, _rect.top),
+    };
+    _line->Draw(borderPos, 5, D3DXCOLOR(255.0f, 255.0f, 255.0f, 255.0f));
+
+    _line->End();
+}
+
 void ButtonComponent::ChangeRect(RECT newRect) {
     _rect = newRect;
     _text->SetCorners(_rect.top, _rect.left, _rect.bottom, _rect.right);

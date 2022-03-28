@@ -12,6 +12,13 @@ void EscapeUIManager::Update()
         EnableButtons(_engine->GetScene()->_mainCamera->isMenuOpen);
 	}
 
+	if (_engine->GetScene()->_mainCamera->isMenuOpen == TRUE) {
+		for (ButtonComponent* button : _uiButtons)
+		{
+			button->Draw();
+		}
+	}
+
     if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _engine->GetScene()->_mainCamera->isMenuOpen == TRUE) {
         for (ButtonComponent* button : _uiButtons)
         {
