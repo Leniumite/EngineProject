@@ -46,7 +46,9 @@ void App::Loop()
 
     GameObject* cubeGameObject2 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
+    cubeComponent2->SetMaterialColor(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
     cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
+    BoxCollider* boxCollider = cubeGameObject2->AddComponent<BoxCollider>();
 
     GameObject* cubeGameObject3 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();

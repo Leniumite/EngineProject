@@ -17,8 +17,7 @@ void SphereCollider::InitComponent()
 	int vertexCount = mesh->GetNumVertices();
 	mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&vertex);
 
-	D3DXVECTOR3 min = D3DXVECTOR3(FLT_MAX, FLT_MAX, FLT_MAX);
-	D3DXVECTOR3 max = D3DXVECTOR3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+
 
 	for (size_t i = 0, offset = 0; i < vertexCount; i++)
 	{
@@ -48,8 +47,15 @@ void SphereCollider::InitComponent()
 	
 	mesh->UnlockVertexBuffer();
 
-	_center = (min + max) / 2;
+	_center = ((min + max) / 2) + _gameObject->_transform->GetPosition();
 	_d = max(max(abs(max.x- min.x),abs(min.y - max.y)), abs(min.z - max.z));
 
 	
+}
+
+void SphereCollider::Update()
+{
+	_center = ((min + max) / 2) + _gameObject->_transform->GetPosition();
+	_d = max(max(abs(max.x- min.x),abs(min.y - max.y)), abs(min.z - max.z));
+
 }

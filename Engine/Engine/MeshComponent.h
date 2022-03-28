@@ -24,5 +24,6 @@ public:
     virtual void Clean();
     virtual void Draw() {};
     LPD3DXMESH GetMesh() { return _mesh; }
+    void SetMaterialColor(D3DXCOLOR newColor);
 };
 

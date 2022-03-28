@@ -84,7 +84,7 @@ bool CollisionManager::BoxSphereCollision(BoxCollider* box, SphereCollider* sphe
 										   fmaxf(box->_posMin.z, fminf(sphere->_center.z, box->_posMax.z)));
 	if (sqrtf( (closestPoint.x - sphere->_center.x) * (closestPoint.x - sphere->_center.x)+
 			   (closestPoint.y - sphere->_center.y) * (closestPoint.y - sphere->_center.y)+
-			   (closestPoint.z - sphere->_center.z) * (closestPoint.z - sphere->_center.z)) < sphere->_d *0.5f)
+			   (closestPoint.z - sphere->_center.z) * (closestPoint.z - sphere->_center.z)) < sphere->_d*.5f )
 	{
 		return true;
 	}

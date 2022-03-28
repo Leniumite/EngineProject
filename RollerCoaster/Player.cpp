@@ -28,10 +28,11 @@ void Player::Shoot()
 	ball->AddComponent<SphereMeshComponent>();
 	CameraComponent* cam = _engine->GetScene()->_mainCamera;
 	D3DXVECTOR3 dir = cam->GetCamLookAt() - cam->GetCamPos();
-
-	ball->_transform->ChangePosition(cam->GetCamPos() + dir);
+	D3DXVECTOR3 dirNormalized;
+	D3DXVec3Normalize(&dirNormalized, &dir);
+	ball->_transform->ChangePosition(cam->GetCamPos() + dirNormalized);
 	Rigidbody* rb = ball->AddComponent<Rigidbody>();
-
-	rb->AddVelocity(dir * _shootPower);
+	SphereCollider* scol = ball->AddComponent<SphereCollider>();
+	rb->AddVelocity(dirNormalized * _shootPower);
 	_timeBeforeNextShoot = _shootCooldown;
 }

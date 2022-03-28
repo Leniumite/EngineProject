@@ -17,8 +17,6 @@ void BoxCollider::InitComponent()
 	int vertexCount = mesh->GetNumVertices();
 	mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&vertex);
 
-	D3DXVECTOR3 min = D3DXVECTOR3(FLT_MAX, FLT_MAX, FLT_MAX);
-	D3DXVECTOR3 max = D3DXVECTOR3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
 	for (size_t i = 0, offset = 0; i < vertexCount; i++)
 	{
@@ -48,14 +46,25 @@ void BoxCollider::InitComponent()
 
 	mesh->UnlockVertexBuffer();
 
-	_posMin = min;
-	_posMax = max;
+	_posMin = min+_gameObject->_transform->GetPosition();
+	_posMax = max + _gameObject->_transform->GetPosition();
 	_center = (min + max) / 2;
 
 	_distX = max.x - min.x;
 	_distY = max.y - min.y;
-	_distX = max.z - min.z;
+	_distZ = max.z - min.z;
 
+	
 
+}
 
+void BoxCollider::Update()
+{
+	_posMin = min + _gameObject->_transform->GetPosition();
+	_posMax = max + _gameObject->_transform->GetPosition();
+	_center = (_posMin + _posMax) / 2;
+
+	_distX = max.x - min.x;
+	_distY = max.y - min.y;
+	_distZ = max.z - min.z;
 }
