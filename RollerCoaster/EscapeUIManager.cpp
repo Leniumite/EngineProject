@@ -10,6 +10,7 @@ void EscapeUIManager::Update()
 	{
 		_engine->GetScene()->_mainCamera->isMenuOpen = !_engine->GetScene()->_mainCamera->isMenuOpen;
         EnableButtons(_engine->GetScene()->_mainCamera->isMenuOpen);
+		ShowCursor(_engine->GetScene()->_mainCamera->isMenuOpen);
 	}
 
 	if (_engine->GetScene()->_mainCamera->isMenuOpen == TRUE) {
