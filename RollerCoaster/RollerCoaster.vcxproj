@@ -156,6 +156,7 @@
     <ClInclude Include="RailsManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RollerCoaster.h" />
+    <ClInclude Include="TargetListener.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClCompile Include="QuitButton.cpp" />
     <ClCompile Include="RailsManager.cpp" />
     <ClCompile Include="RollerCoaster.cpp" />
+    <ClCompile Include="TargetListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RollerCoaster.rc" />

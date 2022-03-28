@@ -54,6 +54,9 @@
     <ClInclude Include="Crosshair.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="TargetListener.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RollerCoaster.cpp">
@@ -84,6 +87,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Crosshair.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetListener.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
