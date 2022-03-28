@@ -37,6 +37,8 @@ void Engine::InitD3D()
 {
     _d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
+    D3DXMatrixIdentity(&_identityMatrix);
+
     D3DPRESENT_PARAMETERS d3dpp;
 
     ZeroMemory(&d3dpp, sizeof(d3dpp));

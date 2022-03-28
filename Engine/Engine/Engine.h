@@ -19,6 +19,8 @@ private:
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;
 
+	
+
 	void InitD3D();
 
 	void Update();
@@ -28,6 +30,8 @@ private:
 
 public:
 	MouseManager _MM;
+
+	D3DXMATRIX _identityMatrix;
 
 	Engine() {}
 	virtual ~Engine() {}

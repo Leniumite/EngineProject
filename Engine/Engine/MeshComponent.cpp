@@ -19,3 +19,8 @@ void MeshComponent::Clean()
 	}
 }
 
+void MeshComponent::SetMaterialColor(D3DXCOLOR newColor)
+{
+	_material.Ambient = newColor;
+	_material.Diffuse = newColor;
+}

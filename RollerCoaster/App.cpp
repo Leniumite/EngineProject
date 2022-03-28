@@ -56,6 +56,7 @@ void App::Loop()
     GameObject* cubeGameObject4 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
+    cubeComponent4->SetMaterialColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 
     //GameObject* railManager = _gameScene->AddGameObject();
     //RailsManager* RM = railManager->AddComponent<RailsManager>();
@@ -63,8 +64,9 @@ void App::Loop()
     GameObject* particleGO = _gameScene->AddGameObject();
     particleGO->_transform->ChangePositionZ(20.0f);
     ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
-    particleComponent->SetMaxParticlesCount(10);
-    particleComponent->SetParticlesAcceleration(D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+    particleComponent->SetMaxParticlesCount(100);
+    particleComponent->SetIsLooping(true);
+    particleComponent->SetParticlesAcceleration(D3DXVECTOR3(0.0f, 5.0f, 0.0f));
 
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
