@@ -93,10 +93,6 @@ void App::Loop()
         if (HandleInputs() == false)
             break;
         _engine.Refresh();
-        if (_engine._CM.hasCollide)
-        {
-            _player->GetComponent<Player>()->_points += 50;
-        }
         _escUIManager->Update();
     }
 

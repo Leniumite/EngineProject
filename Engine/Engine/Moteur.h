@@ -41,6 +41,8 @@
 
 #include "GameObject.h"
 
+
+#include "Listener.h"
 #include "MeshComponent.h"
 #include "CubeMeshComponent.h"
 #include "PolygonMeshComponent.h"
@@ -61,7 +63,6 @@
 
 #include "CameraComponent.h"
 #include "TextComponent.h"
-#include "Listener.h"
 #include "ButtonComponent.h"
 #include "MouseManager.h"
 #include "Rigidbody.h"

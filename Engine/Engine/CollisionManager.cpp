@@ -29,13 +29,31 @@ void CollisionManager::checkCollisions()
 			{
 				//hasCollide = hasCollide || SphereSphereCollision(sCollider, sOtherCollider);
 			}
-			else if (sCollider != NULL && bOtherCollider != NULL)
+			else if (sCollider != NULL && bOtherCollider != NULL && sCollider->isEnable == TRUE && bOtherCollider->isEnable == TRUE)
 			{
-				hasCollide = hasCollide || BoxSphereCollision(bOtherCollider, sCollider);
+				if (BoxSphereCollision(bOtherCollider, sCollider)) {
+					for (Listener* listener : sCollider->collisionListeners)
+					{
+						listener->OnRaise();
+					}
+					for (Listener* listener : bOtherCollider->collisionListeners)
+					{
+						listener->OnRaise();
+					}
+				}
 			}
-			else if (bCollider != NULL && sOtherCollider != NULL)
+			else if (bCollider != NULL && sOtherCollider != NULL && bCollider->isEnable == TRUE && sOtherCollider->isEnable == TRUE)
 			{
-				hasCollide = hasCollide || BoxSphereCollision(bCollider, sOtherCollider);
+				if (BoxSphereCollision(bCollider, sOtherCollider)) {
+					for (Listener* listener : bCollider->collisionListeners)
+					{
+						listener->OnRaise();
+					}
+					for (Listener* listener : sOtherCollider->collisionListeners)
+					{
+						listener->OnRaise();
+					}
+				}
 			}
 			
 

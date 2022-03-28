@@ -24,3 +24,4 @@
 #include "Player.h"
 #include "FpsText.h"
 #include "QuitButton.h"
+#include "PlayerBulletCollide.h"
