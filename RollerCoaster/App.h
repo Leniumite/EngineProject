@@ -35,6 +35,7 @@ private:
 public:
 
 	App();
+	~App();
 
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();

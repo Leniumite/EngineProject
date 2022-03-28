@@ -17,6 +17,10 @@ QuitButton::QuitButton(GameObject* gameObject) : Listener(gameObject)
 {
 }
 
+QuitButton::~QuitButton()
+{
+}
+
 void QuitButton::OnButtonClicked()
 {
 }

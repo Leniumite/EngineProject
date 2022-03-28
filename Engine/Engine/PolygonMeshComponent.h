@@ -12,6 +12,7 @@ private:
 public:
 
     PolygonMeshComponent(GameObject* gameObject);
+
     virtual void InitComponent() override;
     virtual void Clean() override;
     virtual void Draw() override;

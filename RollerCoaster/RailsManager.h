@@ -11,6 +11,7 @@ private :
 
 public :
 	RailsManager(GameObject* gameObject);
+	//virtual ~RailsManager() override;
 
 	virtual void InitComponent() override;
 	virtual void Update() override;

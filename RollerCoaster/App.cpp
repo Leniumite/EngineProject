@@ -6,7 +6,10 @@ float offset = 0.0f;
 
 App::App()
 {
+}
 
+App::~App()
+{
 }
 
 bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
@@ -117,9 +120,6 @@ bool App::HandleInputs() {
     }
     return true;
 }
-
-
-
 
 void App::Uninit()
 {

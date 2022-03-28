@@ -12,6 +12,7 @@ public:
 
     virtual void InitComponent() override;
     Player(GameObject* gameObject);
+    virtual ~Player() override;
 
     virtual void Update() override;
 

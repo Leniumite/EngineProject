@@ -9,6 +9,7 @@ public:
     virtual void Update() override;
     virtual void OnRaise() override;
     QuitButton(GameObject* gameObject);
+    virtual ~QuitButton() override;
     void OnButtonClicked();
 
 };

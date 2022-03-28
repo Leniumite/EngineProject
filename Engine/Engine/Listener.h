@@ -6,6 +6,7 @@ class Listener :
 {
 public:
     Listener(GameObject* gameObject);
+    virtual ~Listener() override;
     virtual void OnRaise();
 };
 

@@ -9,6 +9,7 @@ private:
     D3DXVECTOR3 _center;
 public :
     Crosshair(GameObject* gameobject);
+    virtual ~Crosshair() override;
     virtual void Draw() override;
 };
 

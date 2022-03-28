@@ -16,6 +16,10 @@ Player::Player(GameObject* gameObject) : Component(gameObject)
 {
 }
 
+Player::~Player()
+{
+}
+
 void Player::Update()
 {
 	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _timeBeforeNextShoot <= 0.0f) 

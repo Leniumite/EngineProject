@@ -15,6 +15,7 @@ GameObject::~GameObject()
 	{
 		delete component;
 	}
+
 }
 
 

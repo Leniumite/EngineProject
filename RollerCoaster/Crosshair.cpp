@@ -10,6 +10,10 @@ Crosshair::Crosshair(GameObject* gameobject) : MeshComponent(gameobject)
     _center = D3DXVECTOR3(surfaceDesc.Height * 0.5, surfaceDesc.Width * 0.5, 0.0f);
 }
 
+Crosshair::~Crosshair()
+{
+}
+
 void Crosshair::Draw()
 {
     D3DXVECTOR3 scale = _gameObject->_transform->GetScale();

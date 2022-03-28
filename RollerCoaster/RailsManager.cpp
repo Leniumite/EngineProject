@@ -4,6 +4,14 @@ RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 {
 }
 
+//RailsManager::~RailsManager()
+//{
+//	for (GameObject* rail : rails)
+//	{
+//		delete rail;
+//	}
+//}
+
 void RailsManager::InitComponent()
 {
 	_mainCam = _engine->GetScene()->_mainCamera;
