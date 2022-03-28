@@ -4,6 +4,8 @@ class Component;
 class Player :
     public Component
 {
+private:
+    Crosshair* _Crosshair;
 public:
     float _shootPower = 100.0f;
     TextComponent* _ptsText = NULL;

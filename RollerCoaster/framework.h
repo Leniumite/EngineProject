@@ -21,6 +21,7 @@
 #include "App.h"
 #include "RollerCoaster.h"
 #include "RailsManager.h"
+#include "Crosshair.h"
 #include "Player.h"
 #include "FpsText.h"
 #include "QuitButton.h"

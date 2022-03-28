@@ -6,6 +6,10 @@ void Player::InitComponent()
 	_ptsText = ptsGO->AddComponent<TextComponent>();
 	_ptsText->_color = D3DXCOLOR(255.0f, 0.0f,0.0f, 1);
 	_ptsText->SetCorners(0, 1820, 200, 1920);
+
+	GameObject* crosshairGO = _engine->GetScene()->AddGameObject();
+	_Crosshair = crosshairGO->AddComponent<Crosshair>();
+	crosshairGO->_transform->ChangeScale(D3DXVECTOR3(0.05f, 0.05f, 0.05f));
 }
 
 Player::Player(GameObject* gameObject) : Component(gameObject)
