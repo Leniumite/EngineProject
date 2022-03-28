@@ -8,6 +8,7 @@ void CollisionManager::checkCollisions()
 	{
 		return;
 	}
+	hasCollide = FALSE;
 	for (size_t i = 0; i < _colliders.size()-1; i++)
 	{
 
@@ -22,19 +23,19 @@ void CollisionManager::checkCollisions()
 			SphereCollider* sOtherCollider = othercol->_gameObject->GetComponent<SphereCollider>();
 			if (bCollider != NULL && bOtherCollider !=NULL)
 			{
-				BoxBoxCollision(bOtherCollider, bCollider);
+				//hasCollide = hasCollide || BoxBoxCollision(bOtherCollider, bCollider);
 			}
 			else if (sCollider != NULL && sOtherCollider !=NULL)
 			{
-				SphereSphereCollision(sCollider, sOtherCollider);
+				//hasCollide = hasCollide || SphereSphereCollision(sCollider, sOtherCollider);
 			}
 			else if (sCollider != NULL && bOtherCollider != NULL)
 			{
-				BoxSphereCollision(bOtherCollider, sCollider);
+				hasCollide = hasCollide || BoxSphereCollision(bOtherCollider, sCollider);
 			}
 			else if (bCollider != NULL && sOtherCollider != NULL)
 			{
-				BoxSphereCollision(bCollider, sOtherCollider);
+				hasCollide = hasCollide || BoxSphereCollision(bCollider, sOtherCollider);
 			}
 			
 
@@ -86,6 +87,7 @@ bool CollisionManager::BoxSphereCollision(BoxCollider* box, SphereCollider* sphe
 			   (closestPoint.y - sphere->_center.y) * (closestPoint.y - sphere->_center.y)+
 			   (closestPoint.z - sphere->_center.z) * (closestPoint.z - sphere->_center.z)) < sphere->_d*.5f )
 	{
+		
 		return true;
 	}
 

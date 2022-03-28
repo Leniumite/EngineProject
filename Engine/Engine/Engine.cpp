@@ -31,6 +31,7 @@ void Engine::Update()
         _MM.GetMousePosition();
 
 		_CM.checkCollisions();
+       
         for (GameObject* go : _currentScene->_gameObjectList)
         {
             go->UpdateComponents();
