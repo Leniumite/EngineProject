@@ -6,7 +6,7 @@ class Player :
 {
 private :
     D3DXVECTOR3 nextTarget;
-    float _speed = 2.0f;
+    float _speed = 10.0f;
 
 public:
     float _shootPower = 3.0f;

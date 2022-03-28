@@ -26,7 +26,7 @@ void PolygonMeshComponent::Clean()
         delete[] g_pMeshTextures;
     }
 
-    if (_mesh != NULL)
+    if (_mesh != nullptr)
     {
         _mesh->Release();
         _mesh = NULL;
@@ -53,16 +53,15 @@ void PolygonMeshComponent::Draw()
     }
 }
 
-HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
+HRESULT PolygonMeshComponent::SetMeshModel(LPD3DXMESH* mesh, LPD3DXBUFFER _pD3DXMtrlBuffer, D3DMATERIAL9* _g_pMeshMaterials, LPDIRECT3DTEXTURE9* _g_pMeshTextures, DWORD _g_dwNumMaterials)
 {
-    D3DXLoadMeshFromX(fileName, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &_mesh);
-    D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
-    g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
-    if (g_pMeshMaterials == NULL)
-        return E_OUTOFMEMORY;
-    g_pMeshTextures = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
-    if (g_pMeshTextures == NULL)
-        return E_OUTOFMEMORY;
+    _mesh = *mesh;
+    pD3DXMtrlBuffer = _pD3DXMtrlBuffer;
+    g_pMeshMaterials = _g_pMeshMaterials;
+    g_pMeshTextures = _g_pMeshTextures;
+    g_dwNumMaterials = _g_dwNumMaterials;
+
+    D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)_pD3DXMtrlBuffer->GetBufferPointer();
 
     for (DWORD i = 0; i < g_dwNumMaterials; i++)
     {
@@ -88,7 +87,7 @@ HRESULT PolygonMeshComponent::SetMeshModel(LPCWSTR fileName)
         }
     }
 
-    
+
     DWORD* adj = new DWORD[_mesh->GetNumFaces() * 3];
     _mesh->GenerateAdjacency(0.005F, adj);
     _mesh->OptimizeInplace(D3DXMESHOPT_VERTEXCACHE, adj, NULL, NULL, NULL);

@@ -13,7 +13,7 @@ MeshComponent::~MeshComponent()
 
 void MeshComponent::Clean()
 {
-	if (_mesh != NULL) {
+	if (_mesh != nullptr) {
 		_mesh->Release();
 		_mesh = NULL;
 	}

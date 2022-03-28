@@ -3,6 +3,14 @@
 class RailsManager : public Component
 {
 private :
+	GameObject* railGO;
+	LPD3DXMESH mesh;
+
+	LPD3DXBUFFER pD3DXMtrlBuffer;
+	D3DMATERIAL9* g_pMeshMaterials = NULL;
+	LPDIRECT3DTEXTURE9* g_pMeshTextures = NULL;
+	DWORD g_dwNumMaterials = 0L;
+
 	GameObject* rails[5];
 	float cameraTreshold = 25.0f;
 	float offset = 25.0f;
@@ -22,6 +30,8 @@ public :
 
 	void CreatePath();
 	void ManageRails();
+
+	LPD3DXMESH* LoadMesh(LPCWSTR modelPath);
 
 };
 
