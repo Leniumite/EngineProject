@@ -14,7 +14,7 @@ private :
 	D3DXVECTOR3 OldDirRail;
 	float rotX;
 	float rotY;
-
+	float rotZ;
 public :
 	RailsManager(GameObject* gameObject);
 	//virtual ~RailsManager() override;

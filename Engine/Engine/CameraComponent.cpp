@@ -67,7 +67,7 @@ void CameraComponent::UpdatePos()
     D3DXVECTOR3 temp = currentwp - camPos;
 
     D3DXVec3Normalize(&dir ,&temp);
-    _gameObject->_transform->ChangePosition(camPos + 5.0f *dir*8.f* _engine->GetTimer()->deltaTime);
+    _gameObject->_transform->ChangePosition(camPos + 5.0f *dir*10.f* _engine->GetTimer()->deltaTime);
     if (sqrtf( temp.x* temp.x+ temp.y * temp.y + temp.z * temp.z)<5.0f  )
     { 
         _waypoints.erase(_waypoints.begin());
