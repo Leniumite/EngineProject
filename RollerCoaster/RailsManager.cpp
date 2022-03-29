@@ -49,14 +49,29 @@ void RailsManager::ManageRails()
 		//float dist = _mainCam->GetCamPos().x - rail->_transform->GetPosition().x;
 
 		//If the camera can't see it
-		if (D3DXVec3Dot(&_mainCam->dir, &temp) >25.f)
+		if (D3DXVec3Dot(&_mainCam->dir, &temp) >100.f)
 		{			
 			
-			float rotationX = ((rand() % 20) - 10) ;
-			float rotationY = ((rand() % 20) - 10) ;
+			float rotationX = ((rand() % 19) - 9) ;
+			float rotationY = ((rand() % 19) - 9) ;
 			rotX += rotationX;
 			rotY += rotationY;
-			
+			if (rotX>70.f)
+			{
+				rotX = 70.f;
+			}
+			if (rotX < -70.f)
+			{
+				rotX = -70.f;
+			}
+			if (rotY > 70.f)
+			{
+				rotY = 70.f;
+			}
+			if (rotY < -70.f)
+			{
+				rotY = -70.f;
+			}
 			dirRail = D3DXVECTOR3( cosf(D3DXToRadian(rotX)) * cosf(D3DXToRadian(rotY)),
 								   sinf(D3DXToRadian(rotY)),
 								   sinf(D3DXToRadian(rotX)) * cosf(D3DXToRadian(rotY)));
