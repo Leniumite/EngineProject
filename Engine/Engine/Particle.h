@@ -2,7 +2,8 @@
 
 struct PARTICLEVERTEX {
 	D3DXVECTOR3 position;
-	D3DCOLOR diffuse;
+	D3DXCOLOR diffuse;
+	D3DXCOLOR ambient;
 };
 
 
@@ -13,7 +14,7 @@ public:
 
 	float _lifeTime;
 	float _age;
-	D3DCOLOR _color;
+	D3DXCOLOR _color;
 	D3DXVECTOR3 _position;
 	D3DXVECTOR3 _velocity;
 	D3DXVECTOR3 _acceleration;

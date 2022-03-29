@@ -9,6 +9,8 @@ void Particle::UpdatePosition(float deltaTime)
 
 void Particle::UpdateColor()
 {
+	float alpha = ((_lifeTime - _age) / _lifeTime);
+	_color.a = alpha;
 }
 
 bool Particle::UpdateLifeTime(float deltaTime)
@@ -28,6 +30,6 @@ Particle::Particle()
 	_isAlive = false;
 	_acceleration = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	_velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	_color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	_color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 	_age = 0.0f;
 }

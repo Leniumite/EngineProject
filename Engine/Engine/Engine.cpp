@@ -12,7 +12,6 @@ void Engine::Init(HWND window, int screenWidth, int screenHeight)
     _screenHeight = screenHeight;
     _screenWidth = screenWidth;
 
-
     _timer = new STimer();
     _timer->init_SystemTime();
 
@@ -39,6 +38,7 @@ void Engine::InitD3D()
 
     D3DXMatrixIdentity(&_identityMatrix);
 
+
     D3DPRESENT_PARAMETERS d3dpp;
 
     ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -57,10 +57,13 @@ void Engine::InitD3D()
 #endif
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
-    _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
+    _d3ddev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
     _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 
+    _d3ddev->GetMaterial(&_defaultMaterial);
+    _defaultMaterial.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    //test
 }
 
 void Engine::RenderFrame()

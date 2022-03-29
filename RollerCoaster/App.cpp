@@ -34,39 +34,37 @@ void App::Loop()
     _engine.LoadScene(_gameScene);
 
     //Just grab the go where the camera is and add the player script (component)
-    Player* player = _gameScene->GetCameraGO()->AddComponent<Player>();
+    //Player* player = _gameScene->GetCameraGO()->AddComponent<Player>();
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
-    GameObject* cubeGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
-    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
+    //GameObject* cubeGameObject = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
+    //cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
 
-    GameObject* cubeGameObject2 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
-    cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
+    //GameObject* cubeGameObject2 = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
+    //cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
 
     //GameObject* cubeGameObject3 = _gameScene->AddGameObject();
     //CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
     //cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
 
-    GameObject* cubeGameObject4 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
-    cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
-    cubeComponent4->SetMaterialColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+    //GameObject* cubeGameObject4 = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
+    //cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
+    //cubeComponent4->SetMaterialColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 
     //GameObject* railManager = _gameScene->AddGameObject();
     //RailsManager* RM = railManager->AddComponent<RailsManager>();
 
     GameObject* particleGO = _gameScene->AddGameObject();
-    particleGO->_transform->ChangePositionZ(20.0f);
+    particleGO->_transform->ChangePositionX(10.0f);
     ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
-    particleComponent->SetMaxParticlesCount(100);
-    particleComponent->SetIsLooping(true);
-    particleComponent->SetParticlesAcceleration(D3DXVECTOR3(0.0f, 5.0f, 0.0f));
+    particleComponent->SetMaxParticlesCount(1000);
 
 
     //GameObject* cGameObject = _gameScene->AddGameObject();

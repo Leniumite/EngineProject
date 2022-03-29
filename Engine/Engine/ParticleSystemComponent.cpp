@@ -4,11 +4,27 @@
 ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject) : MeshComponent(gameObject)
 {
 	_particlesArray = nullptr;
+	_pointSize = 1.0f;
+	_pointSizeMax = 20.0f;
+	_particlesTexture = NULL;
+	_particleVertexBuffer = NULL;
+	_aliveParticlesCount = 0;
+	_maxParticlesCount = 0;
+	_particlesLifeTime = 2.0f;
+	_particlesmaxAngle = 22.5f;
+	_minParticleBurstAmount = 1;
+	_maxParticleBurstAmount = 1000;
+	
+	//_material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	SetMaterialColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+	//_material.Ambient.r = _material.Ambient.g = _material.Ambient.b = 1.0f;
+	//_material.Ambient.a = 1.0f;
+	//_material.Diffuse.r = _material.Diffuse.g = _material.Diffuse.b = 0.0f;
+	//_material.Diffuse.a = 1.0f;
 }
 
 void ParticleSystemComponent::InitComponent()
 {
-	D3DXCreateSphere(_d3ddev, 1.0f, 10, 10, &_particleMesh, NULL);
 	D3DXCreateTextureFromFile(_d3ddev, L"Ressources\\particle.png", &_particlesTexture);
 }
 
@@ -20,17 +36,21 @@ ParticleSystemComponent::~ParticleSystemComponent()
 
 void ParticleSystemComponent::Draw()
 {
-	
 	InitDraw();
-
+	_d3ddev->SetMaterial(&_material);
 	_d3ddev->SetTexture(0, _particlesTexture);
-	_d3ddev->SetStreamSource(0, _particleVertexBuffer, 0, sizeof(PARTICLEVERTEX));
 	_d3ddev->SetFVF(PARTICLEFVF);
+	_d3ddev->SetStreamSource(0, _particleVertexBuffer, 0, sizeof(PARTICLEVERTEX));
 	_d3ddev->SetTransform(D3DTS_WORLD, &_engine->_identityMatrix);
-	_d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, _livingParticles.size());
+	_d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, _aliveParticlesCount);
 
 	UninitDraw();
 
+}
+
+DWORD FloatIntoDWORD(float v)
+{
+	return *((DWORD*)&v);
 }
 
 void ParticleSystemComponent::InitDraw()
@@ -40,12 +60,12 @@ void ParticleSystemComponent::InitDraw()
 	_d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	_d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
 	_d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_A, DWORD(0.0f));
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_B, DWORD(0.0f));
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_C, DWORD(1.0f));
+	_d3ddev->SetRenderState(D3DRS_POINTSCALE_A, FloatIntoDWORD(0.0f));
+	_d3ddev->SetRenderState(D3DRS_POINTSCALE_B, FloatIntoDWORD(0.0f));
+	_d3ddev->SetRenderState(D3DRS_POINTSCALE_C, FloatIntoDWORD(1.0f));
 	_d3ddev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	_d3ddev->SetRenderState(D3DRS_POINTSIZE, DWORD(_pointSize));
-	_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, DWORD(_pointSizeMax));
+	_d3ddev->SetRenderState(D3DRS_POINTSIZE, FloatIntoDWORD(_pointSize));
+	_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, FloatIntoDWORD(_pointSizeMax));
 }
 
 void ParticleSystemComponent::UninitDraw()
@@ -61,11 +81,6 @@ void ParticleSystemComponent::UninitDraw()
 
 void ParticleSystemComponent::Clean()
 {
-	for (Particle* particle : _livingParticles)
-	{
-		delete particle;
-	}
-	_particleMesh->Release();
 	_particlesTexture->Release();
 	_particleVertexBuffer->Release();
 }
@@ -74,106 +89,84 @@ void ParticleSystemComponent::Update()
 {
 	float deltaTime = _engine->GetTimer()->deltaTime;
 
-	if (_livingParticles.empty()) return;
+	int deadParticlesCount = 0;
+	int remainingParticleToCreate = _maxParticlesCount - _aliveParticlesCount;
 
-	for (Particle* particle : _livingParticles)
+	//Update Dead particles
+	for (int i = 0; i < _maxParticlesCount; i++)
 	{
-		if (particle->UpdateLifeTime(deltaTime))
+		Particle* currentParticle = &_particlesArray[i];
+
+		if (currentParticle->_isAlive && currentParticle->UpdateLifeTime(deltaTime) == false)
 		{
-			particle->UpdatePosition(deltaTime);
-			particle->UpdateColor();
-		}
-		else
-		{
+			currentParticle->_isAlive = false;
+			deadParticlesCount++;
 		}
 	}
 
+	remainingParticleToCreate += deadParticlesCount;
 
 
+	// new
+	int addParticlesCount = CreateParticleBurst(remainingParticleToCreate);
 
+	_aliveParticlesCount -= deadParticlesCount;
+	_aliveParticlesCount += addParticlesCount;
 
-
-	/*if (!particlesToDestroy.empty())
+	//Updating particles positions and color
+	for (int i = 0; i < _maxParticlesCount; i++)
 	{
-		int particleAmountToDestroy = particlesToDestroy.size();
+		Particle* currentParticle = &_particlesArray[i];
 
-		for (Particle* particle : _livingParticles)
+		if (currentParticle->_isAlive)
 		{
-			for (Particle* particleToDestroy : particlesToDestroy)
-			{
-				if (particle == particleToDestroy)
-				{
-					delete particle;
-				}
-			}
+			currentParticle->UpdatePosition(deltaTime);
+			currentParticle->UpdateColor();
 		}
+	}
 
-		if (_isLooping)
-		{
-			for (int i = 0; i < particleAmountToDestroy; i++)
-			{
-				Particle* newParticle = new Particle();
-				newParticle->_position = _gameObject->_transform->GetPosition();
-				newParticle->_lifeTime = _particlesLifeTime;
-				_livingParticles.push_back(newParticle);
-			}
-		}
-
-		for (Particle* particle : particlesToDestroy)
-		{
-			delete particle;
-		}
-		
-	}*/
-
-
-	
-}
-
-void ParticleSystemComponent::SetIsLooping(bool newValue)
-{
-	_isLooping = newValue;
+	ModifyVertexBuffer();
 }
 
 void ParticleSystemComponent::ModifyVertexBuffer()
 {
-	//vector<PARTICLEVERTEX> particleVertices;
-	//for (Particle* particle : _livingParticles)
-	//{
-	//	PARTICLEVERTEX newVertex;
-	//	newVertex.position = particle->_position;
-	//	newVertex.diffuse = particle->_color;
-	//	particleVertices.push_back(newVertex);
-	//}
-
-	
-
-	//VOID* pVoid;    // a void pointer
-
-	// lock v_buffer and load the vertices into it
 	PARTICLEVERTEX* buffer;
-	_particleVertexBuffer->Lock(0, 0, (void**)&buffer, 0);
-	for (Particle* particle : _livingParticles)
+	HRESULT hRes = _particleVertexBuffer->Lock(0, _aliveParticlesCount*sizeof( PARTICLEVERTEX), (void**)&buffer, 0);
+//	HRESULT hRes = _particleVertexBuffer->Lock(0, 0, (void**)&buffer, 0);
+
+	if (FAILED(hRes))
+		return;
+
+	for (int i = 0; i < _aliveParticlesCount; i++)
 	{
-		buffer->position = particle->_position;
-		buffer->diffuse = particle->_color;
-		buffer++;
+		Particle& currentParticle = _particlesArray[i];
+
+		if (currentParticle._isAlive)
+		{
+			buffer->position = currentParticle._position;
+			buffer->diffuse = currentParticle._color;
+			buffer->ambient = currentParticle._color;
+			//buffer->diffuse = D3DCOLOR_COLORVALUE(currentParticle._color.r, currentParticle._color.g, currentParticle._color.b, currentParticle._color.a);
+			buffer++;
+		}
 	}
 	_particleVertexBuffer->Unlock();
 }
 
 
-void ParticleSystemComponent::SetParticlesAcceleration(D3DXVECTOR3 newAcceleration)
+void ParticleSystemComponent::SetParticlesStartAcceleration(D3DXVECTOR3 newAcceleration)
 {
-	for (Particle* particle : _livingParticles)
-	{
-		particle->_acceleration = newAcceleration;
-	}
+	_startAcceleration = newAcceleration;
+}
+
+void ParticleSystemComponent::SetParticlesStartVelocity(D3DXVECTOR3 newVelocity)
+{
+	_startVelocity = newVelocity;
 }
 
 void ParticleSystemComponent::SetParticlesMaxAngle(float angle)
 {
-
+	_particlesmaxAngle = angle;
 }
 
 void ParticleSystemComponent::SetMesh(LPCWSTR meshPath)
@@ -182,12 +175,14 @@ void ParticleSystemComponent::SetMesh(LPCWSTR meshPath)
 
 void ParticleSystemComponent::SetTexture(LPCWSTR texturePath)
 {
-
+	D3DXCreateTextureFromFile(_d3ddev, texturePath, &_particlesTexture);
 }
 
 void ParticleSystemComponent::SetMaxParticlesCount(int newCount)
 {
 	_maxParticlesCount = newCount;
+
+	delete[] _particlesArray;
 
 	_particlesArray = new Particle[_maxParticlesCount];
 
@@ -198,33 +193,52 @@ void ParticleSystemComponent::SetMaxParticlesCount(int newCount)
 	}
 
 	auto result = _d3ddev->CreateVertexBuffer(_maxParticlesCount * sizeof(PARTICLEVERTEX),
-		D3DUSAGE_DYNAMIC,
+		D3DUSAGE_DYNAMIC|D3DUSAGE_POINTS|D3DUSAGE_WRITEONLY,
 		PARTICLEFVF,
 		D3DPOOL_DEFAULT,
 		&_particleVertexBuffer, NULL);
-
-	if (_livingParticles.empty() == false)
-	{
-		for (Particle* particle : _livingParticles)
-		{
-			delete particle;
-		}
-	}
-	
-
-	_livingParticles.clear();
-
-	for (int i = 0; i < newCount; i++)
-	{
-		Particle* newParticle = new Particle();
-		newParticle->_position = _gameObject->_transform->GetPosition();
-		newParticle->_lifeTime = _particlesLifeTime;
-		_livingParticles.push_back(newParticle);
-	}
-	
 }
 
-void ParticleSystemComponent::SetEmissionShape(ParticleEmissionShape newEmissionShape)
+int ParticleSystemComponent::CreateParticleBurst(int maxAmount)
 {
+	float deltaTime = _engine->GetTimer()->deltaTime;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distr((int)(_minParticleBurstAmount * deltaTime), (int)(_maxParticleBurstAmount* deltaTime));
+	int addCount =  distr(gen);
 
+	if (addCount > maxAmount) {
+		addCount = maxAmount;
+	}
+
+	int index = 0;
+	for (int i = 0; i < _maxParticlesCount; i++)
+	{
+		Particle* currentParticle = &_particlesArray[i];
+
+		if (currentParticle->_isAlive == false)
+		{
+			index++;
+			currentParticle->_position = _gameObject->_transform->GetPosition();
+			currentParticle->_lifeTime = _particlesLifeTime;
+			currentParticle->_age = 0.0f;
+
+			std::uniform_real_distribution<> distr1(-.5f, .5f);
+			std::uniform_real_distribution<> distr2(-.5f, .5f);
+			float xVelocity = distr1(gen);
+			float zVelocity = distr2(gen);
+
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			currentParticle->_velocity = D3DXVECTOR3(xVelocity, 1.0f, zVelocity);
+			currentParticle->_acceleration = _startAcceleration;
+			currentParticle->_isAlive = true;
+		}
+
+		if (index >= addCount) break;
+	}
+
+	//assert(index==addCount);
+
+	return addCount;
 }

@@ -1,39 +1,32 @@
 #pragma once
 #define PARTICLEFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 
-enum class ParticleEmissionShape
-{
-    Cone,
-    Point,
-    Sphere,
-    Cube
-};
-
-
 class ParticleSystemComponent :
     public MeshComponent
 {
 
 private:
 
-    bool _isLooping = false;
-    float _pointSize = 1.0f;
-    float _pointSizeMax = 10.0f;
-    LPD3DXMESH _particleMesh = NULL;
-    LPDIRECT3DTEXTURE9 _particlesTexture = NULL;
-    LPDIRECT3DVERTEXBUFFER9 _particleVertexBuffer = NULL;
-    int _aliveParticlesCount = 0;
-    int _maxParticlesCount = 0;
-    float _particlesLifeTime = 10.0f;
-    float _particlesmaxAngle = 22.5f;
-    ParticleEmissionShape _emissionShape = ParticleEmissionShape::Point;
-    Particle* _particlesArray;
-    vector<Particle*> _livingParticles;
+    float _pointSize;
+    float _pointSizeMax;
+    LPDIRECT3DTEXTURE9 _particlesTexture;
+    LPDIRECT3DVERTEXBUFFER9 _particleVertexBuffer;
+    int _aliveParticlesCount;
+    int _maxParticlesCount;
+    float _particlesmaxAngle;
+    float _particlesLifeTime;
+    int _minParticleBurstAmount;
+    int _maxParticleBurstAmount;
 
+    D3DXVECTOR3 _startAcceleration;
+    D3DXVECTOR3 _startVelocity;
+
+    Particle* _particlesArray;
 
     void InitDraw();
     void UninitDraw();
     void ModifyVertexBuffer();
+    int CreateParticleBurst(int maxAmount);
 
 public:
 
@@ -44,12 +37,14 @@ public:
     virtual void Draw() override;
     virtual void Update() override;
 
-    void SetParticlesAcceleration(D3DXVECTOR3 newAcceleration);
+
+
+    void SetParticlesStartAcceleration(D3DXVECTOR3 newAcceleration);
+    void SetParticlesStartVelocity(D3DXVECTOR3 newAcceleration);
+    inline void SetParticlesSize(float newSize) { _pointSizeMax = newSize; }
     void SetParticlesMaxAngle(float angle);
     void SetMesh(LPCWSTR meshPath);
     void SetTexture(LPCWSTR texturePath);
     void SetMaxParticlesCount(int newCount);
-    void SetIsLooping(bool newValue);
-    void SetEmissionShape(ParticleEmissionShape newEmissionShape);
 };
 

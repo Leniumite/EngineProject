@@ -31,6 +31,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <random>
 
 #include "Component.h"
 #include "Transform.h"

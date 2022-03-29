@@ -28,7 +28,7 @@ void CameraComponent::InitComponent()
         D3DXToRadian(45),    // the horizontal field of view
         1920.0f / 1080.0f, // aspect ratio
         1.0f,    // the near view-plane
-        100.0f);    // the far view-plane
+        10000.0f);    // the far view-plane
     //_rotY = -90;
 }
 

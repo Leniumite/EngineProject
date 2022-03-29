@@ -32,6 +32,7 @@ public:
 	MouseManager _MM;
 
 	D3DXMATRIX _identityMatrix;
+	D3DMATERIAL9 _defaultMaterial;
 
 	Engine() {}
 	virtual ~Engine() {}
