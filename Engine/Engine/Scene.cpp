@@ -11,7 +11,6 @@ void Scene::Init()
 {
 	GameObject* CameraGO = AddGameObject();
 	_mainCamera = CameraGO->AddComponent<CameraComponent>();
-	_mainCamera->Init();
 }
 
 GameObject* Scene::AddGameObject()
