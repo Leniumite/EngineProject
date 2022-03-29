@@ -19,6 +19,8 @@ private:
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;
 
+	
+
 	void InitD3D();
 
 	void Update();
@@ -31,6 +33,9 @@ private:
 public:
 	MouseManager _MM;
 	CollisionManager _CM;
+
+	D3DXMATRIX _identityMatrix;
+	D3DMATERIAL9 _defaultMaterial;
 
 	Engine() {}
 	virtual ~Engine() {}

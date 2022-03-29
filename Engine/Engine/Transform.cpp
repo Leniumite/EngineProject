@@ -156,9 +156,14 @@ D3DXVECTOR3 Transform::GetPosition() {
 	return vPos;
 }
 
-void Transform::Translate(D3DXVECTOR3 targetPos)
+//delta is quite bizarre, so let me explain that it's just component of the vector*speed*deltaTime...
+void Transform::Translate(D3DXVECTOR3 delta)
 {
-	//D3DXMatrixTranslation(&vPos, targetPos.x, targetPos.y, targetPos.z);
+	//D3DXMatrixTranslation(&vPos, direction.x, direction.y, direction.z);
+	vPos += delta;
+	matrix._41 = vPos.x;
+	matrix._42 = vPos.y;
+	matrix._43 = vPos.z;
 }
 
 

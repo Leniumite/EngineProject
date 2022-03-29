@@ -22,7 +22,9 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _timeBeforeNextShoot <= 0.0f) 
+	_gameObject->_transform->Translate(D3DXVECTOR3(_speed * _engine->GetTimer()->deltaTime, 0, 0));
+
+	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _timeBeforeNextShoot <= 0.0f)
 	{ 
 		Shoot();
 	}

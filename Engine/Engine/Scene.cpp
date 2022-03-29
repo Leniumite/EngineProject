@@ -30,6 +30,7 @@ Scene::~Scene()
 
 void Scene::RemoveGameObject(GameObject* targetGameObject)
 {
+	delete targetGameObject;
 	_gameObjectList.remove(targetGameObject);
 
 	delete targetGameObject;

@@ -27,4 +27,3 @@ public:
 
     int _points = 0;
 };
-

@@ -65,11 +65,16 @@
       <Filter>Fichiers Sources</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="ParticleSystemComponent.cpp" />
     <ClCompile Include="ButtonComponent.cpp">
       <Filter>Fichiers Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="Listener.cpp" />
+    <ClCompile Include="Particle.cpp">
+      <Filter>Fichiers Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemComponent.cpp">
+      <Filter>Fichiers Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -142,11 +147,16 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="ParticleSystemComponent.h" />
     <ClInclude Include="ButtonComponent.h">
       <Filter>Fichiers d%27en-tête\Components</Filter>
     </ClInclude>
     <ClInclude Include="Listener.h" />
+    <ClInclude Include="ParticleSystemComponent.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers Sources">

@@ -10,7 +10,5 @@ public:
     virtual void InitComponent() override;
 
     virtual void Draw() override;
-
-    virtual void Update() override;
 };
 
