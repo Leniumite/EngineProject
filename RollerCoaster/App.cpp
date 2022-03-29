@@ -84,7 +84,11 @@ void App::Loop()
 
     GameObject* quitButtonGO = _gameScene->AddGameObject();
     ButtonComponent* quitButton = quitButtonGO->AddComponent<ButtonComponent>();
-    quitButton->ChangeRect(1080 / 2 - 8, 1920 / 2, 1080 / 2 + 15, 1920 / 2 + 90);
+    quitButton->ChangeRect(
+        1080 / 2 - 12, 
+        1920 / 2 - 45, 
+        1080 / 2 + 12, 
+        1920 / 2 + 45);
     quitButton->_text->_txt = L"QUIT APP";
     _escUIManager->_uiButtons.push_back(quitButton);
     quitButton->isEnable = FALSE;
