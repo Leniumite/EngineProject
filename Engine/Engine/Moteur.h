@@ -33,7 +33,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-
+#include <random>
 
 #include "Component.h"
 #include "Transform.h"
@@ -41,7 +41,7 @@
 
 
 #include "GameObject.h"
-
+#include "Particle.h"
 
 #include "Listener.h"
 #include "MeshComponent.h"

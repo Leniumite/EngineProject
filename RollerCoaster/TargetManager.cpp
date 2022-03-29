@@ -14,6 +14,7 @@ void TargetManager::InitComponent()
 	for (int i = 0; i < ammountTarget; i++)
 	{
 		GameObject* go = _engine->GetScene()->AddGameObject();
+		go->_transform->ChangeScale(D3DXVECTOR3(2, 2, 2));
 		CubeMeshComponent* cubeComponent2 = go->AddComponent<CubeMeshComponent>();
 		TargetListener* tList2 = go->AddComponent<TargetListener>();
 		tList2->tManager = this;

@@ -32,6 +32,8 @@ public:
 	MouseManager _MM;
 	CollisionManager _CM;
 
+	D3DXMATRIX _identityMatrix;
+
 	Engine() {}
 	virtual ~Engine() {}
 

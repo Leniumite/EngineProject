@@ -70,6 +70,7 @@
       <Filter>Fichiers Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="Listener.cpp" />
+    <ClCompile Include="Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -147,6 +148,7 @@
       <Filter>Fichiers d%27en-tête\Components</Filter>
     </ClInclude>
     <ClInclude Include="Listener.h" />
+    <ClInclude Include="Particle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers Sources">

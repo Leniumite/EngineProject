@@ -49,6 +49,8 @@ void Engine::InitD3D()
 
     D3DPRESENT_PARAMETERS d3dpp;
 
+    D3DXMatrixIdentity(&_identityMatrix);
+
     ZeroMemory(&d3dpp, sizeof(d3dpp));
     d3dpp.Windowed = TRUE;
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
