@@ -72,6 +72,18 @@ void Transform::RotateRoll(float angle)
 	UpdateRotationFromQuaternion();
 }
 
+void Transform::SetRotation(float yaw, float pitch, float roll)
+{
+
+	D3DXMatrixIdentity(&mRot);
+	D3DXQuaternionIdentity(&qRot);
+	UpdateRotationFromQuaternion();
+	//Rotate(yaw, pitch, roll);
+	RotateYaw(yaw);
+	RotatePitch(pitch);
+	RotateRoll(roll);
+}
+
 void Transform::FromMatrix(D3DXMATRIX* pMat)
 {
 	matrix = *pMat;

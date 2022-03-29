@@ -7,7 +7,13 @@ private :
 	float cameraTreshold = 25.0f;
 	float offset = 25.0f;
 	CameraComponent* _mainCam;
-	D3DXVECTOR3 postLastRail = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 posLastRail = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 beginPosLastRail = D3DXVECTOR3(0.0f, 0.0f, -offset*0.5f);
+	D3DXVECTOR3 endPosLastRail = D3DXVECTOR3(0.0f, 0.0f, offset*0.5f);
+	D3DXVECTOR3 dirRail;
+	D3DXVECTOR3 OldDirRail;
+	float rotX;
+	float rotY;
 
 public :
 	RailsManager(GameObject* gameObject);

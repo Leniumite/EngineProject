@@ -8,6 +8,7 @@
 
 void Engine::Init(HWND window, int screenWidth, int screenHeight)
 {
+    srand(time(NULL));
 	_currentWindow = window;
     _screenHeight = screenHeight;
     _screenWidth = screenWidth;

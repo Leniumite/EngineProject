@@ -3,21 +3,21 @@
 class Engine;
 class Transform : public Component
 {
-	public:
-		D3DXMATRIX matrix;
+public:
+	D3DXMATRIX matrix;
 
-	protected:
-		D3DXVECTOR3 vSca;
+protected:
+	D3DXVECTOR3 vSca;
 
-		D3DXVECTOR3 vDir;
-		D3DXVECTOR3 vRight;
-		D3DXVECTOR3 vUp;
+	D3DXVECTOR3 vDir;
+	D3DXVECTOR3 vRight;
+	D3DXVECTOR3 vUp;
 
 
-		D3DXQUATERNION qRot;
-		D3DXMATRIX mRot;
+	D3DXQUATERNION qRot;
+	D3DXMATRIX mRot;
 
-		D3DXVECTOR3 vPos;
+	D3DXVECTOR3 vPos;
 
 public:
 	Transform(GameObject* gameObject);
@@ -26,6 +26,7 @@ public:
 	void RotateYaw(float angle);
 	void RotatePitch(float angle);
 	void RotateRoll(float angle);
+	void SetRotation(float yaw, float pitch, float roll);
 	void FromMatrix(D3DXMATRIX* pMat);
 	
 	void UpdateMatrix();
