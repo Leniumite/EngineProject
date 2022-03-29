@@ -16,7 +16,7 @@ void RailsManager::InitComponent()
 {
 	_mainCam = _engine->GetScene()->_mainCamera;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		GameObject* railGameObject = _engine->GetScene()->AddGameObject();
 		railGameObject->_transform->ChangePositionX(posLastRail.x + offset);
@@ -24,6 +24,7 @@ void RailsManager::InitComponent()
 		PolygonMeshComponent* railMeshComponent = railGameObject->AddComponent<PolygonMeshComponent>();
 		railMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
 		posLastRail = railGameObject->_transform->GetPosition();
+		_mainCam->AddWaypoint(posLastRail+D3DXVECTOR3(0.f, 7.f, 0.f));
 		endPosLastRail = posLastRail;
 		endPosLastRail.x += offset * 0.5f;
 		dirRail = D3DXVECTOR3(1.f, 0.f, 0.f);
@@ -42,15 +43,17 @@ void RailsManager::ManageRails()
 	for (GameObject* rail : rails)
 	{
 		
+		D3DXVECTOR3 temp = _mainCam->GetCamPos() - rail->_transform->GetPosition();
 		
-		float dist = _mainCam->GetCamPos().x - rail->_transform->GetPosition().x;
+		//float dist = sqrtf(temp.x * temp.x + temp.y * temp.y + temp.z * temp.z);
+		//float dist = _mainCam->GetCamPos().x - rail->_transform->GetPosition().x;
 
 		//If the camera can't see it
-		if (dist > cameraTreshold)
+		if (D3DXVec3Dot(&_mainCam->dir, &temp) >25.f)
 		{			
 			
-			float rotationX = ((rand() % 10) - 5) ;
-			float rotationY = ((rand() % 10) - 5) ;
+			float rotationX = ((rand() % 20) - 10) ;
+			float rotationY = ((rand() % 20) - 10) ;
 			rotX += rotationX;
 			rotY += rotationY;
 			
@@ -66,7 +69,7 @@ void RailsManager::ManageRails()
 			rail->_transform->SetRotation(D3DXToRadian(rotY), D3DXToRadian(-rotX),0.f);
 			posLastRail = endPosLastRail  +dirRail * 0.5f * offset;
 			endPosLastRail = posLastRail+dirRail*0.5f*offset;			
-
+			_mainCam->AddWaypoint(posLastRail+D3DXVECTOR3(0.f,7.f,0.f));
 
 			//posLastRail-dirRail*0.5f*offset =beginPosRail=lastendPosRail
 		}

@@ -4,7 +4,7 @@ class RailsManager : public Component
 {
 private :
 	list<GameObject*> rails;
-	float cameraTreshold = 25.0f;
+	float cameraTreshold = 110.0f;
 	float offset = 25.0f;
 	CameraComponent* _mainCam;
 	D3DXVECTOR3 posLastRail = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
