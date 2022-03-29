@@ -6,8 +6,12 @@ class Player :
 {
 private:
     Crosshair* _Crosshair;
+    list<GameObject*> balls;
+    //Maybe later make a reload system
+    int nbBallMax = 10;
+
 public:
-    float _shootPower = 100.0f;
+    float _shootPower = 300.0f;
     TextComponent* _ptsText = NULL;
 
     virtual void InitComponent() override;

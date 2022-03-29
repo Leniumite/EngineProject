@@ -68,6 +68,7 @@ void TextComponent::Draw()
     _sprite->Draw(_texture, NULL, &pivot, &pos, D3DCOLOR_XRGB(255, 255, 255));*/
 
 
+    _sprite->Begin(D3DXSPRITE_ALPHABLEND);
     _font->DrawTextW(NULL, _txt.c_str(), -1, &rect, DT_NOCLIP | DT_LEFT, _color);
     _sprite->End();
     

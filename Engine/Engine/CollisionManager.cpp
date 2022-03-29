@@ -55,10 +55,12 @@ void CollisionManager::checkCollisions()
 					}
 				}
 			}
-
 			
-			
-
+			othercol = NULL;
+			bOtherCollider = NULL;
+			bCollider = NULL;
+			sCollider = NULL;
+			sOtherCollider = NULL;
 		}
 	}
 }
@@ -70,8 +72,6 @@ bool CollisionManager::SphereSphereCollision(SphereCollider* col1, SphereCollide
 	float dist = sqrtf(distvec.x * distvec.x +
 		distvec.y * distvec.y +
 		distvec.z * distvec.z);
-
-				
 
 
 	if (dist> col1->_d+col2->_d)

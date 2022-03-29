@@ -74,6 +74,7 @@ void Engine::InitD3D()
 
 void Engine::RenderFrame()
 {
+    //DWORD cur = timeGetTime();
     _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     _d3ddev->BeginScene();
@@ -95,6 +96,7 @@ void Engine::RenderFrame()
 
     _d3ddev->Present(NULL, NULL, NULL, NULL);
 
+    //OutputDebugStringA(std::to_string(timeGetTime()-cur).c_str());
 }
 
 void Engine::DestroyGameobjectWaiting()
@@ -156,7 +158,7 @@ void Engine::Refresh()
     if (UpdateTime()) {
         Update();
         RenderFrame();
-        //DestroyGameobjectWaiting();
+        DestroyGameobjectWaiting();
     }
 }
 

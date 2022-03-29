@@ -10,10 +10,6 @@ void TargetListener::Update()
 
 void TargetListener::OnRaise()
 {
-	for (Component* component: _gameObject->GetAllComponents())
-	{
-		component->isEnable = FALSE;
-	}
 	tManager->Replace(_gameObject);
 }
 
