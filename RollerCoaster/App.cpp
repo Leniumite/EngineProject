@@ -26,18 +26,16 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     return TRUE;
 }
 
+
 void App::Loop()
 {
     _running = true;
 
     //Préparation du jeu ici
 
-    //We set the scene
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
-    //Just grab the go where the camera is and add the player script (component)
-    //Player* player = _gameScene->GetCameraGO()->AddComponent<Player>();
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
@@ -67,10 +65,8 @@ void App::Loop()
     cubeGameObject4->AddComponent<TargetListener>();
     cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    GameObject* particleGO = _gameScene->AddGameObject();
-    particleGO->_transform->ChangePositionX(10.0f);
-    ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
-    particleComponent->SetMaxParticlesCount(1000);
+    GameObject* railManager = _gameScene->AddGameObject();
+    RailsManager* RM = railManager->AddComponent<RailsManager>();
 
     GameObject* targetManager = _gameScene->AddGameObject();
     TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
@@ -91,9 +87,9 @@ void App::Loop()
     GameObject* quitButtonGO = _gameScene->AddGameObject();
     ButtonComponent* quitButton = quitButtonGO->AddComponent<ButtonComponent>();
     quitButton->ChangeRect(
-        1080 / 2 - 12,
-        1920 / 2 - 45,
-        1080 / 2 + 12,
+        1080 / 2 - 12, 
+        1920 / 2 - 45, 
+        1080 / 2 + 12, 
         1920 / 2 + 45);
     quitButton->_text->_txt = L"QUIT APP";
     _escUIManager->_uiButtons.push_back(quitButton);
@@ -140,6 +136,7 @@ void App::Uninit()
 {
     _engine.Uninit();
 }
+
 
 bool App::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {

@@ -22,7 +22,7 @@ public:
     virtual ~MeshComponent() override;
     MeshComponent(GameObject* gameObject);
     virtual void Clean();
-    inline virtual void Draw() {};
+    virtual void Draw() {};
     LPD3DXMESH GetMesh() { return _mesh; }
     void SetMaterialColor(D3DXCOLOR newColor);
 };

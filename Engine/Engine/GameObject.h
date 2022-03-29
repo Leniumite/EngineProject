@@ -13,7 +13,7 @@ public:
 	Transform* _transform;
 
 	GameObject(Engine* engine);
-	virtual ~GameObject();
+	~GameObject();
 
 	void Destroy(float timeBeforeDestroy = 0.0f);
 

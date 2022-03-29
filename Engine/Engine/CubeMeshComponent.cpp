@@ -20,3 +20,8 @@ void CubeMeshComponent::Draw()
     _d3ddev->SetMaterial(&_material);
     _mesh->DrawSubset(0);
 }
+
+void CubeMeshComponent::Update()
+{
+    _gameObject->_transform->RotateYaw(8.0f * _engine->GetTimer()->deltaTime);
+}

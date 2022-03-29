@@ -22,7 +22,7 @@ public :
 	virtual void InitComponent() override;
 	virtual void Update() override;
 
-	void CreatePath();
 	void ManageRails();
 
 };
+
