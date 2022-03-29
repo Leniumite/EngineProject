@@ -10,6 +10,7 @@ public :
 	bool BoxSphereCollision(BoxCollider* box, SphereCollider* sphere);
 
 	void AddCollider(Collider* col);
+	void RemoveCollider(Collider* col);
 
 	D3DXVECTOR3 Right = D3DXVECTOR3(1.f, 0.f, 0.f);
 	D3DXVECTOR3 Up = D3DXVECTOR3(0.0f, 1.f, 0.f);

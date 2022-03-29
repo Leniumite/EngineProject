@@ -10,11 +10,12 @@ private:
 
 public:
 
-
 	Transform* _transform;
 
 	GameObject(Engine* engine);
 	~GameObject();
+
+	void Destroy(float timeBeforeDestroy = 0.0f);
 
 	inline Engine* GetEngine() { return _engine; }
 
@@ -27,7 +28,6 @@ public:
 
 	template<class T>
 	T* GetComponent();
-
 
 	template<class T>
 	list<T*> GetComponentAllComponentsOfType();

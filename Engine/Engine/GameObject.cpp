@@ -14,11 +14,9 @@ GameObject::~GameObject()
 	for (Component* component : _components)
 	{
 		delete component;
+		component = nullptr;
 	}
-
 }
-
-
 
 void GameObject::UpdateComponents()
 {

@@ -97,6 +97,15 @@ void Engine::RenderFrame()
 
 }
 
+void Engine::DestroyGameobjectWaiting()
+{
+    for (GameObject* go : objectToDestroy)
+    {
+        GetScene()->RemoveGameObject(go);
+    }
+    objectToDestroy.clear();
+}
+
 bool Engine::UpdateTime() {
 
     float newSysTime = _timer->GetAppTime();
@@ -147,6 +156,7 @@ void Engine::Refresh()
     if (UpdateTime()) {
         Update();
         RenderFrame();
+        //DestroyGameobjectWaiting();
     }
 }
 
@@ -169,4 +179,9 @@ Scene* Engine::CreateScene() {
 void Engine::DrawTextString(int x, int y, DWORD color, const char* str)
 {
 
+}
+
+void Engine::Destroy(GameObject* go, float timer)
+{
+    objectToDestroy.push_back(go);    
 }

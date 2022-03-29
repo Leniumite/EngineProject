@@ -21,11 +21,11 @@ void CollisionManager::checkCollisions()
 			BoxCollider* bCollider = col->_gameObject->GetComponent<BoxCollider>();
 			SphereCollider* sCollider = col->_gameObject->GetComponent<SphereCollider>();
 			SphereCollider* sOtherCollider = othercol->_gameObject->GetComponent<SphereCollider>();
-			if (bCollider != NULL && bOtherCollider !=NULL)
+			if (bCollider != NULL && bOtherCollider != NULL)
 			{
 				//hasCollide = hasCollide || BoxBoxCollision(bOtherCollider, bCollider);
 			}
-			else if (sCollider != NULL && sOtherCollider !=NULL)
+			else if (sCollider != NULL && sOtherCollider != NULL)
 			{
 				//hasCollide = hasCollide || SphereSphereCollision(sCollider, sOtherCollider);
 			}
@@ -55,6 +55,8 @@ void CollisionManager::checkCollisions()
 					}
 				}
 			}
+
+			
 			
 
 		}
@@ -115,6 +117,11 @@ bool CollisionManager::BoxSphereCollision(BoxCollider* box, SphereCollider* sphe
 void CollisionManager::AddCollider(Collider* col)
 {
 	_colliders.push_back(col);
+}
+
+void CollisionManager::RemoveCollider(Collider* col)
+{
+	_colliders.erase(std::remove(_colliders.begin(), _colliders.end(), col), _colliders.end());
 }
 
 

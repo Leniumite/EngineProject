@@ -14,6 +14,7 @@ void TargetListener::OnRaise()
 	{
 		component->isEnable = FALSE;
 	}
+	tManager->Replace(_gameObject);
 }
 
 TargetListener::TargetListener(GameObject* gameObject) : Listener(gameObject)

@@ -8,5 +8,6 @@ public:
     virtual void Update() override;
     virtual void OnRaise() override;
     TargetListener(GameObject* gameObject);
+    TargetManager* tManager;
 };
 

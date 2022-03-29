@@ -42,19 +42,18 @@ void App::Loop()
     whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
-
     GameObject* cubeGameObject = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
     cubeGameObject->AddComponent<TargetListener>();
     cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
 
-    GameObject* cubeGameObject2 = _gameScene->AddGameObject();
+    /*GameObject* cubeGameObject2 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
     TargetListener* tList2 = cubeGameObject2->AddComponent<TargetListener>();
     cubeComponent2->SetMaterialColor(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
     cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
     BoxCollider* boxCollider = cubeGameObject2->AddComponent<BoxCollider>();
-    boxCollider->collisionListeners.push_back(tList2);
+    boxCollider->collisionListeners.push_back(tList2);*/
 
     GameObject* cubeGameObject3 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
@@ -68,6 +67,9 @@ void App::Loop()
 
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
+
+    GameObject* targetManager = _gameScene->AddGameObject();
+    TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
 
     _player = _gameScene->AddGameObject();
     _player->AddComponent<Player>();

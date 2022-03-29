@@ -6,6 +6,12 @@ void PlayerBulletCollide::InitComponent()
 
 void PlayerBulletCollide::Update()
 {
+	D3DXVECTOR3 dist = _engine->GetScene()->_mainCamera->GetCamPos() - _gameObject->_transform->GetPosition();
+
+	float norm = (dist.x * dist.x) + (dist.y * dist.y) + (dist.z * dist.z);
+
+	if (norm > 10000.0f)
+		_engine->Destroy(_gameObject);
 }
 
 void PlayerBulletCollide::OnRaise()
@@ -16,6 +22,7 @@ void PlayerBulletCollide::OnRaise()
 		{
 			comp->isEnable = FALSE;
 		}
+		_engine->Destroy(_gameObject);
 	}
 }
 
