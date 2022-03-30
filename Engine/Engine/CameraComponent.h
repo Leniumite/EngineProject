@@ -9,11 +9,9 @@ class CameraComponent : public Component
 
 private:
 	float _rotX,_rotY;
-	D3DXVECTOR3 currentwp;
 
 
 public:
-	vector<D3DXVECTOR3> _waypoints;
 	bool isMenuOpen = FALSE;
 	D3DXVECTOR3 dir;
 
@@ -25,7 +23,5 @@ public:
 
 	virtual void InitComponent() override;
 	virtual void Update() override;
-	void UpdatePos();
 	void UpdateRot(float rotx,float rotY);
-	void AddWaypoint(D3DXVECTOR3 wp);
 };

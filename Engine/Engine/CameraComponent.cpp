@@ -9,7 +9,7 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 void CameraComponent::InitComponent()
 {
 #ifndef _DEBUG
-    SetCursor(NULL);
+    //SetCursor(NULL);
     _engine->GetDevice()->ShowCursor(FALSE);
 #endif
     matView;    // the view transform matrix
@@ -30,16 +30,14 @@ void CameraComponent::InitComponent()
         1.0f,    // the near view-plane
         100.0f);    // the far view-plane
     //_rotY = -90;
-    currentwp = D3DXVECTOR3(20.f, .0f, .0f);
-    dir = currentwp;
-    
+
+
 }
 
 void CameraComponent::Update()
 {
-    
+
     //_gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
-    //UpdatePos();
     float rayon = 19.f;
 
     UpdateRot(_engine->_MM._mouseDeltaX, _engine->_MM._mouseDeltaY);
@@ -61,21 +59,6 @@ void CameraComponent::Update()
     _d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
 }
 
-void CameraComponent::UpdatePos()
-{
-    
-    D3DXVECTOR3 temp = currentwp - camPos;
-
-    D3DXVec3Normalize(&dir ,&temp);
-    _gameObject->_transform->ChangePosition(camPos + 5.0f *dir*10.f* _engine->GetTimer()->deltaTime);
-    if (sqrtf( temp.x* temp.x+ temp.y * temp.y + temp.z * temp.z)<5.0f  )
-    { 
-        _waypoints.erase(_waypoints.begin());
-        currentwp = _waypoints[0];
-        
-    }
-}
-
 void CameraComponent::UpdateRot(float rotX, float rotY)
 {
     _rotX -= rotX;
@@ -91,9 +74,4 @@ void CameraComponent::UpdateRot(float rotX, float rotY)
 
     //_rotY += D3DXToRadian(5.f*_engine->GetTimer()->deltaTime);
     //_rotX += D3DXToRadian(10.5f*_engine->GetTimer()->deltaTime);
-}
-
-void CameraComponent::AddWaypoint(D3DXVECTOR3 wp)
-{
-    _waypoints.push_back(wp);
 }

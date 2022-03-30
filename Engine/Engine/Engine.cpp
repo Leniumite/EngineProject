@@ -62,9 +62,7 @@ void Engine::InitD3D()
     d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
     d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-#ifndef _DEBUG
-    ShowCursor(FALSE);
-#endif
+
     ShowCursor(FALSE);
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
    // _d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);

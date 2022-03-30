@@ -15,6 +15,7 @@
 #include <crtdbg.h>
 
 #include "../Engine/Engine/Moteur.h"
+#include "CameraController.h"
 #include "Resource.h"
 #include "global.h"
 #include "EscapeUIManager.h"

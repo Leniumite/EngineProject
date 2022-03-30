@@ -35,6 +35,8 @@
 #include <vector>
 #include <random>
 
+#include "Mesh.h"
+
 #include "Component.h"
 #include "Transform.h"
 #include "LightComponent.h"

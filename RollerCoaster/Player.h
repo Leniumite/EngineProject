@@ -22,7 +22,7 @@ public:
 
     void Shoot();
 
-    float _shootCooldown = 0.5f;
+    float _shootCooldown = 0.3f;
     float _timeBeforeNextShoot = 0.0f;
 
     int _points = 0;

@@ -60,6 +60,9 @@
     <ClInclude Include="TargetManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RollerCoaster.cpp">
@@ -96,6 +99,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="TargetManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

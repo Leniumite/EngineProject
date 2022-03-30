@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="CameraController.h" />
     <ClInclude Include="Crosshair.h" />
     <ClInclude Include="EscapeUIManager.h" />
     <ClInclude Include="FpsText.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="Crosshair.cpp" />
     <ClCompile Include="EscapeUIManager.cpp" />
     <ClCompile Include="FpsText.cpp" />

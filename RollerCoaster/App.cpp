@@ -37,34 +37,15 @@ void App::InitGame()
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
+    _engine.GetScene()->_mainCamera->_gameObject->AddComponent<CameraController>();
+
 
     //LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     //whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     //whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));
     //whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
-    //GameObject* cubeGameObject = _gameScene->AddGameObject();
-    //CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
-    //cubeGameObject->AddComponent<TargetListener>();
-    //cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
 
-    /*GameObject* cubeGameObject2 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
-    TargetListener* tList2 = cubeGameObject2->AddComponent<TargetListener>();
-    cubeComponent2->SetMaterialColor(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
-    cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
-    BoxCollider* boxCollider = cubeGameObject2->AddComponent<BoxCollider>();
-    boxCollider->collisionListeners.push_back(tList2);*/
-
-    //GameObject* cubeGameObject3 = _gameScene->AddGameObject();
-    //CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
-    //cubeGameObject3->AddComponent<TargetListener>();
-    //cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
-
-    //GameObject* cubeGameObject4 = _gameScene->AddGameObject();
-    //CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
-    //cubeGameObject4->AddComponent<TargetListener>();
-    //cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
 
     //GameObject* particleGO = _gameScene->AddGameObject();
@@ -74,14 +55,15 @@ void App::InitGame()
     //particleComponent->SetParticlesStartAcceleration(D3DXVECTOR3(0.0f, -9.81f, 0.0f));
     //particleComponent->SetParticlesMaxSpeedMultiplier(5);
 
-    //GameObject* railManager = _gameScene->AddGameObject();
-    //RailsManager* RM = railManager->AddComponent<RailsManager>();
+    GameObject* railManager = _gameScene->AddGameObject();
+    RailsManager* RM = railManager->AddComponent<RailsManager>();
 
-    //GameObject* targetManager = _gameScene->AddGameObject();
-    //TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
+    GameObject* targetManager = _gameScene->AddGameObject();
+    TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
 
-    //_player = _gameScene->AddGameObject();
-    //_player->AddComponent<Player>();
+    _player = _gameScene->AddGameObject();
+    Player* playerComp = _player->AddComponent<Player>();
+    playerComp->_ptsText->SetCorners(20, 0, 200, 200);
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
