@@ -27,8 +27,9 @@ private:
 
 	bool _running = false;
 
+
+	void InitGame();
 	bool InitInstance(HINSTANCE hInstance, int nCmdShow);
-	bool HandleInputs();
 
 	EscapeUIManager* _escUIManager = NULL;
 
@@ -40,6 +41,8 @@ public:
 	bool Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable);
 	void Loop();
 	void Uninit();
+
+	inline void SetRunningState(bool newState) { _running = newState; }
 
 	MSG GetMessage() { return _msg; }
 };

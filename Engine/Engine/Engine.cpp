@@ -67,16 +67,16 @@ void Engine::InitD3D()
 #endif
     ShowCursor(FALSE);
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
+   // _d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);
     _d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
-    _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
+    _d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(255, 255, 255));
 
 }
 
 void Engine::RenderFrame()
 {
-    //DWORD cur = timeGetTime();
     _d3ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     _d3ddev->BeginScene();
@@ -97,8 +97,6 @@ void Engine::RenderFrame()
     _d3ddev->EndScene();
 
     _d3ddev->Present(NULL, NULL, NULL, NULL);
-
-    //OutputDebugStringA(std::to_string(timeGetTime()-cur).c_str());
 }
 
 void Engine::DestroyGameobjectWaiting()
@@ -178,11 +176,6 @@ Scene* Engine::CreateScene() {
     newScene->Init();
 
     return newScene;
-}
-
-void Engine::DrawTextString(int x, int y, DWORD color, const char* str)
-{
-
 }
 
 void Engine::Destroy(GameObject* go, float timer)

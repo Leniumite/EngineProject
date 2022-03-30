@@ -55,8 +55,6 @@ public:
 
 	inline LPDIRECT3DDEVICE9 GetDevice() { return _d3ddev; }
 
-	void DrawTextString(int x, int y, DWORD color, const char* str);
-
 	void Destroy(GameObject* go, float timer = 0.0f);
 
 };

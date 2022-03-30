@@ -6,7 +6,7 @@ ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject) : MeshC
 
 	_particlesArray = nullptr;
 	_pointSize = 1.0f;
-	_pointSizeMax = 20.0f;
+	_pointSizeMax = 25.0f;
 	_particlesTexture = NULL;
 	_particleVertexBuffer = NULL;
 	_aliveParticlesCount = 0;
@@ -14,14 +14,19 @@ ParticleSystemComponent::ParticleSystemComponent(GameObject* gameObject) : MeshC
 	_particlesLifeTime = 2.0f;
 	_particlesmaxAngle = 22.5f;
 	_minParticleBurstAmount = 1;
-	_maxParticleBurstAmount = 1000;
+	_maxParticleBurstAmount = 5000;
+	_randomColorAtStart = false;
+	_particleEmissionShape = ParticleEmissionShape::Cone;
+	_particleStartColor = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	_minParticleSpeedMultiplier = 1.0f;
+	_maxParticleSpeedMultiplier = 1.0f;
 
-	//_material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
 	SetMaterialColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-	//_material.Ambient.r = _material.Ambient.g = _material.Ambient.b = 1.0f;
-	//_material.Ambient.a = 1.0f;
-	//_material.Diffuse.r = _material.Diffuse.g = _material.Diffuse.b = 0.0f;
-	//_material.Diffuse.a = 1.0f;
+	_material.Ambient.r = _material.Ambient.g = _material.Ambient.b = 0.0f;
+	_material.Ambient.a = 1.0f;
+	_material.Diffuse.r = _material.Diffuse.g = _material.Diffuse.b = 1.0f;
+	_material.Diffuse.a = 1.0f;
 }
 
 void ParticleSystemComponent::InitComponent()
@@ -38,6 +43,7 @@ ParticleSystemComponent::~ParticleSystemComponent()
 void ParticleSystemComponent::Draw()
 {
 	InitDraw();
+	ModifyVertexBuffer();
 	_d3ddev->SetMaterial(&_material);
 	_d3ddev->SetTexture(0, _particlesTexture);
 	_d3ddev->SetFVF(PARTICLEFVF);
@@ -46,7 +52,6 @@ void ParticleSystemComponent::Draw()
 	_d3ddev->DrawPrimitive(D3DPT_POINTLIST, 0, _aliveParticlesCount);
 
 	UninitDraw();
-
 }
 
 DWORD FloatIntoDWORD(float v)
@@ -56,20 +61,22 @@ DWORD FloatIntoDWORD(float v)
 
 void ParticleSystemComponent::InitDraw()
 {
+	_d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	_d3ddev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	_d3ddev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	_d3ddev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 	_d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	_d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
 	_d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_A, DWORD(0.0f));
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_B, DWORD(0.0f));
-	_d3ddev->SetRenderState(D3DRS_POINTSCALE_C, DWORD(1.0f));
+	//_d3ddev->SetRenderState(D3DRS_POINTSCALE_A, DWORD(0.0f));
+	//_d3ddev->SetRenderState(D3DRS_POINTSCALE_B, DWORD(0.0f));
+	//_d3ddev->SetRenderState(D3DRS_POINTSCALE_C, DWORD(1.0f));
 	_d3ddev->SetRenderState(D3DRS_POINTSCALE_A, FloatIntoDWORD(0.0f));
 	_d3ddev->SetRenderState(D3DRS_POINTSCALE_B, FloatIntoDWORD(0.0f));
 	_d3ddev->SetRenderState(D3DRS_POINTSCALE_C, FloatIntoDWORD(1.0f));
 	_d3ddev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	_d3ddev->SetRenderState(D3DRS_POINTSIZE, DWORD(_pointSize));
-	_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, DWORD(_pointSizeMax));
+	//_d3ddev->SetRenderState(D3DRS_POINTSIZE, DWORD(_pointSize));
+	//_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, DWORD(_pointSizeMax));
 	_d3ddev->SetRenderState(D3DRS_POINTSIZE, FloatIntoDWORD(_pointSize));
 	_d3ddev->SetRenderState(D3DRS_POINTSIZE_MAX, FloatIntoDWORD(_pointSizeMax));
 }
@@ -83,6 +90,7 @@ void ParticleSystemComponent::UninitDraw()
 	_d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 	_d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
 	_d3ddev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+	_d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void ParticleSystemComponent::Clean()
@@ -131,13 +139,14 @@ void ParticleSystemComponent::Update()
 		}
 	}
 
-	ModifyVertexBuffer();
+	//ModifyVertexBuffer();
 }
 
 void ParticleSystemComponent::ModifyVertexBuffer()
 {
 	PARTICLEVERTEX* buffer;
 	HRESULT hRes = _particleVertexBuffer->Lock(0, _aliveParticlesCount * sizeof(PARTICLEVERTEX), (void**)&buffer, 0);
+	//HRESULT hRes = _particleVertexBuffer->Lock(0, 0, (void**)&buffer, 0);
 
 	if (FAILED(hRes))
 		return;
@@ -149,9 +158,7 @@ void ParticleSystemComponent::ModifyVertexBuffer()
 		if (currentParticle._isAlive)
 		{
 			buffer->position = currentParticle._position;
-			buffer->diffuse = currentParticle._color;
-			buffer->ambient = currentParticle._color;
-			//buffer->diffuse = D3DCOLOR_COLORVALUE(currentParticle._color.r, currentParticle._color.g, currentParticle._color.b, currentParticle._color.a);
+			buffer->diffuse = D3DCOLOR_COLORVALUE(currentParticle._color.r, currentParticle._color.g, currentParticle._color.b, currentParticle._color.a);
 			buffer++;
 		}
 	}
@@ -221,6 +228,8 @@ int ParticleSystemComponent::CreateParticleBurst(int maxAmount)
 	{
 		Particle* currentParticle = &_particlesArray[i];
 
+		std::mt19937 gen(rd());
+
 		if (currentParticle->_isAlive == false)
 		{
 			index++;
@@ -228,22 +237,67 @@ int ParticleSystemComponent::CreateParticleBurst(int maxAmount)
 			currentParticle->_lifeTime = _particlesLifeTime;
 			currentParticle->_age = 0.0f;
 
-			std::uniform_real_distribution<> distr1(-.5f, .5f);
-			std::uniform_real_distribution<> distr2(-.5f, .5f);
-			float xVelocity = distr1(gen);
-			float zVelocity = distr2(gen);
+			D3DXVECTOR3 direction;
+			D3DXVECTOR3 normalizedDirection;
 
-			std::random_device rd;
-			std::mt19937 gen(rd());
-			currentParticle->_velocity = D3DXVECTOR3(xVelocity, 1.0f, zVelocity);
+			switch (_particleEmissionShape) {
+
+				case(ParticleEmissionShape::Cone):
+				{
+					float angleCos = abs(cos(D3DXToRadian(_particlesmaxAngle)) /2);
+
+					std::uniform_real_distribution<> distr1(-angleCos, angleCos);
+					std::uniform_real_distribution<> distr2(angleCos, angleCos);
+					float xVelocity = distr1(gen);
+					float zVelocity = distr2(gen);
+
+					direction = D3DXVECTOR3(xVelocity, 1.0f, zVelocity);
+
+					D3DXVec3Normalize(&normalizedDirection, &direction);
+
+					
+
+					break;
+				}
+
+				case(ParticleEmissionShape::Point):
+				{
+					
+
+					break;
+				}
+
+
+
+				
+			}
+
+			std::uniform_real_distribution<> distrSpeed(_minParticleSpeedMultiplier, _maxParticleSpeedMultiplier);
+
+			float speedMultiplier = distrSpeed(gen);
+
+			currentParticle->_velocity = normalizedDirection * speedMultiplier;
+
 			currentParticle->_acceleration = _startAcceleration;
+
+			if (_randomColorAtStart)
+			{
+				std::uniform_real_distribution<> distrr(0.0f, 1.0f);
+				std::uniform_real_distribution<> distrg(0.0f, 1.0f);
+				std::uniform_real_distribution<> distrb(0.0f, 1.0f);
+				currentParticle->_color = D3DXCOLOR(distrr(gen), distrg(gen), distrb(gen), 1.0f);
+			}
+			else
+			{
+
+			}
+
+			
 			currentParticle->_isAlive = true;
 		}
 
 		if (index >= addCount) break;
 	}
-
-	//assert(index==addCount);
 
 	return addCount;
 }

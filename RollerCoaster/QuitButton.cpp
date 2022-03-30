@@ -10,7 +10,7 @@ void QuitButton::Update()
 
 void QuitButton::OnRaise()
 {
-	exit(0);
+	GetApp()->SetRunningState(false);
 }
 
 QuitButton::QuitButton(GameObject* gameObject) : Listener(gameObject)

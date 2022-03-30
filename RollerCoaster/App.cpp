@@ -23,29 +23,30 @@ bool App::Init(HINSTANCE hInstance, int nCmdShow, HACCEL hAccelTable)
     }
 
     _engine.Init(_window, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    InitGame();
+
     return TRUE;
 }
 
 
-void App::Loop()
+void App::InitGame()
 {
-    _running = true;
-
     //Préparation du jeu ici
 
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
 
-    LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
-    whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-    whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
-    whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
+    //LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
+    //whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+    //whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));
+    //whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
-    GameObject* cubeGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
-    cubeGameObject->AddComponent<TargetListener>();
-    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
+    //GameObject* cubeGameObject = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
+    //cubeGameObject->AddComponent<TargetListener>();
+    //cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
 
     /*GameObject* cubeGameObject2 = _gameScene->AddGameObject();
     CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
@@ -55,24 +56,32 @@ void App::Loop()
     BoxCollider* boxCollider = cubeGameObject2->AddComponent<BoxCollider>();
     boxCollider->collisionListeners.push_back(tList2);*/
 
-    GameObject* cubeGameObject3 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
-    cubeGameObject3->AddComponent<TargetListener>();
-    cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
+    //GameObject* cubeGameObject3 = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
+    //cubeGameObject3->AddComponent<TargetListener>();
+    //cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
 
-    GameObject* cubeGameObject4 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
-    cubeGameObject4->AddComponent<TargetListener>();
-    cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
+    //GameObject* cubeGameObject4 = _gameScene->AddGameObject();
+    //CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
+    //cubeGameObject4->AddComponent<TargetListener>();
+    //cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
 
-    GameObject* railManager = _gameScene->AddGameObject();
-    RailsManager* RM = railManager->AddComponent<RailsManager>();
 
-    GameObject* targetManager = _gameScene->AddGameObject();
-    TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
+    //GameObject* particleGO = _gameScene->AddGameObject();
+    //particleGO->_transform->ChangePositionX(10);
+    //ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
+    //particleComponent->SetMaxParticlesCount(1000);
+    //particleComponent->SetParticlesStartAcceleration(D3DXVECTOR3(0.0f, -9.81f, 0.0f));
+    //particleComponent->SetParticlesMaxSpeedMultiplier(5);
 
-    _player = _gameScene->AddGameObject();
-    _player->AddComponent<Player>();
+    //GameObject* railManager = _gameScene->AddGameObject();
+    //RailsManager* RM = railManager->AddComponent<RailsManager>();
+
+    //GameObject* targetManager = _gameScene->AddGameObject();
+    //TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
+
+    //_player = _gameScene->AddGameObject();
+    //_player->AddComponent<Player>();
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
@@ -87,9 +96,9 @@ void App::Loop()
     GameObject* quitButtonGO = _gameScene->AddGameObject();
     ButtonComponent* quitButton = quitButtonGO->AddComponent<ButtonComponent>();
     quitButton->ChangeRect(
-        1080 / 2 - 12, 
-        1920 / 2 - 45, 
-        1080 / 2 + 12, 
+        1080 / 2 - 12,
+        1920 / 2 - 45,
+        1080 / 2 + 12,
         1920 / 2 + 45);
     quitButton->_text->_txt = L"QUIT APP";
     _escUIManager->_uiButtons.push_back(quitButton);
@@ -100,36 +109,18 @@ void App::Loop()
     quitButton->_listeners.push_back(quitListener);
 
     PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+}
+
+void App::Loop()
+{
+    _running = true;
 
     //Entrée dans la boucle de jeu ici
     while (_running == true)
     {
-        if (HandleInputs() == false)
-            break;
         _engine.Refresh();
         _escUIManager->Update();
     }
-
-}
-
-bool App::HandleInputs() {
-
-    //GetAsyncKeyState(VK_DOWN) < 0;
-
-    while (PeekMessage(&_msg, nullptr, 0, 0, PM_REMOVE))
-    {
-        if (!TranslateAccelerator(_msg.hwnd, _hAccelTable, &_msg))
-        {
-            TranslateMessage(&_msg);
-            DispatchMessage(&_msg);
-        }
-        if (_msg.message == WM_QUIT)
-        {
-            _running = false;
-            return false;
-        }
-    }
-    return true;
 }
 
 void App::Uninit()

@@ -2,8 +2,7 @@
 
 struct PARTICLEVERTEX {
 	D3DXVECTOR3 position;
-	D3DXCOLOR diffuse;
-	D3DXCOLOR ambient;
+	D3DCOLOR diffuse;
 };
 
 

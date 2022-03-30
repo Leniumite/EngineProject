@@ -10,8 +10,8 @@ void CubeMeshComponent::InitComponent()
 {
     D3DXCreateBox(_d3ddev, 1.0f, 1.0f, 1.0f, &_mesh, NULL);
     ZeroMemory(&_material, sizeof(D3DMATERIAL9));
-    _material.Diffuse = D3DXCOLOR(1.0f, .0f, .0f, 1.0f);   // set diffuse color to white
-    _material.Ambient = D3DXCOLOR(1.0f, .0f, 0.0f, 1.0f);    // set ambient color to white
+    _material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);   // set diffuse color to white
+    _material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);    // set ambient color to white
 }
 
 void CubeMeshComponent::Draw()
