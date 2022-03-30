@@ -177,6 +177,7 @@
     <ClInclude Include="PolygonMeshComponent.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SliderComponent.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SphereMeshComponent.h" />
     <ClInclude Include="STimer.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TorusMeshComponent.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIClickableComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
@@ -211,6 +213,7 @@
     <ClCompile Include="PolygonMeshComponent.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SliderComponent.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SphereMeshComponent.cpp" />
     <ClCompile Include="STimer.cpp" />
@@ -218,6 +221,7 @@
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="TorusMeshComponent.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIClickableComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,14 +5,6 @@ RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 	_railsMesh = new Mesh();
 }
 
-//RailsManager::~RailsManager()
-//{
-//	for (GameObject* rail : rails)
-//	{
-//		delete rail;
-//	}
-//}
-
 void RailsManager::InitComponent()
 {
 	LoadRailMesh(L"Ressources\\Rails.x");

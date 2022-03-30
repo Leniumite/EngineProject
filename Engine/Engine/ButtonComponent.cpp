@@ -1,7 +1,7 @@
 #include "Moteur.h"
 #include "pch.h"
 
-ButtonComponent::ButtonComponent(GameObject* gameObject) : MeshComponent(gameObject)
+ButtonComponent::ButtonComponent(GameObject* gameObject) : UIClickableComponent(gameObject)
 {
     _rect.left = 0;
     _rect.top = 0;

@@ -73,8 +73,12 @@ void App::Loop()
         1080 / 2 + 12, 
         1920 / 2 + 45);
     quitButton->_text->_txt = L"QUIT APP";
-    _escUIManager->_uiButtons.push_back(quitButton);
+    _escUIManager->_UIClickable.push_back(quitButton);
     quitButton->isEnable = FALSE;
+
+    GameObject* slider = _gameScene->AddGameObject();
+    SliderComponent* sliderComp = slider->AddComponent<SliderComponent>();
+    _escUIManager->_UIClickable.push_back(sliderComp);
 
     GameObject* quitListenerGO = _gameScene->AddGameObject();
     QuitButton* quitListener = quitListenerGO->AddComponent<QuitButton>();
@@ -90,7 +94,6 @@ void App::Loop()
         _engine.Refresh();
         _escUIManager->Update();
     }
-
 }
 
 bool App::HandleInputs() {

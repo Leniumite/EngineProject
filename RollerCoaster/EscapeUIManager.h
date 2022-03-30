@@ -7,7 +7,7 @@ public:
     EscapeUIManager(GameObject* gameobject);
     virtual void Update() override;
     virtual void InitComponent() override;
-    list<ButtonComponent*> _uiButtons;
+    list<UIClickableComponent*> _UIClickable;
     void EnableButtons(bool);
 };
 

@@ -14,16 +14,16 @@ void EscapeUIManager::Update()
 	}
 
 	if (_engine->GetScene()->_mainCamera->isMenuOpen == TRUE) {
-		for (ButtonComponent* button : _uiButtons)
+		for (UIClickableComponent* clickable : _UIClickable)
 		{
-			button->Draw();
+			clickable->Draw();
 		}
 	}
 
     if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000f && _engine->GetScene()->_mainCamera->isMenuOpen == TRUE) {
-        for (ButtonComponent* button : _uiButtons)
+        for (UIClickableComponent* clickable : _UIClickable)
         {
-            button->CheckForButtonPress();
+			clickable->CheckForButtonPress();
         }
     }
     else if(_engine->GetScene()->_mainCamera->isMenuOpen == FALSE) {
@@ -38,9 +38,9 @@ void EscapeUIManager::InitComponent()
 
 void EscapeUIManager::EnableButtons(bool newStatus)
 {
-	for (ButtonComponent* button :_uiButtons)
+	for (UIClickableComponent* clickable :_UIClickable)
 	{
-		for (Component* component :button->_gameObject->GetAllComponents())
+		for (Component* component : clickable->_gameObject->GetAllComponents())
 		{
 			component->isEnable = newStatus;
 		}

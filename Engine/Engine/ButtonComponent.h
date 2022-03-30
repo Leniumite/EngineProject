@@ -1,7 +1,7 @@
 #pragma once
 
 class ButtonComponent :
-    public MeshComponent
+    public UIClickableComponent
 {
 private:
     LPD3DXLINE _line;
@@ -14,7 +14,7 @@ public:
     RECT _rect;
 
     bool RectCollision(RECT rectA, RECT rectB);
-    bool CheckForButtonPress();
+    virtual bool CheckForButtonPress() override;
     virtual void Draw() override;
     void ChangeRect(RECT newRect);
     void ChangeRect(LONG top, LONG left, LONG bottom, LONG right);

@@ -10,6 +10,11 @@ void QuitButton::Update()
 
 void QuitButton::OnRaise()
 {
+	for (GameObject* go : _engine->GetScene()->_gameObjectList)
+	{
+		_engine->Destroy(go);
+	}
+
 	exit(0);
 }
 

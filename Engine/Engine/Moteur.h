@@ -64,9 +64,11 @@
 #include "Scene.h"
 #include "STimer.h"
 
+#include "UIClickableComponent.h"
 #include "CameraComponent.h"
 #include "TextComponent.h"
 #include "ButtonComponent.h"
+#include "SliderComponent.h"
 #include "MouseManager.h"
 #include "Rigidbody.h"
 
