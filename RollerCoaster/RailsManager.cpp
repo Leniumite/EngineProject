@@ -26,7 +26,7 @@ void RailsManager::InitComponent()
 		PolygonMeshComponent* railMeshComponent = railGameObject->AddComponent<PolygonMeshComponent>();
 		railMeshComponent->SetMesh(_railsMesh);
 		posLastRail = railGameObject->_transform->GetPosition();
-		_mainCam->AddWaypoint(posLastRail+D3DXVECTOR3(0.f, 7.f, 0.f));
+		_mainCam->_gameObject->GetComponent<CameraController>()->AddWaypoint(posLastRail + D3DXVECTOR3(0.f, 7.f, 0.f));
 		endPosLastRail = posLastRail;
 		endPosLastRail.x += offset * 0.5f;
 		dirRail = D3DXVECTOR3(1.f, 0.f, 0.f);
@@ -90,7 +90,7 @@ void RailsManager::ManageRails()
 			rail->_transform->SetRotation(D3DXToRadian(rotY), D3DXToRadian(-rotX), D3DXToRadian(-rotZ));
 			posLastRail = endPosLastRail  +dirRail * 0.5f * offset;
 			endPosLastRail = posLastRail+dirRail*0.5f*offset;			
-			_mainCam->AddWaypoint(posLastRail+7*dirup);
+			_mainCam->_gameObject->GetComponent<CameraController>()->AddWaypoint(posLastRail+7*dirup);
 
 			//posLastRail-dirRail*0.5f*offset =beginPosRail=lastendPosRail
 		}

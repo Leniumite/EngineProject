@@ -36,34 +36,15 @@ void App::Loop()
     Scene* _gameScene = _engine.CreateScene();
     _engine.LoadScene(_gameScene);
 
+    _engine.GetScene()->_mainCamera->_gameObject->AddComponent<CameraController>();
+
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
-    GameObject* cubeGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent = cubeGameObject->AddComponent<CubeMeshComponent>();
-    cubeGameObject->AddComponent<TargetListener>();
-    cubeGameObject->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, -20.f));
-
-    /*GameObject* cubeGameObject2 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent2 = cubeGameObject2->AddComponent<CubeMeshComponent>();
-    TargetListener* tList2 = cubeGameObject2->AddComponent<TargetListener>();
-    cubeComponent2->SetMaterialColor(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
-    cubeGameObject2->_transform->ChangePosition(D3DXVECTOR3(20.f, 0.f, 0.f));
-    BoxCollider* boxCollider = cubeGameObject2->AddComponent<BoxCollider>();
-    boxCollider->collisionListeners.push_back(tList2);*/
-
-    GameObject* cubeGameObject3 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent3 = cubeGameObject3->AddComponent<CubeMeshComponent>();
-    cubeGameObject3->AddComponent<TargetListener>();
-    cubeGameObject3->_transform->ChangePosition(D3DXVECTOR3(0.f, 0.f, 20.f));
-
-    GameObject* cubeGameObject4 = _gameScene->AddGameObject();
-    CubeMeshComponent* cubeComponent4 = cubeGameObject4->AddComponent<CubeMeshComponent>();
-    cubeGameObject4->AddComponent<TargetListener>();
-    cubeGameObject4->_transform->ChangePosition(D3DXVECTOR3(-20.f, 0.f, 0.f));
+    
 
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
