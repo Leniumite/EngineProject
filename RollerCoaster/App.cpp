@@ -53,7 +53,8 @@ void App::Loop()
     TargetManager* targetManagerComp = targetManager->AddComponent<TargetManager>();
 
     _player = _gameScene->AddGameObject();
-    _player->AddComponent<Player>();
+    Player* playerComp = _player->AddComponent<Player>();
+    playerComp->_ptsText->SetCorners(20, 0, 200, 200);
 
     //GameObject* cGameObject = _gameScene->AddGameObject();
     //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
