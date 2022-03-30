@@ -40,20 +40,10 @@ void App::InitGame()
     _engine.GetScene()->_mainCamera->_gameObject->AddComponent<CameraController>();
 
 
-    //LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
-    //whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-    //whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));
-    //whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
-
-
-
-
-    //GameObject* particleGO = _gameScene->AddGameObject();
-    //particleGO->_transform->ChangePositionX(10);
-    //ParticleSystemComponent* particleComponent = particleGO->AddComponent<ParticleSystemComponent>();
-    //particleComponent->SetMaxParticlesCount(1000);
-    //particleComponent->SetParticlesStartAcceleration(D3DXVECTOR3(0.0f, -9.81f, 0.0f));
-    //particleComponent->SetParticlesMaxSpeedMultiplier(5);
+    LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
+    whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+    whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));
+    whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
     GameObject* railManager = _gameScene->AddGameObject();
     RailsManager* RM = railManager->AddComponent<RailsManager>();
@@ -65,9 +55,9 @@ void App::InitGame()
     Player* playerComp = _player->AddComponent<Player>();
     playerComp->_ptsText->SetCorners(20, 0, 200, 200);
 
-    //GameObject* cGameObject = _gameScene->AddGameObject();
-    //CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
-    //cGameObject->_transform->ChangePositionX(3.0f);
+    GameObject* cGameObject = _gameScene->AddGameObject();
+    CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
+    cGameObject->_transform->ChangePositionX(3.0f);
 
     GameObject* fpsTextGO = _gameScene->AddGameObject();
     fpsTextGO->AddComponent<FpsText>();
@@ -90,7 +80,7 @@ void App::InitGame()
     QuitButton* quitListener = quitListenerGO->AddComponent<QuitButton>();
     quitButton->_listeners.push_back(quitListener);
 
-    PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    //PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 void App::Loop()

@@ -49,6 +49,9 @@ public:
     virtual void Draw() override;
     virtual void Update() override;
 
+    inline void SetParticlesLifeTime(float newLifeTime) { _particlesLifeTime = newLifeTime; }
+    inline void SetParticlesMaxBurstAmount(int newMaxBurstAmount) { _maxParticleBurstAmount = newMaxBurstAmount; }
+    inline void SetParticlesMinBurstAmount(int newMinBurstAmount) { _minParticleBurstAmount = newMinBurstAmount; }
     inline void SetParticlesMinSpeedMultiplier(float newMinSpeed) { _minParticleSpeedMultiplier = newMinSpeed; }
     inline void SetParticlesMaxSpeedMultiplier(float newMaxSpeed) { _maxParticleSpeedMultiplier = newMaxSpeed; }
     inline void SetParticlesStartColor(D3DXCOLOR newColor) { _particleStartColor = newColor; }

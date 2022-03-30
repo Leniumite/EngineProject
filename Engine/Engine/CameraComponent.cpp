@@ -40,7 +40,6 @@ void CameraComponent::Update()
     //_gameObject->_transform->ChangePositionX(camPos.x + 5.0f * _engine->GetTimer()->deltaTime);
     float rayon = 19.f;
 
-    UpdateRot(_engine->_MM._mouseDeltaX, _engine->_MM._mouseDeltaY);
     camPos = _gameObject->_transform->GetPosition();
     camLookAt = camPos + D3DXVECTOR3(rayon * cosf(_rotX) * cosf(_rotY), rayon * sinf(_rotY), rayon * sinf(_rotX) * cosf(_rotY));
     D3DXMatrixLookAtLH(&matView,

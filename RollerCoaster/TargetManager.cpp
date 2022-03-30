@@ -15,10 +15,10 @@ void TargetManager::InitComponent()
 	{
 		GameObject* go = _engine->GetScene()->AddGameObject();
 		go->_transform->ChangeScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
-		CubeMeshComponent* cubeComponent2 = go->AddComponent<CubeMeshComponent>();
+		CubeMeshComponent* cubeComponent = go->AddComponent<CubeMeshComponent>();
 		TargetListener* tList2 = go->AddComponent<TargetListener>();
 		tList2->tManager = this;
-		cubeComponent2->SetMaterialColor(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+		cubeComponent->SetMaterialColor(GetRandomColor());
 		go->_transform->ChangePosition(D3DXVECTOR3(250.f, 2.f*i-8.f,5.f*i-20.f ));
 		BoxCollider* boxCollider = go->AddComponent<BoxCollider>();
 		boxCollider->collisionListeners.push_back(tList2);
@@ -47,8 +47,23 @@ void TargetManager::Replace(GameObject* go)
 	forwardNorm.x *= 110.0f ;
 	forwardNorm.y *= 110.0f;
 	forwardNorm.z *= 110.0f;
+
+	MeshComponent* mesh = go->GetComponent<MeshComponent>();
+	mesh->SetMaterialColor(GetRandomColor());
+
 	D3DXVECTOR3 randVec = D3DXVECTOR3((rand() % 21) - 10.f, (rand() % 21) - 10.f, (rand() % 21) - 10.f);
 	go->_transform->ChangePosition(_engine->GetScene()->_mainCamera->GetCamPos() + forwardNorm +randVec);
 
+}
 
+
+D3DXCOLOR TargetManager::GetRandomColor()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	std::uniform_real_distribution<> distrr(0.0f, 1.0f);
+	std::uniform_real_distribution<> distrg(0.0f, 1.0f);
+	std::uniform_real_distribution<> distrb(0.0f, 1.0f);
+	return D3DXCOLOR(distrr(gen), distrg(gen), distrb(gen), 1.0f);
 }

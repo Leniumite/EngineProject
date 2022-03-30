@@ -23,7 +23,8 @@ public:
     MeshComponent(GameObject* gameObject);
     virtual void Clean();
     virtual void Draw() {};
-    LPD3DXMESH GetMesh() { return _mesh; }
+    inline LPD3DXMESH GetMesh() { return _mesh; }
+    inline D3DMATERIAL9 GetMaterial() { return _material; }
     void SetMaterialColor(D3DXCOLOR newColor);
 };
 

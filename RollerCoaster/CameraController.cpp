@@ -11,6 +11,8 @@ void CameraController::Update()
 {
     D3DXVECTOR3 temp = _currentwp - _camera->GetCamPos();
 
+    _camera->UpdateRot(_engine->_MM._mouseDeltaX, _engine->_MM._mouseDeltaY);
+
     D3DXVec3Normalize(&_camera->dir, &temp);
     _gameObject->_transform->ChangePosition(_camera->GetCamPos() + (speed - (_camera->dir.y - 0.5f) * 40.f)* _camera->dir* _engine->GetTimer()->deltaTime);
     if (sqrtf(temp.x * temp.x + temp.y * temp.y + temp.z * temp.z) < 5.0f)

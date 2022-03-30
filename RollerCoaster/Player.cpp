@@ -35,6 +35,15 @@ void Player::Shoot()
 	GameObject* ball = _engine->GetScene()->AddGameObject();
 	ball->AddComponent<SphereMeshComponent>();
 
+	ParticleSystemComponent* particleSystem = ball->AddComponent<ParticleSystemComponent>();
+	particleSystem->SetMaxParticlesCount(1000);
+	particleSystem->SetParticlesStartAcceleration(D3DXVECTOR3(0.0f, -9.81f, 0.0f));
+	particleSystem->SetRandomColorAtStart(true);
+	particleSystem->SetParticlesMaxBurstAmount(300);
+	particleSystem->SetParticlesMaxSpeedMultiplier(3);
+	particleSystem->SetParticlesEmissionShape(ParticleEmissionShape::Point);
+
+
 	CameraComponent* cam = _engine->GetScene()->_mainCamera;
 	D3DXVECTOR3 dir = cam->GetCamLookAt() - cam->GetCamPos();
 

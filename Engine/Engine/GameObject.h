@@ -15,8 +15,6 @@ public:
 	GameObject(Engine* engine);
 	~GameObject();
 
-	void Destroy(float timeBeforeDestroy = 0.0f);
-
 	inline Engine* GetEngine() { return _engine; }
 
 	void UpdateComponents();

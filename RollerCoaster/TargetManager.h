@@ -5,6 +5,8 @@ private:
 	list<GameObject*> targets;
 	int ammountTarget = 10;
 
+	D3DXCOLOR GetRandomColor();
+
 public:
 	TargetManager(GameObject* gameobject);
 	~TargetManager();
