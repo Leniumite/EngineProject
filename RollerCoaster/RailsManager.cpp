@@ -2,6 +2,7 @@
 
 RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 {
+	_railsMesh = new Mesh();
 }
 
 //RailsManager::~RailsManager()
@@ -14,6 +15,7 @@ RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 
 void RailsManager::InitComponent()
 {
+	LoadRailMesh(L"Ressources\\Rails.x");
 	_mainCam = _engine->GetScene()->_mainCamera;
 
 	for (int i = 0; i < 14; i++)
@@ -22,7 +24,7 @@ void RailsManager::InitComponent()
 		railGameObject->_transform->ChangePositionX(posLastRail.x + offset);
 		railGameObject->_transform->ChangePositionY(-7.0f);
 		PolygonMeshComponent* railMeshComponent = railGameObject->AddComponent<PolygonMeshComponent>();
-		railMeshComponent->SetMeshModel(L"Ressources\\Rails.x");
+		railMeshComponent->SetMesh(_railsMesh);
 		posLastRail = railGameObject->_transform->GetPosition();
 		_mainCam->AddWaypoint(posLastRail+D3DXVECTOR3(0.f, 7.f, 0.f));
 		endPosLastRail = posLastRail;
@@ -93,4 +95,50 @@ void RailsManager::ManageRails()
 			//posLastRail-dirRail*0.5f*offset =beginPosRail=lastendPosRail
 		}
 	}
+}
+
+HRESULT RailsManager::LoadRailMesh(LPCWSTR fileName)
+{
+	D3DXLoadMeshFromX(fileName, D3DXMESH_SYSTEMMEM, _d3ddev, NULL, &_railsMesh->pD3DXMtrlBuffer, NULL, &_railsMesh->g_dwNumMaterials, &_railsMesh->_mesh);
+	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)_railsMesh->pD3DXMtrlBuffer->GetBufferPointer();
+	_railsMesh->g_pMeshMaterials = new D3DMATERIAL9[_railsMesh->g_dwNumMaterials];
+	if (_railsMesh->g_pMeshMaterials == NULL)
+		return E_OUTOFMEMORY;
+	_railsMesh->g_pMeshTextures = new LPDIRECT3DTEXTURE9[_railsMesh->g_dwNumMaterials];
+	if (_railsMesh->g_pMeshTextures == NULL)
+		return E_OUTOFMEMORY;
+
+	for (DWORD i = 0; i < _railsMesh->g_dwNumMaterials; i++)
+	{
+		// Copy the material
+		_railsMesh->g_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;
+
+		// Set the ambient color for the material (D3DX does not do this)
+		_railsMesh->g_pMeshMaterials[i].Ambient = _railsMesh->g_pMeshMaterials[i].Diffuse;
+
+		_railsMesh->g_pMeshTextures[i] = NULL;
+		if (d3dxMaterials[i].pTextureFilename != NULL &&
+			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
+		{
+			//UTILISER ::GetCommandLine() pour obtenir le path de l'éxecutableYaimiaou
+			string path = "Ressources\\";
+			path += d3dxMaterials[i].pTextureFilename;
+
+			// Create the texture
+			if (FAILED(D3DXCreateTextureFromFileA(_d3ddev, path.c_str(), &_railsMesh->g_pMeshTextures[i])))
+			{
+				MessageBox(NULL, L"Could not find texture map", L"Meshes.exe", MB_OK);
+			}
+		}
+	}
+
+
+	DWORD* adj = new DWORD[_railsMesh->_mesh->GetNumFaces() * 3];
+	_railsMesh->_mesh->GenerateAdjacency(0.005F, adj);
+	_railsMesh->_mesh->OptimizeInplace(D3DXMESHOPT_VERTEXCACHE, adj, NULL, NULL, NULL);
+
+	// Done with the material buffer
+	_railsMesh->pD3DXMtrlBuffer->Release();
+
+	return S_OK;
 }

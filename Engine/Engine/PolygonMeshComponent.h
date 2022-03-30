@@ -3,10 +3,7 @@ class PolygonMeshComponent : public MeshComponent
 {
 
 private:
-    LPD3DXBUFFER pD3DXMtrlBuffer;
-    D3DMATERIAL9* g_pMeshMaterials = NULL;
-    LPDIRECT3DTEXTURE9* g_pMeshTextures = NULL;
-    DWORD g_dwNumMaterials = 0L;
+    Mesh* _mesh;
 
 
 public:
@@ -17,5 +14,6 @@ public:
     virtual void Clean() override;
     virtual void Draw() override;
     HRESULT SetMeshModel(LPCWSTR modelPath);
+    void SetMesh(Mesh*);
 };
 

@@ -9,7 +9,7 @@ CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 void CameraComponent::InitComponent()
 {
 #ifndef _DEBUG
-    SetCursor(NULL);
+    //SetCursor(NULL);
     _engine->GetDevice()->ShowCursor(FALSE);
 #endif
     matView;    // the view transform matrix

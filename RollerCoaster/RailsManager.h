@@ -3,6 +3,7 @@
 class RailsManager : public Component
 {
 private :
+	Mesh* _railsMesh;
 	list<GameObject*> rails;
 	float cameraTreshold = 110.0f;
 	float offset = 25.0f;
@@ -23,6 +24,7 @@ public :
 	virtual void Update() override;
 
 	void ManageRails();
+	HRESULT LoadRailMesh(LPCWSTR fileName);
 
 };
 
