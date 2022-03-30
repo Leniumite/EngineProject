@@ -3,7 +3,7 @@ class TargetManager : public Component
 {
 private:
 	list<GameObject*> targets;
-	int ammountTarget = 5;
+	int ammountTarget = 10;
 
 public:
 	TargetManager(GameObject* gameobject);
