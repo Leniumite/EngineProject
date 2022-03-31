@@ -8,7 +8,7 @@ private:
     D3DXVECTOR3 _currentwp;
     float speed = 10.f;
 public:
-    vector<D3DXVECTOR3> _waypoints;
+    vector<D3DXVECTOR3> _waypoints = vector<D3DXVECTOR3>();
     CameraController(GameObject*);
     virtual void Update() override;
     virtual ~CameraController() override;

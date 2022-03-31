@@ -3,6 +3,11 @@
 RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 {
 	_railsMesh = new Mesh();
+	_mainCam = _engine->GetScene()->_mainCamera;
+}
+
+RailsManager::~RailsManager()
+{
 }
 
 //RailsManager::~RailsManager()
@@ -16,7 +21,7 @@ RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 void RailsManager::InitComponent()
 {
 	LoadRailMesh(L"Ressources\\Rails.x");
-	_mainCam = _engine->GetScene()->_mainCamera;
+	
 
 	for (int i = 0; i < 14; i++)
 	{
@@ -56,26 +61,10 @@ void RailsManager::ManageRails()
 			
 			float rotationX = ((rand() % 31) - 15) ;
 			float rotationY = ((rand() % 31) - 15) ;
-			//float rotationZ = ((rand() % 5) - 2) ;
+
 			rotX += rotationX;
 			rotY += rotationY;
-			//rotZ += rotationZ;
-			/*if (rotX>70.f)
-			{
-				rotX = 70.f;
-			}
-			if (rotX < -70.f)
-			{
-				rotX = -70.f;
-			}
-			if (rotY > 70.f)
-			{
-				rotY = 70.f;
-			}
-			if (rotY < -70.f)
-			{
-				rotY = -70.f;
-			}*/
+
 			dirRail = D3DXVECTOR3( cosf(D3DXToRadian(rotX)) * cosf(D3DXToRadian(rotY)),
 								   sinf(D3DXToRadian(rotY)),
 								   sinf(D3DXToRadian(rotX)) * cosf(D3DXToRadian(rotY)));
@@ -84,7 +73,7 @@ void RailsManager::ManageRails()
 											sinf(D3DXToRadian(rotY+90)),
 											sinf(D3DXToRadian(rotX)) * cosf(D3DXToRadian(rotY + 90)));
 			
-			rail->_transform->ChangePosition(endPosLastRail+ +dirRail * 0.45f * offset);
+			rail->_transform->ChangePosition(endPosLastRail+dirRail * 0.45f * offset);
 
 			
 			rail->_transform->SetRotation(D3DXToRadian(rotY), D3DXToRadian(-rotX), D3DXToRadian(-rotZ));

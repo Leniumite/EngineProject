@@ -63,10 +63,9 @@ void ButtonComponent::Draw()
 {
     if(_line == NULL)
         D3DXCreateLine(_engine->GetDevice(), &_line);
-    
+
     _line->Begin();
 
-    _line->SetWidth(5);
 
     D3DXVECTOR2 borderPos[] = {
         D3DXVECTOR2(_rect.left, _rect.top),
