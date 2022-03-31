@@ -8,10 +8,6 @@ Rigidbody::Rigidbody(GameObject* gameObject) : Component(gameObject)
 
 Rigidbody::~Rigidbody()
 {
-	if (transform != NULL)
-	{
-		delete transform;
-	}
 }
 
 void Rigidbody::Init()

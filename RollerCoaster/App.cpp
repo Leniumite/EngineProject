@@ -90,6 +90,7 @@ void App::Loop()
     //Entrée dans la boucle de jeu ici
     while (_running == true)
     {
+        if (HandleInputs() == false) break;
         _engine.Refresh();
         _escUIManager->Update();
     }
@@ -118,4 +119,24 @@ bool App::InitInstance(HINSTANCE hInstance, int nCmdShow)
     UpdateWindow(_window);
 
     return TRUE;
+}
+
+
+bool App::HandleInputs() {
+
+
+    while (PeekMessage(&_msg, nullptr, 0, 0, PM_REMOVE))
+    {
+        if (!TranslateAccelerator(_msg.hwnd, _hAccelTable, &_msg))
+        {
+            TranslateMessage(&_msg);
+            DispatchMessage(&_msg);
+        }
+        if (_msg.message == WM_QUIT)
+        {
+            _running = false;
+            return false;
+        }
+    }
+    return true;
 }
