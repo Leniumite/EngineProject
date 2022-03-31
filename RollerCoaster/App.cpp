@@ -41,7 +41,7 @@ void App::InitGame()
 
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-    whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));
+    whiteLight->SetDirection(D3DXVECTOR3(0.0f, -.5f, 0.0f));
     whiteLight->SetType(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL);
 
     GameObject* railManager = _gameScene->AddGameObject();
@@ -75,7 +75,7 @@ void App::InitGame()
     QuitButton* quitListener = quitListenerGO->AddComponent<QuitButton>();
     quitButton->_listeners.push_back(quitListener);
 
-    //PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    PlaySound(L"Ressources\\1-07 Coconut Mall.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 void App::Loop()

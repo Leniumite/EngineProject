@@ -6,7 +6,7 @@ class CameraController :
 private:
     CameraComponent* _camera;
     D3DXVECTOR3 _currentwp;
-    float speed = 10.f;
+    float speed = 30.0f;
 public:
     vector<D3DXVECTOR3> _waypoints = vector<D3DXVECTOR3>();
     CameraController(GameObject*);
