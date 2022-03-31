@@ -6,6 +6,10 @@ void TargetListener::InitComponent()
 
 void TargetListener::Update()
 {
+	float rotateValue = 4.0f * _engine->GetTimer()->deltaTime;
+	_gameObject->_transform->RotateYaw(rotateValue);
+	_gameObject->_transform->RotatePitch(rotateValue);
+	_gameObject->_transform->RotateRoll(rotateValue);
 }
 
 void TargetListener::OnRaise()

@@ -39,7 +39,6 @@ void App::InitGame()
 
     _engine.GetScene()->_mainCamera->_gameObject->AddComponent<CameraController>();
 
-
     LightComponent* whiteLight = _gameScene->AddGameObject()->AddComponent<LightComponent>();
     whiteLight->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
     whiteLight->SetDirection(D3DXVECTOR3(.5f, -.5f, 0.0f));

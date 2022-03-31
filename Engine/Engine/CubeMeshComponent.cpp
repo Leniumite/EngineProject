@@ -23,5 +23,4 @@ void CubeMeshComponent::Draw()
 
 void CubeMeshComponent::Update()
 {
-    _gameObject->_transform->RotateYaw(8.0f * _engine->GetTimer()->deltaTime);
 }

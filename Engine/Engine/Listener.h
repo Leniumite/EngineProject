@@ -8,5 +8,6 @@ public:
     Listener(GameObject* gameObject);
     virtual ~Listener() override;
     virtual void OnRaise();
+    virtual void Update() override {};
 };
 
