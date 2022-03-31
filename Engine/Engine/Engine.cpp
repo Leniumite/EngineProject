@@ -98,11 +98,19 @@ void Engine::RenderFrame()
 
 void Engine::DestroyGameobjectWaiting()
 {
+    list<GameObject*> tempList = list<GameObject*>();
     for (GameObject* go : objectToDestroy)
     {
-        GetScene()->RemoveGameObject(go);
+        if (_timer->time >= go->_timeToDestroy) {
+            GetScene()->RemoveGameObject(go);
+            tempList.push_back(go);
+        }
     }
-    objectToDestroy.clear();
+    for (GameObject* go : tempList)
+    {
+        objectToDestroy.remove(go);
+    }
+    tempList.clear();
 }
 
 bool Engine::UpdateTime() {
@@ -177,5 +185,6 @@ Scene* Engine::CreateScene() {
 
 void Engine::Destroy(GameObject* go, float timer)
 {
+    go->_timeToDestroy = _timer->time + timer;
     objectToDestroy.push_back(go);    
 }

@@ -9,6 +9,7 @@ private:
 	Engine* _engine;
 
 public:
+	float _timeToDestroy = 0.0f;
 
 	Transform* _transform;
 
