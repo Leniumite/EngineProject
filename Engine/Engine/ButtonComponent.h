@@ -10,6 +10,7 @@ public:
 
     TextComponent* _text;
     ButtonComponent(GameObject* gameObject);
+    virtual ~ButtonComponent() override;
 
     RECT _rect;
 

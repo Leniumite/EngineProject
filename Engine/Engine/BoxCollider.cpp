@@ -5,6 +5,11 @@ BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 {
 }
 
+BoxCollider::~BoxCollider()
+{
+	Collider::~Collider();
+}
+
 void BoxCollider::InitComponent()
 {
 	meshComponent = _gameObject->GetComponent<MeshComponent>();

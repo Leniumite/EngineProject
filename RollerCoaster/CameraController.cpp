@@ -7,6 +7,8 @@ CameraController::CameraController(GameObject* go) : Component(go)
     _camera->dir = _currentwp;
 }
 
+
+
 void CameraController::Update()
 {
     D3DXVECTOR3 temp = _currentwp - _camera->GetCamPos();
@@ -20,6 +22,15 @@ void CameraController::Update()
         _waypoints.erase(_waypoints.begin());
         _currentwp = _waypoints[0];
 
+    }
+}
+
+CameraController::~CameraController()
+{
+    if (_camera != nullptr)
+    {
+        delete _camera;
+        _camera = NULL;
     }
 }
 

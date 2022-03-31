@@ -11,5 +11,6 @@ public:
     vector<D3DXVECTOR3> _waypoints;
     CameraController(GameObject*);
     virtual void Update() override;
+    virtual ~CameraController() override;
     void AddWaypoint(D3DXVECTOR3 wp);
 };

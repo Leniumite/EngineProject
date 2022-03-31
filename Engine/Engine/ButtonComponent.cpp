@@ -12,6 +12,16 @@ ButtonComponent::ButtonComponent(GameObject* gameObject) : MeshComponent(gameObj
     _text->_txt = L"BUTTON";
 }
 
+ButtonComponent::~ButtonComponent()
+{
+    for (Listener* listener : _listeners)
+    {
+        delete listener;
+    }
+
+    delete _text;
+}
+
 bool ButtonComponent::RectCollision(RECT rectA, RECT rectB)
 {
     if (abs(rectA.left) > abs(rectB.right))

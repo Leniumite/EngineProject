@@ -5,6 +5,8 @@ class Rigidbody :
 {
 public:
     Rigidbody(GameObject* gameObject);
+    virtual ~Rigidbody() override;
+
     MeshComponent* mesh;
    
     void Init();
