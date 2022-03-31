@@ -5,6 +5,7 @@ CameraController::CameraController(GameObject* go) : Component(go)
     _camera = go->GetComponent<CameraComponent>();
     _currentwp = D3DXVECTOR3(20.f, .0f, .0f);
     _camera->dir = _currentwp;
+    _waypoints.reserve(25);
 }
 
 

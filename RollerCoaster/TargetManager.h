@@ -2,7 +2,7 @@
 class TargetManager : public Component
 {
 private:
-	list<GameObject*> targets;
+	list<GameObject*> targets = list<GameObject*>();
 	int ammountTarget = 10;
 
 	D3DXCOLOR GetRandomColor();

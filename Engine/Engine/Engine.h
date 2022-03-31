@@ -12,9 +12,9 @@ private:
 
 	bool _running;
 
-	Scene* _currentScene;
+	Scene* _currentScene = NULL;
 
-	STimer* _timer;
+	STimer* _timer = NULL;
 
 	LPDIRECT3D9 _d3d;
 	LPDIRECT3DDEVICE9 _d3ddev;

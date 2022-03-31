@@ -2,6 +2,11 @@
 #include "framework.h"
 #include "CollisionManager.h"
 
+CollisionManager::CollisionManager()
+{
+	_colliders.reserve(50);
+}
+
 void CollisionManager::checkCollisions()
 {
 	if (_colliders.size()==0)
