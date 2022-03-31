@@ -5,9 +5,6 @@ class LightComponent :
 {
     D3DLIGHT9 _light;
 
-
-
-
 public:
 
     LightComponent(GameObject* gameObject);

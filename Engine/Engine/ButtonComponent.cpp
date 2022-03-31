@@ -16,10 +16,12 @@ ButtonComponent::~ButtonComponent()
 {
     for (Listener* listener : _listeners)
     {
-        delete listener;
+        listener = NULL;
     }
 
-    delete _text;
+    _line->Release();
+    _line = NULL;
+    _text = NULL;
 }
 
 bool ButtonComponent::RectCollision(RECT rectA, RECT rectB)

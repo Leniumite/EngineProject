@@ -5,7 +5,7 @@ class Collider :
 {
 public:
     Collider(GameObject* gameObject);
-    ~Collider();
+    virtual ~Collider() override;
 
     MeshComponent* meshComponent;
     list<Listener*> collisionListeners = list<Listener*>();

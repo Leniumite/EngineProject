@@ -4,7 +4,6 @@ class CameraComponent;
 class Scene
 {
 private:
-	//GameObject* _cameraGO;
 	
 	
 	Engine* _engine;

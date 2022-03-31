@@ -7,7 +7,6 @@ private:
 
 public:
     BoxCollider(GameObject* gameObject);
-    virtual ~BoxCollider() override;
     virtual void InitComponent() override;
     D3DXVECTOR3 _posMin;
     D3DXVECTOR3 _posMax;

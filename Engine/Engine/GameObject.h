@@ -70,10 +70,6 @@ T* GameObject::AddComponent()
 
 		_components.push_back(p);
 
-		//Component* pCo = (Component*)p;
-		//pCo->_gameObject =this
-		//dynamic_cast<Component*>(p)->_gameObject = this;
-
 		return p;
 	}
 	else

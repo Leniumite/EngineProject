@@ -39,7 +39,16 @@ TextComponent::TextComponent(GameObject* GO) : MeshComponent(GO)
 
 TextComponent::~TextComponent()
 {
+    if (_font != NULL)
+    {
+        _font = NULL;
+    }
 
+    _sprite->Release();
+    _sprite = NULL;
+    _texture->Release();
+    _texture = NULL;
+    
 }
 
 void TextComponent::Draw()
@@ -51,22 +60,6 @@ void TextComponent::Draw()
     if (_texture == NULL) {
         D3DXCreateTextureFromFile(_engine->GetDevice(), L"Ressources\\box.png", &_texture);
     }
-    /*_sprite->Begin(D3DXSPRITE_ALPHABLEND);
-    //abs(rect.bottom - rect.top) / 2, abs(rect.right - rect.left) / 2
-    D3DSURFACE_DESC surfaceDesc;
-    int level = 0; //The level to get the width/height of (probably 0 if unsure)
-    _texture->GetLevelDesc(level, &surfaceDesc);
-
-
-    _gameObject->_transform->ChangeScale(D3DXVECTOR3(.5f, .5f, .5f));
-    _sprite->SetTransform(&_gameObject->_transform->matrix);
-
-    D3DXVECTOR3 pivot = D3DXVECTOR3(surfaceDesc.Width * .5,surfaceDesc.Height * .5, 0.0f);
-    D3DXVECTOR2 center = D3DXVECTOR2((rect.right + rect.left) * .5, (rect.bottom + rect.top) * .5);
-    D3DXVECTOR3 pos = D3DXVECTOR3(center.x, center.y, 0.0f);
-    
-    _sprite->Draw(_texture, NULL, &pivot, &pos, D3DCOLOR_XRGB(255, 255, 255));*/
-
 
     _sprite->Begin(D3DXSPRITE_ALPHABLEND);
     _font->DrawTextW(NULL, _txt.c_str(), -1, &rect, DT_NOCLIP | DT_LEFT, _color);

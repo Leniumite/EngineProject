@@ -54,10 +54,6 @@ void App::InitGame()
     Player* playerComp = _player->AddComponent<Player>();
     playerComp->_ptsText->SetCorners(20, 0, 200, 200);
 
-    GameObject* cGameObject = _gameScene->AddGameObject();
-    CubeMeshComponent* cComponent = cGameObject->AddComponent<CubeMeshComponent>();
-    cGameObject->_transform->ChangePositionX(3.0f);
-
     GameObject* fpsTextGO = _gameScene->AddGameObject();
     fpsTextGO->AddComponent<FpsText>();
 

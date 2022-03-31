@@ -64,6 +64,7 @@ void Engine::InitD3D()
     d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     ShowCursor(FALSE);
+    
     _d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _currentWindow, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &d3dpp, &_d3ddev);
     _d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
     _d3ddev->SetRenderState(D3DRS_CULLMODE, 1);

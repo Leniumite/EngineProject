@@ -22,7 +22,7 @@ void TargetListener::OnRaise()
 		explosionColor = mesh->GetMaterial().Diffuse;
 	}
 	
-	mesh = nullptr;
+	mesh = NULL;
 
 	GameObject* particleGO = _engine->GetScene()->AddGameObject();
 	particleGO->_transform->ChangePosition(_gameObject->_transform->GetPosition());

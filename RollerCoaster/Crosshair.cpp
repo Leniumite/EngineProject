@@ -12,6 +12,8 @@ Crosshair::Crosshair(GameObject* gameobject) : MeshComponent(gameobject)
 
 Crosshair::~Crosshair()
 {
+    _sprite->Release();
+    _texture->Release();
 }
 
 void Crosshair::Draw()

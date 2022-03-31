@@ -8,15 +8,10 @@ RailsManager::RailsManager(GameObject* gameObject) : Component(gameObject)
 
 RailsManager::~RailsManager()
 {
+	delete _railsMesh;
+	_railsMesh = NULL;
 }
 
-//RailsManager::~RailsManager()
-//{
-//	for (GameObject* rail : rails)
-//	{
-//		delete rail;
-//	}
-//}
 
 void RailsManager::InitComponent()
 {
@@ -52,8 +47,6 @@ void RailsManager::ManageRails()
 		
 		D3DXVECTOR3 temp = _mainCam->GetCamPos() - rail->_transform->GetPosition();
 		
-		//float dist = sqrtf(temp.x * temp.x + temp.y * temp.y + temp.z * temp.z);
-		//float dist = _mainCam->GetCamPos().x - rail->_transform->GetPosition().x;
 
 		//If the camera can't see it
 		if (D3DXVec3Dot(&_mainCam->dir, &temp) >100.f)
@@ -80,8 +73,6 @@ void RailsManager::ManageRails()
 			posLastRail = endPosLastRail  +dirRail * 0.5f * offset;
 			endPosLastRail = posLastRail+dirRail*0.5f*offset;			
 			_mainCam->_gameObject->GetComponent<CameraController>()->AddWaypoint(posLastRail+7*dirup);
-
-			//posLastRail-dirRail*0.5f*offset =beginPosRail=lastendPosRail
 		}
 	}
 }
@@ -109,7 +100,7 @@ HRESULT RailsManager::LoadRailMesh(LPCWSTR fileName)
 		if (d3dxMaterials[i].pTextureFilename != NULL &&
 			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
 		{
-			//UTILISER ::GetCommandLine() pour obtenir le path de l'éxecutableYaimiaou
+			//UTILISER ::GetCommandLine() pour obtenir le path de l'éxecutable
 			string path = "Ressources\\";
 			path += d3dxMaterials[i].pTextureFilename;
 

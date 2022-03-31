@@ -8,6 +8,8 @@ Rigidbody::Rigidbody(GameObject* gameObject) : Component(gameObject)
 
 Rigidbody::~Rigidbody()
 {
+	mesh = NULL;
+	transform = NULL;
 }
 
 void Rigidbody::Init()

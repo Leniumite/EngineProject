@@ -8,9 +8,6 @@ public:
 	float _mouseDeltaX;
 	float _mouseDeltaY;
 
-
-	void Init();
-
 	bool _showcursor;
 
 	void GetMousePosition();

@@ -30,7 +30,6 @@ CameraController::~CameraController()
 {
     if (_camera != nullptr)
     {
-        delete _camera;
         _camera = NULL;
     }
 }

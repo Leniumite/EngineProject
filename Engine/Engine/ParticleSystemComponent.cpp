@@ -92,7 +92,9 @@ void ParticleSystemComponent::UninitDraw()
 void ParticleSystemComponent::Clean()
 {
 	_particlesTexture->Release();
+	_particlesTexture = NULL;
 	_particleVertexBuffer->Release();
+	_particleVertexBuffer = NULL;
 }
 
 void ParticleSystemComponent::Update()

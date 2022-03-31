@@ -18,7 +18,7 @@ private :
 	float rotZ = 0.0f;
 public :
 	RailsManager(GameObject* gameObject);
-	~RailsManager() override;
+	virtual ~RailsManager() override;
 
 	virtual void InitComponent() override;
 	virtual void Update() override;
