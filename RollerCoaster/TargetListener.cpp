@@ -31,7 +31,7 @@ void TargetListener::OnRaise()
 	particleSystem->SetMaxParticlesCount(1000);
 	particleSystem->SetParticlesMaxBurstAmount(10000);
 	particleSystem->SetParticlesLifeTime(2.0f);
-	//_engine->Destroy(particleGO, 2.0f);
+	_engine->Destroy(particleGO, 2.0f);
 
 	tManager->Replace(_gameObject);
 }
